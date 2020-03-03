@@ -1,4 +1,6 @@
 import React from "react";
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Router from "./Router";
 import { Counter } from "./features/counter/Counter";
 import app from "firebase/app";
 import firebase from "firebase";
@@ -36,15 +38,16 @@ function App() {
     <div className="App">
       <Root config={cozyLayoutPreset}>
         <Header>
+        
           <Toolbar>
             <SidebarTrigger>
               <SidebarTriggerIcon />
             </SidebarTrigger>
-            <Typography variant="h6">Refinder</Typography>
+            <Typography variant="h6">Refinder!</Typography> {/*Title on top left of the page*/}
           </Toolbar>
         </Header>
         <Content>
-          <Products />
+          <Router/>
         </Content>
         <Sidebar>
           <NavContent />
