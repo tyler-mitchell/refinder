@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink, BrowserRouter, Switch, Route } from "react-router-dom";
 import Products from './features/ecommerce/Products';
 import Login from "./Login/Login";
+import SignUp from "./Login/SignUp";
 import Dashboard from './Dashboard';
 /*
 function App() {
@@ -29,6 +30,7 @@ const Router = () => {
       <Switch>
         <Route path="/login" exact component={Login} />
         <Route path="/dashboard" exact component={Dashboard} />
+        <Route path="/signup" exact component={SignUp} />
       </Switch>
 
     </BrowserRouter>

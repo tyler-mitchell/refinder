@@ -11,9 +11,7 @@ const Login = props => {
     <Content style={{ justiyfItems: 'center' }}>
       <Grid justify="center" style={{ marginTop: '30px' }} container direction="column" spacing={3}>
         <Grid item><TextField id="username" label="Username" variant="outlined" /></Grid>
-
-        <Grid item> <TextField id="password" label="Password" variant="outlined" /></Grid>
-
+        <Grid item><TextField type='password' id="password" label="Password" variant="outlined" /></Grid>
         <Grid item><Button variant="contained">Login</Button></Grid>
       </Grid>
     </Content>
