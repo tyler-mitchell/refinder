@@ -1,43 +1,27 @@
 import React, { useState } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import "./Login.css";
+import { TextField, Grid, Button } from '@material-ui/core';
 
-export default function Login(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+import {
+  Content,
+} from "@mui-treasury/layout";
 
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
-  }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
-
+const Login = props => {
   return (
-    <div className="Login">
-      <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
-          <ControlLabel>Email</ControlLabel>
-          <FormControl
-            autoFocus
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-        </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
-          <ControlLabel>Password</ControlLabel>
-          <FormControl
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup>
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
-          Login
-        </Button>
-      </form>
-    </div>
+    <Content style={{ justiyfItems: 'center' }}>
+      <Grid justify="center" style={{ marginTop: '30px' }} container direction="column" spacing={3}>
+        <Grid item><TextField id="username" label="Username" variant="outlined" /></Grid>
+
+        <Grid item> <TextField id="password" label="Password" variant="outlined" /></Grid>
+
+        <Grid item><Button variant="contained">Login</Button></Grid>
+      </Grid>
+    </Content>
+
   );
-}
+};
+
+
+export default Login;
+
+

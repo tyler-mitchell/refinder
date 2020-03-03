@@ -16,11 +16,12 @@ import {
   CollapseIcon,
   SidebarTrigger,
   cozyLayoutPreset,
+  contentBasedLayoutPreset,
   SidebarTriggerIcon
 } from "@mui-treasury/layout";
 import "./App.css";
-import NavContent from "./NavContent";
-var firebaseConfig = {
+
+const firebaseConfig = {
   apiKey: "AIzaSyBdhd3g3f8DkpMB8DmmLrlXjpVLyOUkngw",
   authDomain: "refinder-exchange.firebaseapp.com",
   databaseURL: "https://refinder-exchange.firebaseio.com/",
@@ -36,9 +37,9 @@ if (!app.apps.length) {
 function App() {
   return (
     <div className="App">
-      <Root config={cozyLayoutPreset}>
+      <Root config={contentBasedLayoutPreset}>
         <Header>
-        
+
           <Toolbar>
             <SidebarTrigger>
               <SidebarTriggerIcon />
@@ -46,13 +47,8 @@ function App() {
             <Typography variant="h6">Refinder!</Typography> {/*Title on top left of the page*/}
           </Toolbar>
         </Header>
-        <Content>
-          <Router/>
-        </Content>
-        <Sidebar>
-          <NavContent />
-        </Sidebar>
-        <Footer>Footer!</Footer>
+        <Router />
+
       </Root>
     </div>
   );

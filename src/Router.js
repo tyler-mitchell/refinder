@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink, BrowserRouter, Switch, Route } from "react-router-dom";
 import Products from './features/ecommerce/Products';
 import Login from "./Login/Login";
+import Dashboard from './Dashboard';
 /*
 function App() {
   return (
@@ -23,15 +24,14 @@ function App() {
 
 */
 const Router = () => {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/login" exact component={Login} />
+        <Route path="/dashboard" exact component={Dashboard} />
+      </Switch>
 
-    return(
-        <BrowserRouter>
-           <Switch> 
-               <Route path="/login" exact component={Login} />
-               <Router path="/dashboard" component={Products}/>
-            </Switch>
-           
-        </BrowserRouter>
-    )
+    </BrowserRouter>
+  )
 }
 export default Router;
