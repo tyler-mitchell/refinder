@@ -19,7 +19,7 @@ import {
   contentBasedLayoutPreset,
   SidebarTriggerIcon
 } from "@mui-treasury/layout";
-import "./App.css";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBdhd3g3f8DkpMB8DmmLrlXjpVLyOUkngw",
@@ -36,18 +36,10 @@ if (!app.apps.length) {
 }
 function App() {
   return (
-    <div className="App">
+    <div >
       <Root config={contentBasedLayoutPreset}>
-        <Header>
 
-          <Toolbar>
-            <SidebarTrigger>
-              <SidebarTriggerIcon />
-            </SidebarTrigger>
-            <Typography variant="h6">Refinder!</Typography> {/*Title on top left of the page*/}
-          </Toolbar>
-        </Header>
-        <Router />
+      <Router />
 
       </Root>
     </div>
