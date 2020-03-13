@@ -44,25 +44,6 @@ const Header = () => {
     )
 }
 
-const Summary = () => {
-    return (
-        <Grid item container direction="column" xs={8} style={{ position: 'relative', zIndex: 1 }}>
-            <Grid item>
-                <Typography variant="h4" >
-                    Your guide to finding what you need to build what you want
-                </Typography>
-            </Grid>
-            <Grid item>
-                <Typography variant="subtitle1">
-                    Connect with others who want to buy and sell your building materials.
-                </Typography>
-            </Grid>
-            <Grid item> <Button variant="outlined">Get Started</Button></Grid>
-        </Grid>
-
-    )
-}
-
 const WhySection = () => {
     return (
         <Grid item container direction="column" xs={8} style={{ position: 'relative', zIndex: 1 }}>
@@ -71,20 +52,31 @@ const WhySection = () => {
                     Why we exist
                 </Typography>
             </Grid>
-
             <Grid item>
-                <Slides />
+                <Typography variant="subtitle1" gutterBottom={true}>
+                    Empower users to make sustainable purchasing
+                </Typography>
             </Grid>
         </Grid>
 
     )
 }
 
-const Slides = () => {
+const KnowledgeSection = () => {
     return (
-        <Paper variant='elevation' elevation={2} >
-            <Box width='120px' height='120px' />
-        </Paper >
+        <Grid item container direction="column" xs={8} style={{ position: 'relative', zIndex: 1 }}>
+            <Grid item>
+                <Typography variant="h4" >
+                    Build your knowledge
+                </Typography>
+            </Grid>
+            <Grid item>
+                <Typography variant="subtitle1" >
+                    Whether you're a 
+                </Typography>
+            </Grid>
+        </Grid>
+
     )
 }
 
@@ -101,6 +93,8 @@ const NavigationBar = () => {
         </AppHeader>
     )
 }
+
+//--- 
 
 const LandingContainer = ({ children }) => {
     return (
@@ -121,8 +115,8 @@ const Landing = () => {
         <>
             <LandingContainer >
                 <Header />
-                <Summary />
                 <WhySection />
+                <KnowledgeSection />
             </LandingContainer>
         </>
     )
