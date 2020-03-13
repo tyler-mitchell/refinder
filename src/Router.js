@@ -5,6 +5,7 @@ import Login from "./Login/Login";
 import SignUp from "./Login/SignUp";
 import Dashboard from './Dashboard';
 import Landing from './Landing';
+import ProductPage from './features/ecommerce/ProductPage.js'
 
 /*
 function App() {
@@ -34,6 +35,7 @@ const Router = () => {
         <Route path="/login" exact component={Login} />
         <Route path="/dashboard" exact component={Dashboard} />
         <Route path="/signup" exact component={SignUp} />
+        <Route path="/product" exact component={ProductPage} />
       </Switch>
 
     </BrowserRouter>
