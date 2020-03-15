@@ -1,42 +1,18 @@
 import React from 'react'
-import { NavLink, BrowserRouter, Switch, Route } from "react-router-dom";
-import Products from './features/ecommerce/Products';
-import Login from "./Login/Login";
-import SignUp from "./Login/SignUp";
-import Dashboard from './Dashboard';
-import Landing from './Landing';
-import ProductPage from './features/ecommerce/ProductPage.js'
+import { NavLink, BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 
-/*
-function App() {
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Navbar/>
-        <Switch>
-          <Route exact path='/' component={Dashboard} />
-          <Route path='/project/:id' component={ProjectDetails}/>
-          <Route path='/signin' component={SignIn}/>
-          <Route path='/signup' component={SignUp}/>
-          <Route path='/create' component={CreateProject}/>
-        </Switch>
-      </div>
-    </BrowserRouter>
-  );
-}
+import Landing from './views/LandingPage';
+
+import MarketplaceView from './views/MarketplaceView'
 
 
-*/
 const Router = () => {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route path="/" exact component={Landing}/>
-        <Route path="/login" exact component={Login} />
-        <Route path="/dashboard" exact component={Dashboard} />
-        <Route path="/signup" exact component={SignUp} />
-        <Route path="/product" exact component={ProductPage} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="marketplace/*" element={<MarketplaceView />} />
+      </Routes>
 
     </BrowserRouter>
   )

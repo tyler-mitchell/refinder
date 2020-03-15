@@ -1,6 +1,7 @@
 import React from "react"
 import { Grid, Typography, Toolbar, Button, Container, Box, Paper } from '@material-ui/core'
 import styled from 'styled-components'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import {
     Root,
@@ -26,6 +27,7 @@ const Backdrop = styled.div`
 `
 
 const Header = () => {
+    let navigate = useNavigate();
     return (
         <Grid item container direction="column" xs={8} style={{ position: 'relative', zIndex: 1 }}>
 
@@ -39,7 +41,7 @@ const Header = () => {
                     A community-driven marketplace for finding nearby building materials
                     </Typography>
             </Grid>
-            <Grid item> <Button variant="outlined">Get Started</Button></Grid>
+            <Grid item> <Button variant="outlined" onClick={() => { navigate('/marketplace') }}>Go to Marketplace</Button></Grid>
         </Grid>
     )
 }
@@ -72,7 +74,7 @@ const KnowledgeSection = () => {
             </Grid>
             <Grid item>
                 <Typography variant="subtitle1" >
-                    Whether you're a 
+                    Whether you're a
                 </Typography>
             </Grid>
         </Grid>

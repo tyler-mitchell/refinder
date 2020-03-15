@@ -13,8 +13,8 @@ import {
     cozyLayoutPreset,
     SidebarTriggerIcon
 } from "@mui-treasury/layout";
-import Products from '../features/ecommerce/Products'
-import NavContent from "./NavContent";
+import Products from '../components/ecommerce/Products'
+import NavContent from "./FiltersSidebar";
 
 const Dashboard = () => {
     return (

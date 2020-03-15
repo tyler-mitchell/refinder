@@ -1,48 +1,24 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import Router from "./Router";
-import { Counter } from "./features/counter/Counter";
-import app from "firebase/app";
-import firebase from "firebase";
-import Products from "./features/ecommerce/Products";
-import { Toolbar, Typography } from "@material-ui/core";
+
+
 import {
   Root,
-  Header,
-  Sidebar,
-  Content,
-  Footer,
-  CollapseBtn,
-  CollapseIcon,
-  SidebarTrigger,
-  cozyLayoutPreset,
   contentBasedLayoutPreset,
-  SidebarTriggerIcon
 } from "@mui-treasury/layout";
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBdhd3g3f8DkpMB8DmmLrlXjpVLyOUkngw",
-  authDomain: "refinder-exchange.firebaseapp.com",
-  databaseURL: "https://refinder-exchange.firebaseio.com/",
-  projectId: "refinder-exchange",
-  storageBucket: "refinder-exchange.appspot.com",
-  messagingSenderId: "795224011963",
-  appId: "1:795224011963:web:06a200ceb6087f4d32a59e"
-};
-// Initialize Firebase
-if (!app.apps.length) {
-  app.initializeApp(firebaseConfig);
-}
+
+
+
+
+
 function App() {
   return (
-    <div >
-      <Root config={contentBasedLayoutPreset}>
-
+    <Root config={contentBasedLayoutPreset}>
       <Router />
-
-      </Root>
-    </div>
+    </Root>
   );
 }
 
