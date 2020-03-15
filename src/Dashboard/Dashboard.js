@@ -14,7 +14,7 @@ import {
     SidebarTriggerIcon
 } from "@mui-treasury/layout";
 import Products from '../components/ecommerce/Products'
-import NavContent from "./FiltersSidebar";
+import NavContent from "../views/ProductLogView/FiltersSidebar";
 
 const Dashboard = () => {
     return (

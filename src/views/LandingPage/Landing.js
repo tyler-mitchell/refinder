@@ -1,5 +1,5 @@
 import React from "react"
-import { Grid, Typography, Toolbar, Button, Container, Box, Paper } from '@material-ui/core'
+import { Grid, Typography, Toolbar, Button, Container, Box, Paper, CssBaseline } from '@material-ui/core'
 import styled from 'styled-components'
 import { Navigate, useNavigate } from 'react-router-dom';
 
@@ -114,13 +114,14 @@ const LandingContainer = ({ children }) => {
 }
 const Landing = () => {
     return (
-        <>
+        <Root config={cozyLayoutPreset}>
+            <CssBaseline />
             <LandingContainer >
                 <Header />
                 <WhySection />
                 <KnowledgeSection />
             </LandingContainer>
-        </>
+        </Root>
     )
 }
 

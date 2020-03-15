@@ -62,8 +62,8 @@ const NestedMarker = (props) => {
 
 const MaterialMap = props => {
     return (
-        <div>
-            This is an example
+        <>
+
             <GoogleMapProvider>
                 <MapBox
                     apiKey="AIzaSyBUlrG6cCzYoP6SYOqbdmkjeZ2ApnyDCTk"
@@ -73,7 +73,7 @@ const MaterialMap = props => {
                         /*The lower the zoom the more zoom'ed out*/
                     }}
                     style={{
-                        height: '50vh',
+                        height: '100vh',
                         width: '100%',
                     }}
                     useDrawing={false}
@@ -149,7 +149,7 @@ const MaterialMap = props => {
                 />
 
             </GoogleMapProvider>
-        </div>
+        </>
     )
 }
 

@@ -1,6 +1,7 @@
 import React from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import Paper from "@material-ui/core/Paper";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Icon from "@material-ui/core/Icon";
@@ -80,34 +81,36 @@ const list = [
   }
 ];
 const NavContent = ({ onClickItem }) => (
-  <List>
-    <ListSubheader>All Categories</ListSubheader>
-    {list.map(({ primaryText, icon }, i) => (
-      <ListItem
-        key={primaryText}
-        selected={i === 0}
-        button
-        onClick={onClickItem}
-      >
-        {/* <ListItemIcon>
-          <Icon>{icon}</Icon>
-        </ListItemIcon> */}
+  <Paper style={{ width: '300px', position: 'relative' }}>
+    <List>
+      <ListSubheader>All Categories</ListSubheader>
+      {list.map(({ primaryText, icon }, i) => (
+        <ListItem
+          key={primaryText}
+          selected={i === 0}
+          button
+          onClick={onClickItem}
+        >
+          {/* <ListItemIcon>
+            <Icon>{icon}</Icon>
+          </ListItemIcon> */}
+          <ListItemText
+            primary={primaryText}
+            primaryTypographyProps={{ noWrap: true }}
+          />
+        </ListItem>
+      ))}
+      <Divider style={{ margin: "12px 0" }} />
+      {/* <ListItem button onClick={onClickItem}>
+        <ListItemIcon>
+          <Settings />
+        </ListItemIcon>
         <ListItemText
-          primary={primaryText}
+          primary={"Settings & account"}
           primaryTypographyProps={{ noWrap: true }}
         />
-      </ListItem>
-    ))}
-    <Divider style={{ margin: "12px 0" }} />
-    <ListItem button onClick={onClickItem}>
-      <ListItemIcon>
-        <Settings />
-      </ListItemIcon>
-      <ListItemText
-        primary={"Settings & account"}
-        primaryTypographyProps={{ noWrap: true }}
-      />
-    </ListItem>
-  </List>
+      </ListItem> */}
+    </List>
+  </Paper>
 );
 export default NavContent;
