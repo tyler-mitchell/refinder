@@ -1,11 +1,11 @@
 import React from 'react'
 
-const OnboardView = () => {
+const SellView = () => {
     return (
         <div>
-
+            hi
         </div>
     )
 }
 
-export default OnboardView;
+export default SellView;

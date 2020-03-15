@@ -4,6 +4,7 @@ import ProductsListView from 'views/ProductLogView'
 import DashboardView from 'views/DashboardView'
 import ProductView from 'views/ProductView'
 import { Toolbar, CssBaseline } from '@material-ui/core'
+import SellView from 'views/SellView';
 import {
     Root,
     Header,
@@ -54,6 +55,7 @@ const MarketplaceView = () => {
                     <Route path="/materials/:material" element={<ProductView />} />
                     <Route path="/services" element={<ProductsListView />} />
                     <Route path="/dashboard" element={<ProductsListView />} />
+                    <Route path="/sell" element={<SellView />} />
                 </Routes>
             </Content>
             <Footer>
