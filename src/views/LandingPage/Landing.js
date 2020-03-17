@@ -29,10 +29,10 @@ const Backdrop = styled.div`
 const Header = () => {
     let navigate = useNavigate();
     return (
-        <Grid item container direction="column" xs={8} style={{ position: 'relative', zIndex: 1 }}>
+        <Grid item container direction="column" >
 
             <Grid item>
-                <Typography variant="h4" >
+                <Typography variant="h2" >
                     Refinder
                     </Typography>
             </Grid>
@@ -50,7 +50,7 @@ const WhySection = () => {
     return (
         <Grid item container direction="column" xs={8} style={{ position: 'relative', zIndex: 1 }}>
             <Grid item>
-                <Typography variant="h4" >
+                <Typography variant="h3" >
                     Why we exist
                 </Typography>
             </Grid>
@@ -103,23 +103,26 @@ const LandingContainer = ({ children }) => {
         <>
             <NavigationBar />
             <Content >
-                <Box width="100%" px="30px" display="flex" flexDirection="column" justifyContent="center" justifyItems="center" >
-                    <Grid container spacing={3} style={{ width: '100%' }}>
-                        {children}
-                    </Grid>
-                </Box>
+
+                <Container maxWidth='md' style={{ height: '100%' }}>
+                    {children}
+                </Container>
+
             </Content>
         </>
     )
 }
 const Landing = () => {
     return (
-        <Root config={cozyLayoutPreset}>
-            <CssBaseline />
+        <Root omitThemeProvider >
+
             <LandingContainer >
-                <Header />
-                <WhySection />
-                <KnowledgeSection />
+                <Grid container direction="column" spacing={3} justify="space-around">
+                    <Button variant="contained" color="primary">Hello theme</Button>
+                    <Header />
+                    <WhySection />
+                    <KnowledgeSection />
+                </Grid>
             </LandingContainer>
         </Root>
     )

@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import ProductsListView from 'views/ProductLogView'
 import DashboardView from 'views/DashboardView'
 import ProductView from 'views/ProductView'
-import { Toolbar, CssBaseline } from '@material-ui/core'
+import { Toolbar, CssBaseline, Typography } from '@material-ui/core'
 import SellView from 'views/SellView';
 import {
     Root,
@@ -19,20 +19,22 @@ import {
     SidebarTriggerIcon
 } from "@mui-treasury/layout";
 
-
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import theme from 'theme'
 
 
 const MarketplaceView = () => {
     return (
-        <Root config={cozyLayoutPreset} style={{ background: 'white' }}>
-            <CssBaseline />
+
+        <Root omitThemeProvider>
+
             <Header>
                 <Toolbar>
                     <SidebarTrigger >
                         <SidebarTriggerIcon />
                     </SidebarTrigger>
-            Refinder
-          </Toolbar>
+                    <Typography variant="h5"> Refinder</Typography>
+                </Toolbar>
             </Header>
 
 
@@ -49,19 +51,22 @@ const MarketplaceView = () => {
                 </CollapseBtn>
             </Sidebar>
             <Content style={{ position: 'relative', zIndex: 1 }}>
-                <Routes>
-                    <Route path="/" element={<ProductsListView />} />
-                    <Route path="/materials" element={<ProductsListView />} />
-                    <Route path="/materials/:material" element={<ProductView />} />
-                    <Route path="/services" element={<ProductsListView />} />
-                    <Route path="/dashboard" element={<ProductsListView />} />
-                    <Route path="/sell" element={<SellView />} />
-                </Routes>
+                <ThemeProvider theme={theme}>
+                    <Routes>
+                        <Route path="/" element={<ProductsListView />} />
+                        <Route path="/materials" element={<ProductsListView />} />
+                        <Route path="/materials/:material" element={<ProductView />} />
+                        <Route path="/services" element={<ProductsListView />} />
+                        <Route path="/dashboard" element={<ProductsListView />} />
+                        <Route path="/sell" element={<SellView />} />
+                    </Routes>
+                </ThemeProvider>
             </Content>
             <Footer>
                 Footer
-        </Footer>
-        </Root>)
+            </Footer>
+        </Root>
+    )
 }
 
 export default MarketplaceView;

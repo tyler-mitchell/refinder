@@ -101,36 +101,10 @@ const ProductLogView = () => {
     };
     return (
         <div className={classes.root}>
-            <CssBaseline />
-            <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
-            ><MaterialMap /></main>
-
-
-
-
-            <Drawer
-
-                variant="persistent"
-                anchor="left"
-                open={true}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-            >
-
-                >
-                <Grid item>
-                    <SearchBar />
-                    <ProductList />
-                </Grid>
-
-
-            </Drawer>
-
-
+            <Grid item>
+                <SearchBar />
+                <ProductList />
+            </Grid>
         </ div>)
 }
 

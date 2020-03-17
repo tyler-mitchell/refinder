@@ -1,15 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import store from './store';
-import { Provider } from 'react-redux';
+
 import * as serviceWorker from './serviceWorker';
+// import theme from "./theme";
+import {
+  CssBaseline,
+  AppBar,
+  Typography,
+  createMuiTheme
+} from "@material-ui/core";
+
+import { NavLink, BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+
+  <BrowserRouter><App /></BrowserRouter>
+
+  ,
   document.getElementById('root')
 );
 

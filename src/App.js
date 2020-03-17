@@ -1,9 +1,8 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import Router from "./Router";
-import CssBaseline from '@material-ui/core/CssBaseline';
-
-
+import store from './store';
+import { Provider } from 'react-redux';
 import {
   Root,
   contentBasedLayoutPreset,
@@ -14,13 +13,12 @@ import {
 
 
 
-
-
 function App() {
   return (
-    <div>
+    <Provider store={store}>
       <Router />
-    </div>
+    </Provider>
+
   );
 }
 
