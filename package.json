@@ -25,6 +25,7 @@
     "react-router-dom": "^6.0.0-alpha.2",
     "react-scripts": "3.4.0",
     "react-spectrum": "^1.1.6",
+    "react-spring": "^8.0.27",
     "styled-components": "^5.0.1"
   },
   "scripts": {
