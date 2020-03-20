@@ -40,21 +40,22 @@ const Header = () => {
     <Grid item container direction="column">
       <Grid item>
         <Typography variant="h2" style={{ marginBottom: "0.5vh" }}>
-          Buy and sell building materials
+          {/* Buy and sell building materials */}A marketplace for <br />{" "}
+          building materials
         </Typography>
       </Grid>
-      <Grid item xs={9}>
+      <Grid item xs={10}>
         <Typography
           variant="subtitle1"
           gutterBottom
           style={{ marginBottom: "1.5vh" }}
         >
           {/* A community-driven marketplace for finding nearby building materials */}
-          with construction companies, local businesses, craftsmen,
-          home-improvers, etc.
+          build with construction companies, local businesses, craftsmen,
+          home-improvers etc.
         </Typography>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item>
         <Button
           variant="contained"
           disableElevation
@@ -79,13 +80,15 @@ const WhySection = () => {
       container
       direction="column"
       xs={8}
-      style={{ position: "relative", zIndex: 1 }}
+      style={{ position: "relative", zIndex: 1, color: "white" }}
     >
       <Grid item>
-        <Typography variant="h3">Why we exist</Typography>
+        <Typography variant="h3" color="inherit">
+          Why we exist
+        </Typography>
       </Grid>
       <Grid item>
-        <Typography variant="subtitle1" gutterBottom={true}>
+        <Typography variant="subtitle1" color="inherit" gutterBottom={true}>
           Empower users to make sustainable purchasing
         </Typography>
       </Grid>
@@ -180,12 +183,24 @@ const Landing = () => {
           <ParallaxLayer
             offset={0.5}
             speed={0.2}
-            style={{ backgroundColor: "#805E73" }}
+            style={{ backgroundColor: "#0055ea" }}
           />
+          <ParallaxLayer
+            offset={0.7}
+            speed={0.01}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              pointerEvents: "none"
+            }}
+          >
+            <img src={url("earth")} style={{ width: "40%" }} />
+          </ParallaxLayer>
           <ParallaxLayer
             offset={1}
             speed={1}
-            style={{ backgroundColor: "#87BCDE" }}
+            style={{ backgroundColor: "#0fc1fa" }}
           />
 
           <ParallaxLayer
@@ -198,8 +213,8 @@ const Landing = () => {
           />
 
           <ParallaxLayer
-            offset={1.3}
-            speed={-0.3}
+            offset={0.48}
+            speed={0.05}
             style={{ pointerEvents: "none" }}
           >
             <img
@@ -268,19 +283,6 @@ const Landing = () => {
           </ParallaxLayer>
 
           <ParallaxLayer
-            offset={2.5}
-            speed={-0.4}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              pointerEvents: "none"
-            }}
-          >
-            <img src={url("earth")} style={{ width: "60%" }} />
-          </ParallaxLayer>
-
-          <ParallaxLayer
             offset={2}
             speed={-0.3}
             style={{
@@ -322,7 +324,8 @@ const Landing = () => {
               }}
             >
               <WhySection />
-              <img src={url("bash")} style={{ width: "40%" }} />
+              {/* <img src={url("bash")} style={{ width: "40%" }} /> */}
+              <div style={{ width: "40%" }} />
             </ParallaxLayer>
             <ParallaxLayer
               offset={1}
