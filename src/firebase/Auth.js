@@ -13,10 +13,10 @@ const AuthProvider = ({ children }) => {
   React.useEffect(() => {
     if (!loading && !error) {
       const data = {
-        email: user.email,
-        uid: user.uid,
-        name: user.displayName,
-        avatar: user.photoURL
+        email: user?.email,
+        uid: user?.uid,
+        name: user?.displayName,
+        avatar: user?.photoURL
       };
       setUserData(data);
     }

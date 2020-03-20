@@ -1,25 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
 
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from "./serviceWorker";
 // import theme from "./theme";
+
 import {
-  CssBaseline,
-  AppBar,
-  Typography,
-  createMuiTheme
-} from "@material-ui/core";
-
-import { NavLink, BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-
+  NavLink,
+  BrowserRouter,
+  Routes,
+  Route,
+  Outlet
+} from "react-router-dom";
 
 ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
 
-  <BrowserRouter><App /></BrowserRouter>
-
-  ,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
