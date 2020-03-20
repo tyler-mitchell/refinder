@@ -1,50 +1,53 @@
+import { fade } from "@material-ui/core/styles";
+import palette from "./palette";
 export default {
-    MuiInputBase: {
-
-
-        input: {
-
-
-
-            // outline: 'none',
-            lineHeight: '1.2',
-
-            '&$disabled': {
-                cursor: 'not-allowed',
-
-            },
-        },
+  MuiInputBase: {
+    root: {
+      "label + &": {
+        marginTop: "1.5em"
+      }
     },
-
-    MuiFilledInput: {
-
-        root: {
-            overflow: 'hidden',
-            borderRadius: 8,
-            background: '#ffff'
-        },
-        input: {
-            outline: 'none',
-            borderRadius: 8,
-            padding: ' 0.9rem 1.15rem',
-
-            border: '1px solid #bbb',
-            background: '#ffff'
-
-        },
-        marginDense: {
-            width: '15rem',
-            borderRadius: 8,
-            background: '#ffff'
-
-        }
+    inputMultiline: {
+      padding: "10px 12px"
     },
-    MuiTextField: {
+    input: {
+      borderRadius: 8,
+      position: "relative",
+      backgroundColor: "white",
+      border: "1px solid #ced4da",
+      fontSize: 16,
 
+      padding: "10px 12px",
+      // transition: theme.transitions.create(['border-color', 'box-shadow']),
+      // Use the system font instead of the default Roboto font.
+      fontFamily: [
+        "-apple-system",
+        "BlinkMacSystemFont",
+        '"Segoe UI"',
+        "Roboto",
+        '"Helvetica Neue"',
+        "Arial",
+        "sans-serif",
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"'
+      ].join(","),
+      "&:focus": {
+        boxShadow: `${fade(palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+        borderColor: palette.primary.main
+      }
+    }
+  },
 
-        // input: {
-        //     borderRadius: '30px',
-        //     background: 'none'
-        // }
+  MuiFormLabel: {
+    root: {
+      color: palette.text.secondary,
+      fontFamily: "'Open Sans', sans-serif",
+      fontWeight: 600,
+      fontSize: 18
     },
-}
+    asterisk: {
+      color: "transparent"
+    }
+  }
+};
