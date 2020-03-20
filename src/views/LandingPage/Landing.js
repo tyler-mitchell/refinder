@@ -36,15 +36,18 @@ const Header = () => {
       <Grid item>
         <Typography variant="h2">Refinder</Typography>
       </Grid>
-      <Grid item>
-        <Typography variant="subtitle1">
+      <Grid item xs={9}>
+        <Typography variant="subtitle1" gutterBottom>
           A community-driven marketplace for finding nearby building materials
         </Typography>
       </Grid>
       <Grid item>
         {" "}
         <Button
-          variant="outlined"
+          variant="contained"
+          disableElevation
+          style={{ borderRadius: "20px", textTransform: "none" }}
+          color="primary"
           onClick={() => {
             navigate("/marketplace");
           }}
@@ -113,7 +116,6 @@ const NavigationBar = () => {
           Log In
         </Button>
         <Button
-          variant="outlined"
           onClick={() => {
             navigate("/onboard");
           }}
@@ -130,7 +132,7 @@ const NavigationBar = () => {
 const LandingContainer = ({ children }) => {
   return (
     <>
-      <Content>{children}</Content>
+      <Content style={{ background: "white" }}>{children}</Content>
     </>
   );
 };
@@ -151,12 +153,12 @@ const Landing = () => {
       <Content>
         <Parallax ref={parallax} pages={3}>
           <ParallaxLayer
-            offset={1}
+            offset={0.5}
             speed={1}
             style={{ backgroundColor: "#805E73" }}
           />
           <ParallaxLayer
-            offset={2}
+            offset={1}
             speed={1}
             style={{ backgroundColor: "#87BCDE" }}
           />
@@ -278,7 +280,6 @@ const Landing = () => {
             style={{ position: "relative", height: "100%" }}
           >
             <ParallaxLayer
-              factor={1}
               offset={0}
               speed={0.1}
               factor={0.5}
@@ -293,20 +294,22 @@ const Landing = () => {
               <img src={url("server")} style={{ width: "20%" }} />
             </ParallaxLayer>
             <ParallaxLayer
-              offset={1}
+              offset={0.5}
+              factor={0.5}
               speed={0.1}
               // onClick={() => parallax.current.scrollTo(2)}
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
+                pointerEvent: "none"
               }}
             >
               <WhySection />
               <img src={url("bash")} style={{ width: "40%" }} />
             </ParallaxLayer>
             <ParallaxLayer
-              offset={2}
+              offset={1}
               speed={-0}
               style={{
                 display: "flex",
