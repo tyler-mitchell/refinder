@@ -174,12 +174,8 @@ const Landing = () => {
     <Root omitThemeProvider>
       <NavigationBar />
 
-      <Content>
-        <Parallax
-          ref={parallax}
-          pages={3}
-          style={{ scrollSnapType: "y mandatory", overflow: "hidden" }}
-        >
+      <Content style={{ overflow: "hidden" }}>
+        <Parallax ref={parallax} pages={3}>
           <ParallaxLayer
             offset={0.5}
             speed={0.2}
@@ -198,8 +194,8 @@ const Landing = () => {
             <img src={url("earth")} style={{ width: "40%" }} />
           </ParallaxLayer>
           <ParallaxLayer
-            offset={1}
-            speed={1}
+            offset={1.2}
+            speed={0.2}
             style={{ backgroundColor: "#0fc1fa" }}
           />
 

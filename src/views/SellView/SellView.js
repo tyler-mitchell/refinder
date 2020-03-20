@@ -60,7 +60,7 @@ const SellView = () => {
         container
         wrap="nowrap"
         justify="flex-start"
-        spacing={3}
+        spacing={5}
         style={{ height: "100%" }}
       >
         <Grid item style={{ height: "100%" }}>
@@ -78,7 +78,9 @@ const SellView = () => {
             <div style={{ flexGrow: 1 }} />
           </List>
         </Grid>
-        <Divider orientation="vertical" flexItem />
+        <Grid style={{ display: "flex" }} item>
+          <Divider orientation="vertical" flexItem />
+        </Grid>
         <Grid container item direction="column" xs={5}>
           <FormContainer
             defaultValues={form}
