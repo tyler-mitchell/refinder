@@ -41,7 +41,11 @@ const MarketplaceView = () => {
   const navigate = useNavigate();
   const { userData } = React.useContext(AuthContext);
   return (
-    <Root omitThemeProvider config={cozyLayoutPreset}>
+    <Root
+      omitThemeProvider
+      config={cozyLayoutPreset}
+      style={{ overflow: "visible" }}
+    >
       <Header>
         <Toolbar>
           <SidebarTrigger>
