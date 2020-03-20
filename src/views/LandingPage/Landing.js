@@ -27,26 +27,36 @@ import {
   SidebarTriggerIcon
 } from "@mui-treasury/layout";
 
-const Backdrop = styled.div``;
+const StyledParallax = styled(Parallax)`
+  scroll-snap-type: y mandatory;
+  &.proximity {
+    scroll-snap-type: y proximity;
+  }
+`;
 
 const Header = () => {
   let navigate = useNavigate();
   return (
     <Grid item container direction="column">
       <Grid item>
-        <Typography variant="h2">Refinder</Typography>
+        <Typography variant="h2" style={{ marginBottom: "0.5vh" }}>
+          Refinder
+        </Typography>
       </Grid>
       <Grid item xs={9}>
-        <Typography variant="subtitle1" gutterBottom>
+        <Typography
+          variant="subtitle1"
+          gutterBottom
+          style={{ marginBottom: "1.5vh" }}
+        >
           A community-driven marketplace for finding nearby building materials
         </Typography>
       </Grid>
-      <Grid item>
-        {" "}
+      <Grid item xs={3}>
         <Button
           variant="contained"
           disableElevation
-          style={{ borderRadius: "20px", textTransform: "none" }}
+          style={{ borderRadius: "25px", textTransform: "none" }}
           color="primary"
           onClick={() => {
             navigate("/marketplace");
@@ -107,15 +117,22 @@ const NavigationBar = () => {
         <SidebarTrigger>
           <SidebarTriggerIcon />
         </SidebarTrigger>
+        <div style={{ flexGrow: 1 }} />
         <Button
           variant="text"
+          style={{ borderRadius: "25px", textTransform: "none" }}
           onClick={() => {
             navigate("/onboard");
           }}
         >
           Log In
         </Button>
+        <div style={{ width: "1%" }} />
         <Button
+          variant="contained"
+          color="primary"
+          disableElevation
+          style={{ borderRadius: "25px", textTransform: "none" }}
           onClick={() => {
             navigate("/onboard");
           }}
@@ -151,10 +168,14 @@ const Landing = () => {
       <NavigationBar />
 
       <Content>
-        <Parallax ref={parallax} pages={3}>
+        <StyledParallax
+          ref={parallax}
+          pages={3}
+          style={{ scrollSnapType: "y mandatory" }}
+        >
           <ParallaxLayer
             offset={0.5}
-            speed={1}
+            speed={0.2}
             style={{ backgroundColor: "#805E73" }}
           />
           <ParallaxLayer
@@ -171,17 +192,6 @@ const Landing = () => {
               backgroundSize: "cover"
             }}
           />
-
-          <ParallaxLayer
-            offset={0.2}
-            speed={-0.1}
-            style={{ pointerEvents: "none" }}
-          >
-            <img
-              src={url("satellite4")}
-              style={{ width: "15%", marginLeft: "60%" }}
-            />
-          </ParallaxLayer>
 
           <ParallaxLayer
             offset={1.3}
@@ -287,7 +297,8 @@ const Landing = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
+                scrollSnapAlign: "center"
               }}
             >
               <Header />
@@ -302,7 +313,8 @@ const Landing = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                pointerEvent: "none"
+                pointerEvent: "none",
+                scrollSnapAlign: "center"
               }}
             >
               <WhySection />
@@ -322,7 +334,7 @@ const Landing = () => {
               <img src={url("clients-main")} style={{ width: "40%" }} />
             </ParallaxLayer>
           </Container>
-        </Parallax>
+        </StyledParallax>
       </Content>
     </Root>
   );
