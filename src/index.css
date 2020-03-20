@@ -3,6 +3,11 @@ body {
   font-family: "'Baloo 2', cursive"
   
 }
+
+html, body {
+  margin: 0;
+  overflow: hidden;
+}
  
 
 code {

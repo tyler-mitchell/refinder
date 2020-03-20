@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Router from "./Router";
 import store from "./store";
 import { Provider } from "react-redux";
+import "index.css";
 import {
   Root,
   contentBasedLayoutPreset,

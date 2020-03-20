@@ -27,7 +27,7 @@ import {
   SidebarTriggerIcon
 } from "@mui-treasury/layout";
 
-const StyledParallax = styled(Parallax)`
+const StyledContent = styled(Content)`
   scroll-snap-type: y mandatory;
   &.proximity {
     scroll-snap-type: y proximity;
@@ -40,7 +40,7 @@ const Header = () => {
     <Grid item container direction="column">
       <Grid item>
         <Typography variant="h2" style={{ marginBottom: "0.5vh" }}>
-          Refinder
+          Buy and sell building materials
         </Typography>
       </Grid>
       <Grid item xs={9}>
@@ -49,7 +49,9 @@ const Header = () => {
           gutterBottom
           style={{ marginBottom: "1.5vh" }}
         >
-          A community-driven marketplace for finding nearby building materials
+          {/* A community-driven marketplace for finding nearby building materials */}
+          with construction companies, local businesses, craftsmen,
+          home-improvers, etc.
         </Typography>
       </Grid>
       <Grid item xs={3}>
@@ -58,6 +60,7 @@ const Header = () => {
           disableElevation
           style={{ borderRadius: "25px", textTransform: "none" }}
           color="primary"
+          size="large"
           onClick={() => {
             navigate("/marketplace");
           }}
@@ -114,9 +117,10 @@ const NavigationBar = () => {
   return (
     <AppHeader>
       <Toolbar>
-        <SidebarTrigger>
+        {/* <SidebarTrigger>
           <SidebarTriggerIcon />
-        </SidebarTrigger>
+        </SidebarTrigger> */}
+        <Typography variant="h6">Refinder</Typography>
         <div style={{ flexGrow: 1 }} />
         <Button
           variant="text"
@@ -127,7 +131,7 @@ const NavigationBar = () => {
         >
           Log In
         </Button>
-        <div style={{ width: "1%" }} />
+        {/* <div style={{ width: "1%" }} /> */}
         <Button
           variant="contained"
           color="primary"
@@ -168,10 +172,10 @@ const Landing = () => {
       <NavigationBar />
 
       <Content>
-        <StyledParallax
+        <Parallax
           ref={parallax}
           pages={3}
-          style={{ scrollSnapType: "y mandatory" }}
+          style={{ scrollSnapType: "y mandatory", overflow: "hidden" }}
         >
           <ParallaxLayer
             offset={0.5}
@@ -334,7 +338,7 @@ const Landing = () => {
               <img src={url("clients-main")} style={{ width: "40%" }} />
             </ParallaxLayer>
           </Container>
-        </StyledParallax>
+        </Parallax>
       </Content>
     </Root>
   );
