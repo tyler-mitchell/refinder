@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import ProductsListView from "views/ProductLogView";
 import DashboardView from "views/DashboardView";
 import ProductView from "views/ProductView";
-import { Toolbar, CssBaseline, Typography, Avatar } from "@material-ui/core";
+import { Toolbar, CssBaseline, Typography, Avatar, Link } from "@material-ui/core";
 import SellView from "views/SellView";
 import {
   Root,
@@ -21,9 +21,11 @@ import {
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import theme from "theme";
 import { AuthContext } from "../../firebase/Auth";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const MarketplaceView = () => {
   const { userData } = React.useContext(AuthContext);
+  let navigate = useNavigate();
   return (
     <Root omitThemeProvider>
       <Header>
@@ -31,7 +33,9 @@ const MarketplaceView = () => {
           <SidebarTrigger>
             <SidebarTriggerIcon />
           </SidebarTrigger>
-          <Typography variant="h5"> Refinder </Typography>
+          <Typography variant="h5" > <Link href='\' onClick={() => {
+            navigate("/");
+          }}> Refinder</Link> </Typography>
           <div style={{ flexGrow: 1 }} />
           <Typography variant="subtitle2">Hello, {userData?.name}</Typography>
         </Toolbar>
