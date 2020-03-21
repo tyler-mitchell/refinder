@@ -1,21 +1,32 @@
-import React from 'react'
-import { NavLink, BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import ProductView from "views/ProductView"
-import Landing from './views/LandingPage';
+import React from "react";
+import {
+  NavLink,
+  BrowserRouter,
+  Routes,
+  Route,
+  Outlet
+} from "react-router-dom";
 
-import MarketplaceView from './views/MarketplaceView'
+import { ThemeProvider } from "@material-ui/styles";
+import theme from "./theme/index";
 
+import Landing from "./views/LandingPage";
+
+import MarketplaceView from "./views/MarketplaceView";
+import { CssBaseline } from "@material-ui/core";
+import OnboardView from "./views/OnboardView/OnboardView";
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/onboard" element={<OnboardView />} />
         <Route path="marketplace/*" element={<MarketplaceView />} />
         <Route path="/productview" exact element={<ProductView/>} />
       </Routes>
-
-    </BrowserRouter>
-  )
-}
+    </ThemeProvider>
+  );
+};
 export default Router;

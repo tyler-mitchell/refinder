@@ -73,7 +73,7 @@ const MaterialMap = props => {
                         /*The lower the zoom the more zoom'ed out*/
                     }}
                     style={{
-                        height: '100vh',
+                        height: '50vh',
                         width: '100%',
                     }}
                     useDrawing={false}

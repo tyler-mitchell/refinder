@@ -1,26 +1,23 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import Router from "./Router";
-import CssBaseline from '@material-ui/core/CssBaseline';
-
-
+import store from "./store";
+import { Provider } from "react-redux";
+import "index.css";
 import {
   Root,
   contentBasedLayoutPreset,
-  cozyLayoutPreset,
+  cozyLayoutPreset
 } from "@mui-treasury/layout";
-
-
-
-
-
-
+import AuthProvider from "./firebase/Auth";
 
 function App() {
   return (
-    <div>
-      <Router />
-    </div>
+    <Provider store={store}>
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
+    </Provider>
   );
 }
 
