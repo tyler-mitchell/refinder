@@ -15,7 +15,7 @@ import Landing from "./views/LandingPage";
 import MarketplaceView from "./views/MarketplaceView";
 import { CssBaseline } from "@material-ui/core";
 import OnboardView from "./views/OnboardView/OnboardView";
-import ProductView from './views/ProductLogView'
+import ProductView from "./views/ProductView/ProductView.js"
 
 const Router = () => {
   return (
