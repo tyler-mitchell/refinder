@@ -57,7 +57,7 @@ const SignupView = () => {
 
             <OnboardLayout
                 header="Create an Account"
-                subtitle="Enter your details to begin submitting and evaluating ideas"
+                subtitle="Enter your details to become apart of the materials marketplace"
                 form={<SignupForm setAuthError={setAuthError} />}
                 actions={
                     <>
