@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Field from "components/Fields/TextField";
-import Button from "@material-ui/core/Button";
+
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 // import './index.css'
@@ -18,6 +18,24 @@ import {
   Divider,
   makeStyles
 } from "@material-ui/core";
+import {
+  ThemeProvider,
+  CSSReset,
+  theme,
+  Box,
+  Accordion,
+  SimpleGrid,
+  FormControl,
+  FormLabel,
+  Input,
+  FormErrorMessage,
+  Textarea,
+  Flex,
+  Button,
+  FormHelperText,
+  Heading
+} from "@chakra-ui/core";
+import { useForm } from "react-hook-form";
 const form = {
   "default-text-field": "Test Data",
   "default-email-field": "info@example.com",
@@ -50,10 +68,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const SellView = () => {
-  function handleSubmit(e) {
-    console.log("SELL", e);
-  }
   const classes = useStyles();
+  function onSubmit(values) {
+    setTimeout(() => {
+      alert(JSON.stringify(values, null, 2));
+    }, 1000);
+  }
+  const { handleSubmit, errors, register, formState } = useForm();
+
   return (
     <div style={{ display: "flex", height: "100%", flexDirection: "column" }}>
       <Grid
@@ -82,49 +104,42 @@ const SellView = () => {
           <Divider orientation="vertical" flexItem />
         </Grid>
         <Grid container item direction="column" xs={5}>
-          <FormContainer
-            defaultValues={form}
-            onSuccess={handleSubmit}
-            FormProps={{
-              "aria-autocomplete": "none",
-              autoComplete: "new-password"
-            }}
-            onSubmit={handleSubmit}
-          >
-            <Grid item />
-            <Grid item>
-              <Typography variant="h4">General Details</Typography>
-            </Grid>
-            <Grid item />
+          <ThemeProvider theme={theme}>
+            <CSSReset />
+            <SimpleGrid columns={1} spacingX={1} spacingY={5}>
+              <Heading>General Details</Heading>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <FormControl isInvalid={errors.name} isRequired>
+                  <FormLabel>What's the product name?</FormLabel>
+                  <Input name="title" ref={register({ required: true })} />
 
-            <Grid item>
-              <Field
-                required
-                // margin={"dense"}
-                fullWidth
-                label="What's the product name?"
-                name={"default-email-field"}
-              />
-            </Grid>
+                  <FormErrorMessage>
+                    {errors.title && errors.title.message}
+                  </FormErrorMessage>
+                </FormControl>
 
-            <Grid item>
-              <Field
-                label={"Describe the product in detail"}
-                fullWidth
-                multiline
-                rowsMin={5}
-                rowsMax={5}
-                rows={5}
-                name={"number-text-field"}
-                required
-                type={"number"}
-              />
-            </Grid>
+                <FormControl isRequired>
+                  <FormLabel htmlFor="description">
+                    Describe the product in detail
+                  </FormLabel>
+                  <Textarea name="description" />
+                  <FormErrorMessage>
+                    {errors.description && errors.description.message}
+                  </FormErrorMessage>
+                </FormControl>
 
-            <Button color="primary" type="submit" variant="contained">
-              Test theme
-            </Button>
-          </FormContainer>
+                <Flex
+                  justifyContent="flex-start"
+                  alignItems="flex-start"
+                  flexDirection="row"
+                >
+                  <Button type="submit" variant="outline" variantColor="blue">
+                    Next
+                  </Button>
+                </Flex>
+              </form>
+            </SimpleGrid>
+          </ThemeProvider>
         </Grid>
       </Grid>
       <div style={{ flex: "1 1 auto", display: "flex" }} />
