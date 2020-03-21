@@ -1,1 +1,1 @@
-export { default } from './MaterialMap'
+export { default } from './MapBoxWrap'
