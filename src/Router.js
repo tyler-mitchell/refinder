@@ -14,7 +14,8 @@ import Landing from "./views/LandingPage";
 
 import MarketplaceView from "./views/MarketplaceView";
 import { CssBaseline } from "@material-ui/core";
-import OnboardView from "./views/OnboardView/OnboardView";
+import LoginView from "./views/OnboardView/LoginView";
+import SignupView from "./views/OnboardView/SignupView";
 import ProductView from "./views/ProductView/ProductView.js"
 
 const Router = () => {
@@ -23,7 +24,8 @@ const Router = () => {
       <CssBaseline />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/onboard" element={<OnboardView />} />
+        <Route path="/login" element={<LoginView />} />
+        <Route path="/signup" element={<SignupView />} />
         <Route path="marketplace/*" element={<MarketplaceView />} />
         <Route path="/productview" exact element={<ProductView />} />
       </Routes>

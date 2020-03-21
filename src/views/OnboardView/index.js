@@ -1,1 +1,1 @@
-export { default } from './OnboardView'
+export { default } from './LoginView'
