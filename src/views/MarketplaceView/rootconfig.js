@@ -22,15 +22,15 @@ export default {
       }
     },
     secondarySidebar: {
-      anchor: "right",
-      variant: "persistent",
+      anchor: "left",
+      variant: "permanent",
       width: 244,
-      collapsible: true,
+      collapsible: false,
       collapsedWidth: 64,
-      hidden: false,
+      hidden: true,
       inset: false,
       insetProps: {
-        position: "sticky"
+        position: "fixed"
       }
     },
     header: {
@@ -55,18 +55,18 @@ export default {
   sm: {
     sidebar: {
       anchor: "left",
-      variant: "permanent",
-      width: 64,
+      variant: "temporary",
+      width: 246,
       collapsible: false,
-      collapsedWidth: 64,
+      collapsedWidth: 246,
       hidden: false,
       inset: false,
       insetProps: {
-        position: "fixed"
+        position: "sticky"
       }
     },
     secondarySidebar: {
-      anchor: "right",
+      anchor: "left",
       variant: "persistent",
       width: 244,
       collapsible: true,
@@ -76,18 +76,31 @@ export default {
       insetProps: {
         position: "sticky"
       }
+      // secondarySidebar: {
+      //   anchor: "left",
+      //   variant: "persistent",
+      //   width: 244,
+
+      //   collapsible: false,
+      //   collapsedWidth: 64,
+      //   hidden: false,
+      //   inset: false,
+      //   insetProps: {
+      //     position: "sticky"
+      //   }
+      // },
     },
     header: {
       position: "fixed",
       offsetHeight: 64,
       clipped: false,
-      secondaryClipped: false,
+      secondaryClipped: true,
       persistentBehavior: "fit",
       secondaryPersistentBehavior: "fit"
     },
     content: {
-      persistentBehavior: "fit",
-      secondaryPersistentBehavior: "none"
+      persistentBehavior: "none",
+      secondaryPersistentBehavior: "flexible"
     },
     footer: {
       persistentBehavior: "fit",
@@ -110,28 +123,30 @@ export default {
       }
     },
     secondarySidebar: {
-      anchor: "right",
+      anchor: "left",
       variant: "persistent",
       width: 244,
-      collapsible: true,
+
+      collapsible: false,
       collapsedWidth: 64,
       hidden: false,
       inset: false,
       insetProps: {
-        position: "sticky"
+        position: "sticky",
+        left: 0
       }
     },
     header: {
       position: "fixed",
       offsetHeight: 64,
       clipped: true,
-      secondaryClipped: false,
+      secondaryClipped: true,
       persistentBehavior: "fit",
       secondaryPersistentBehavior: "fit"
     },
     content: {
       persistentBehavior: "fit",
-      secondaryPersistentBehavior: "none"
+      secondaryPersistentBehavior: "flexible"
     },
     footer: {
       persistentBehavior: "fit",

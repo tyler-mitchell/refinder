@@ -89,7 +89,8 @@ const MarketplaceView = () => {
     >
       <Root
         initialCollapsed={true}
-        config={cozyLayoutPreset}
+        initialSecondaryOpened={true}
+        config={rootconfig}
         omitThemeProvider
         // style={{ overflow: "visible" }}
       >
@@ -136,43 +137,40 @@ const MarketplaceView = () => {
                 <CollapseIcon />
               </CollapseBtn>
             </Sidebar>
-            <InsetContainer style={{ flex: 1, minHeight: 0 }}>
-              <Content style={{ maxHeight: "100%" }}>
-                <ThemeProvider theme={theme}>
-                  <Routes>
-                    <Route path="/" element={<DashboardView />} />
-                    <Route path="/materials" element={<ProductsListView />} />
-                    <Route
-                      path="/materials/:material"
-                      element={<ProductView />}
-                    />
-                    <Route path="/services" element={<ProductsListView />} />
-                    <Route path="/dashboard" element={<DashboardView />} />
-                    <Route path="/sell" element={<CreateProductView />} />
-                    <Route
-                      path="/notfound"
-                      element={
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            flexDirection: "column",
-                            alignItems: "center"
-                          }}
-                        >
-                          <img
-                            style={{ width: "30%" }}
-                            alt="not_found"
-                            src={not_found_png}
-                          />
-                          <Typography variant="h2"> not found</Typography>
-                        </div>
-                      }
-                    />
-                  </Routes>
-                </ThemeProvider>
-              </Content>
-            </InsetContainer>
+
+            {/* <Content style={{ maxHeight: "100%" }}> */}
+            <ThemeProvider theme={theme}>
+              <Routes>
+                <Route path="/" element={<DashboardView />} />
+                <Route path="/materials" element={<ProductsListView />} />
+                <Route path="/materials/:material" element={<ProductView />} />
+                <Route path="/services" element={<ProductsListView />} />
+                <Route path="/dashboard" element={<DashboardView />} />
+                <Route path="/sell" element={<CreateProductView />} />
+                <Route
+                  path="/notfound"
+                  element={
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        alignItems: "center"
+                      }}
+                    >
+                      <img
+                        style={{ width: "30%" }}
+                        alt="not_found"
+                        src={not_found_png}
+                      />
+                      <Typography variant="h2"> not found</Typography>
+                    </div>
+                  }
+                />
+              </Routes>
+            </ThemeProvider>
+            {/* </Content> */}
+
             {/* <Footer>Footer</Footer> */}
           </>
         )}
