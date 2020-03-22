@@ -47,9 +47,9 @@ const form = {
 
 const drawerWidth = 240;
 
-const SellView = () => {
+const CreateProductView = () => {
   const dispatch = useDispatch();
-  const formData = useSelector(s => s.sell);
+  const formData = useSelector(s => s.createProduct);
   function onSubmit(values) {
     dispatch(addToForm({ formData: values }));
 
@@ -133,4 +133,4 @@ const SellView = () => {
   );
 };
 
-export default SellView;
+export default CreateProductView;

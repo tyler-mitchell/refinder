@@ -21,7 +21,7 @@ import {
   makeStyles,
   Tooltip
 } from "@material-ui/core";
-import SellView from "views/SellView";
+import CreateProductView from "views/CreateProductView";
 import {
   Root,
   Header,
@@ -146,7 +146,7 @@ const MarketplaceView = () => {
                     />
                     <Route path="/services" element={<ProductsListView />} />
                     <Route path="/dashboard" element={<DashboardView />} />
-                    <Route path="/sell" element={<SellView />} />
+                    <Route path="/sell" element={<CreateProductView />} />
                     <Route
                       path="/notfound"
                       element={
