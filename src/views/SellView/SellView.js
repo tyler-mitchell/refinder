@@ -77,7 +77,7 @@ const SellView = () => {
   const { handleSubmit, errors, register, formState } = useForm();
 
   return (
-    <div style={{ display: "flex", height: "100%", flexDirection: "column" }}>
+    <>
       <Grid
         container
         wrap="nowrap"
@@ -143,7 +143,7 @@ const SellView = () => {
         </Grid>
       </Grid>
       <div style={{ flex: "1 1 auto", display: "flex" }} />
-    </div>
+    </>
   );
 };
 

@@ -13,7 +13,9 @@ import {
   ListItem,
   List,
   Link,
+  Container,
   ListItemAvatar,
+  makeStyles,
   Tooltip
 } from "@material-ui/core";
 import SellView from "views/SellView";
@@ -38,20 +40,61 @@ import rootconfig from "./rootconfig";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import theme from "theme";
 import { AuthContext } from "../../firebase/Auth";
+const useStyles = makeStyles(() => ({
+  header: {
+    boxShadow: "0 1px 2px 0 rgba(0, 0, 0, .10)",
+    backgroundColor: "#ffffff"
+  },
+  insetBody: {
+    borderLeft: "1px solid rgba(0, 0, 0, 0.08)",
+    overflowY: "auto"
+  },
+  insetDrawerPaper: {
+    width: "100%",
+    maxWidth: 300
+  },
+  contentContainer: {
+    flex: 1,
+
+    height: "100%"
+  },
+  content: {
+    maxHeight: "100%",
+
+    flex: 1,
+    overflowY: "auto"
+  },
+  footer: {
+    height: 52,
+    display: "flex",
+    alignItems: "center",
+    border: "none",
+    padding: "0 8px"
+  },
+  edit: {
+    backgroundColor: "rgba(0,0,0,0.04)"
+  }
+}));
 
 const MarketplaceView = () => {
   const navigate = useNavigate();
   const { userData } = React.useContext(AuthContext);
-
+  const styles = useStyles();
   return (
     <Root
       initialCollapsed={true}
       config={cozyLayoutPreset}
       // style={{ overflow: "visible" }}
     >
-      {({ headerStyles, sidebarStyles, collapsed }) => (
+      {({
+        headerStyles,
+        sidebarStyles,
+        containerStyles,
+        contentStyles,
+        collapsed
+      }) => (
         <>
-          {/* <CssBaseline /> */}
+          <CssBaseline />
           <Header>
             <Toolbar>
               <SidebarTrigger>
@@ -157,39 +200,44 @@ const MarketplaceView = () => {
               <CollapseIcon />
             </CollapseBtn>
           </Sidebar>
-          <Content style={{ zIndex: 1 }}>
-            <ThemeProvider theme={theme}>
-              <Routes>
-                <Route path="/" element={<ProductsListView />} />
-                <Route path="/materials" element={<ProductsListView />} />
-                <Route path="/materials/:material" element={<ProductView />} />
-                <Route path="/services" element={<ProductsListView />} />
-                <Route path="/dashboard" element={<ProductsListView />} />
-                <Route path="/sell" element={<SellView />} />
-                <Route
-                  path="/notfound"
-                  element={
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        flexDirection: "column",
-                        alignItems: "center"
-                      }}
-                    >
-                      <img
-                        style={{ width: "30%" }}
-                        alt="not_found"
-                        src={not_found_png}
-                      />
-                      <Typography variant="h2"> not found</Typography>
-                    </div>
-                  }
-                />
-              </Routes>
-            </ThemeProvider>
-          </Content>
-          <Footer>Footer</Footer>
+          <Container style={{ height: "100%" }}>
+            <Content style={{ height: "100%" }}>
+              <ThemeProvider theme={theme}>
+                <Routes>
+                  <Route path="/" element={<ProductsListView />} />
+                  <Route path="/materials" element={<ProductsListView />} />
+                  <Route
+                    path="/materials/:material"
+                    element={<ProductView />}
+                  />
+                  <Route path="/services" element={<ProductsListView />} />
+                  <Route path="/dashboard" element={<ProductsListView />} />
+                  <Route path="/sell" element={<SellView />} />
+                  <Route
+                    path="/notfound"
+                    element={
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          flexDirection: "column",
+                          alignItems: "center"
+                        }}
+                      >
+                        <img
+                          style={{ width: "30%" }}
+                          alt="not_found"
+                          src={not_found_png}
+                        />
+                        <Typography variant="h2"> not found</Typography>
+                      </div>
+                    }
+                  />
+                </Routes>
+              </ThemeProvider>
+            </Content>
+          </Container>
+          {/* <Footer>Footer</Footer> */}
         </>
       )}
     </Root>
