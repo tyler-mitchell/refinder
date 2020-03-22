@@ -15,7 +15,9 @@ function App() {
   return (
     <Provider store={store}>
       <AuthProvider>
-        <Router />
+        <Root>
+          <Router />
+        </Root>
       </AuthProvider>
     </Provider>
   );

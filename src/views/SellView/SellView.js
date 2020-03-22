@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import FormContainer from "../../components/Fields/FormContainer";
+import { InsetContainer } from "@mui-treasury/layout";
 import {
   Container,
   Drawer,
@@ -77,7 +78,7 @@ const SellView = () => {
   const { handleSubmit, errors, register, formState } = useForm();
 
   return (
-    <>
+    <Box display="flex" height="100%">
       <Grid
         container
         wrap="nowrap"
@@ -105,7 +106,6 @@ const SellView = () => {
         </Grid>
         <Grid container item direction="column" xs={5}>
           <ThemeProvider theme={theme}>
-            <CSSReset />
             <SimpleGrid columns={1} spacingX={1} spacingY={5}>
               <Heading>General Details</Heading>
               <form onSubmit={handleSubmit(onSubmit)}>
@@ -142,8 +142,7 @@ const SellView = () => {
           </ThemeProvider>
         </Grid>
       </Grid>
-      <div style={{ flex: "1 1 auto", display: "flex" }} />
-    </>
+    </Box>
   );
 };
 

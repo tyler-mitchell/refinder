@@ -15,6 +15,7 @@ import {
   Link,
   Container,
   ListItemAvatar,
+  Box,
   makeStyles,
   Tooltip
 } from "@material-ui/core";
@@ -29,7 +30,8 @@ import {
   CollapseIcon,
   SidebarTrigger,
   cozyLayoutPreset,
-  SidebarTriggerIcon
+  SidebarTriggerIcon,
+  InsetContainer
 } from "@mui-treasury/layout";
 import DashboardIcon from "@material-ui/icons/DashboardRounded";
 import MaterialIcon from "@material-ui/icons/Grain";
@@ -81,166 +83,177 @@ const MarketplaceView = () => {
   const { userData } = React.useContext(AuthContext);
   const styles = useStyles();
   return (
-    <Root
-      initialCollapsed={true}
-      config={cozyLayoutPreset}
-      // style={{ overflow: "visible" }}
+    <Box
+      height={"100vh"}
+      display={"flex"}
+      flexDirection={"column"}
+      overflow={"hidden"}
     >
-      {({
-        headerStyles,
-        sidebarStyles,
-        containerStyles,
-        contentStyles,
-        collapsed
-      }) => (
-        <>
-          <CssBaseline />
-          <Header>
-            <Toolbar>
-              <SidebarTrigger>
-                <SidebarTriggerIcon />
-              </SidebarTrigger>
-              <Link
-                underline="none"
-                color="textPrimary"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  navigate("/");
-                }}
-                variant="h5"
-              >
-                Refinder
-              </Link>
-              <div style={{ flexGrow: 1 }} />
-              <Typography variant="subtitle2">
-                Hello, {userData?.name}
-              </Typography>
-            </Toolbar>
-          </Header>
-
-          <Sidebar>
-            <div className={sidebarStyles.container}>
-              <List>
-                <ListItem button>
-                  <Tooltip
-                    placement="right"
-                    aria-label="Dashboard"
-                    title="Dashboard"
-                  >
-                    <ListItemAvatar>
-                      <DashboardIcon />
-                    </ListItemAvatar>
-                  </Tooltip>
-                </ListItem>
-                <ListItem
-                  button
+      <Root
+        initialCollapsed={true}
+        config={cozyLayoutPreset}
+        // style={{ overflow: "visible" }}
+      >
+        {({
+          headerStyles,
+          sidebarStyles,
+          containerStyles,
+          contentStyles,
+          collapsed
+        }) => (
+          <>
+            <CssBaseline />
+            <Header>
+              <Toolbar>
+                <SidebarTrigger className={headerStyles.leftTrigger}>
+                  <SidebarTriggerIcon />
+                </SidebarTrigger>
+                <Link
+                  underline="none"
+                  color="textPrimary"
+                  style={{ cursor: "pointer" }}
                   onClick={() => {
-                    navigate("");
+                    navigate("/");
                   }}
+                  variant="h5"
                 >
-                  <Tooltip
-                    placement="right"
-                    aria-label="Materials"
-                    title="Materials"
-                  >
-                    <ListItemAvatar>
-                      <MaterialIcon />
-                    </ListItemAvatar>
-                  </Tooltip>
-                </ListItem>
-                <ListItem button>
-                  <Tooltip
-                    placement="right"
-                    aria-label="Services"
-                    title="Services"
-                  >
-                    <ListItemAvatar>
-                      <ServicesIcon />
-                    </ListItemAvatar>
-                  </Tooltip>
-                </ListItem>
-                <ListItem
-                  button
-                  onClick={() => {
-                    navigate("sell");
-                  }}
-                >
-                  <Tooltip placement="right" aria-label="Services" title="Sell">
-                    <ListItemAvatar>
-                      <SellIcon />
-                    </ListItemAvatar>
-                  </Tooltip>
-                </ListItem>
-                <ListItem button>
-                  <Tooltip
-                    placement="right"
-                    aria-label="Settings"
-                    title="Settings"
-                  >
-                    <ListItemAvatar>
-                      <SettingsIcon />
-                    </ListItemAvatar>
-                  </Tooltip>
-                </ListItem>
-                <ListItem button>
-                  <Tooltip
-                    placement="right"
-                    aria-label="Settings"
-                    title="Settings"
-                  >
-                    <ListItemAvatar>
-                      <SettingsIcon />
-                    </ListItemAvatar>
-                  </Tooltip>
-                </ListItem>
-              </List>
-            </div>
+                  Refinder
+                </Link>
+                <div style={{ flexGrow: 1 }} />
+                <Typography variant="subtitle2">
+                  Hello, {userData?.name}
+                </Typography>
+              </Toolbar>
+            </Header>
 
-            <CollapseBtn className={sidebarStyles.collapseBtn}>
-              <CollapseIcon />
-            </CollapseBtn>
-          </Sidebar>
-          <Container style={{ height: "100%" }}>
-            <Content style={{ height: "100%" }}>
-              <ThemeProvider theme={theme}>
-                <Routes>
-                  <Route path="/" element={<ProductsListView />} />
-                  <Route path="/materials" element={<ProductsListView />} />
-                  <Route
-                    path="/materials/:material"
-                    element={<ProductView />}
-                  />
-                  <Route path="/services" element={<ProductsListView />} />
-                  <Route path="/dashboard" element={<ProductsListView />} />
-                  <Route path="/sell" element={<SellView />} />
-                  <Route
-                    path="/notfound"
-                    element={
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          flexDirection: "column",
-                          alignItems: "center"
-                        }}
-                      >
-                        <img
-                          style={{ width: "30%" }}
-                          alt="not_found"
-                          src={not_found_png}
-                        />
-                        <Typography variant="h2"> not found</Typography>
-                      </div>
-                    }
-                  />
-                </Routes>
-              </ThemeProvider>
-            </Content>
-          </Container>
-          {/* <Footer>Footer</Footer> */}
-        </>
-      )}
-    </Root>
+            <Sidebar>
+              <div className={sidebarStyles.container}>
+                <List>
+                  <ListItem button>
+                    <Tooltip
+                      placement="right"
+                      aria-label="Dashboard"
+                      title="Dashboard"
+                    >
+                      <ListItemAvatar>
+                        <DashboardIcon />
+                      </ListItemAvatar>
+                    </Tooltip>
+                  </ListItem>
+                  <ListItem
+                    button
+                    onClick={() => {
+                      navigate("");
+                    }}
+                  >
+                    <Tooltip
+                      placement="right"
+                      aria-label="Materials"
+                      title="Materials"
+                    >
+                      <ListItemAvatar>
+                        <MaterialIcon />
+                      </ListItemAvatar>
+                    </Tooltip>
+                  </ListItem>
+                  <ListItem button>
+                    <Tooltip
+                      placement="right"
+                      aria-label="Services"
+                      title="Services"
+                    >
+                      <ListItemAvatar>
+                        <ServicesIcon />
+                      </ListItemAvatar>
+                    </Tooltip>
+                  </ListItem>
+                  <ListItem
+                    button
+                    onClick={() => {
+                      navigate("sell");
+                    }}
+                  >
+                    <Tooltip
+                      placement="right"
+                      aria-label="Services"
+                      title="Sell"
+                    >
+                      <ListItemAvatar>
+                        <SellIcon />
+                      </ListItemAvatar>
+                    </Tooltip>
+                  </ListItem>
+                  <ListItem button>
+                    <Tooltip
+                      placement="right"
+                      aria-label="Settings"
+                      title="Settings"
+                    >
+                      <ListItemAvatar>
+                        <SettingsIcon />
+                      </ListItemAvatar>
+                    </Tooltip>
+                  </ListItem>
+                  <ListItem button>
+                    <Tooltip
+                      placement="right"
+                      aria-label="Settings"
+                      title="Settings"
+                    >
+                      <ListItemAvatar>
+                        <SettingsIcon />
+                      </ListItemAvatar>
+                    </Tooltip>
+                  </ListItem>
+                </List>
+              </div>
+
+              <CollapseBtn className={sidebarStyles.collapseBtn}>
+                <CollapseIcon />
+              </CollapseBtn>
+            </Sidebar>
+            <InsetContainer style={{ flex: 1, minHeight: 0 }}>
+              <Content style={{ maxHeight: "100%" }}>
+                <ThemeProvider theme={theme}>
+                  <Routes>
+                    <Route path="/" element={<ProductsListView />} />
+                    <Route path="/materials" element={<ProductsListView />} />
+                    <Route
+                      path="/materials/:material"
+                      element={<ProductView />}
+                    />
+                    <Route path="/services" element={<ProductsListView />} />
+                    <Route path="/dashboard" element={<ProductsListView />} />
+                    <Route path="/sell" element={<SellView />} />
+                    <Route
+                      path="/notfound"
+                      element={
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            alignItems: "center"
+                          }}
+                        >
+                          <img
+                            style={{ width: "30%" }}
+                            alt="not_found"
+                            src={not_found_png}
+                          />
+                          <Typography variant="h2"> not found</Typography>
+                        </div>
+                      }
+                    />
+                  </Routes>
+                </ThemeProvider>
+              </Content>
+            </InsetContainer>
+            {/* <Footer>Footer</Footer> */}
+          </>
+        )}
+      </Root>
+    </Box>
   );
 };
 
