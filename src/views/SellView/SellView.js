@@ -36,7 +36,9 @@ import {
   FormHelperText,
   Heading
 } from "@chakra-ui/core";
+import { addToForm, formDataSelector } from "redux/sellSlice";
 import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
 const form = {
   "default-text-field": "Test Data",
   "default-email-field": "info@example.com",
@@ -45,34 +47,14 @@ const form = {
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex"
-  },
-  appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginRight: drawerWidth
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: drawerWidth
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3)
-  }
-}));
 const SellView = () => {
-  const classes = useStyles();
+  const dispatch = useDispatch();
+  const formData = useSelector(s => s.sell);
   function onSubmit(values) {
+    dispatch(addToForm({ formData: values }));
+
     setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
+      alert(JSON.stringify(formData));
     }, 1000);
   }
   const { handleSubmit, errors, register, formState } = useForm();
@@ -106,8 +88,10 @@ const SellView = () => {
         </Grid>
         <Grid container item direction="column" xs={5}>
           <ThemeProvider theme={theme}>
-            <SimpleGrid columns={1} spacingX={1} spacingY={5}>
+            {/* <CSSReset /> */}
+            <SimpleGrid columns={1} spacingX={1} spacingY={3}>
               <Heading>General Details</Heading>
+              <h2>formdata: {JSON.stringify(formData)}</h2>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl isInvalid={errors.name} isRequired>
                   <FormLabel>What's the product name?</FormLabel>
@@ -122,7 +106,10 @@ const SellView = () => {
                   <FormLabel htmlFor="description">
                     Describe the product in detail
                   </FormLabel>
-                  <Textarea name="description" />
+                  <Textarea
+                    name="description"
+                    ref={register({ required: true })}
+                  />
                   <FormErrorMessage>
                     {errors.description && errors.description.message}
                   </FormErrorMessage>

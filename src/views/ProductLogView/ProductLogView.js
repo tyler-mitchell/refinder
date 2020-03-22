@@ -105,12 +105,10 @@ const ProductLogView = () => {
     setOpen(false);
   };
   return (
-    <Box display="flex" height="100%">
-      <Grid item>
-        <SearchBar />
-        <ProductList />
-      </Grid>
-    </Box>
+    <Container item>
+      <SearchBar />
+      <ProductList />
+    </Container>
   );
 };
 
