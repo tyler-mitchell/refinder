@@ -1,24 +1,26 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./core";
+import { useSelector, useDispatch } from "react-redux";
+import { initializeUser, selectUserData } from "redux/authSlice";
 export const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, loading, error] = useAuthState(auth);
-  console.log(`⭐: AuthProvider -> error`, error);
-  console.log(`⭐: AuthProvider -> loading`, loading);
-
   const [userData, setUserData] = React.useState(false);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     if (!loading && !error) {
       const data = {
         email: user?.email,
         uid: user?.uid,
-        name: user?.displayName,
+        displayName: user?.displayName,
         avatar: user?.photoURL
       };
+      dispatch(initializeUser({ userData: data }));
       setUserData(data);
+      console.log(`⭐: AuthProvider -> data`, data);
     }
   }, [loading, error]);
 

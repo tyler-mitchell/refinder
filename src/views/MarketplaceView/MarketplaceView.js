@@ -119,9 +119,11 @@ const MarketplaceView = () => {
                   Refinder
                 </Link>
                 <div style={{ flexGrow: 1 }} />
-                <Typography variant="subtitle2">
-                  Hello, {userData?.name}
-                </Typography>
+                {userData && (
+                  <Typography variant="subtitle2">
+                    Hello, {userData.displayName}
+                  </Typography>
+                )}
               </Toolbar>
             </Header>
 

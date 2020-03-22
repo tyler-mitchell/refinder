@@ -36,7 +36,11 @@ import {
   FormHelperText,
   Heading
 } from "@chakra-ui/core";
-import { addToForm, formDataSelector } from "redux/sellSlice";
+import {
+  addToForm,
+  formDataSelector,
+  addToFirebase
+} from "redux/createProductSlice";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 const form = {
@@ -49,13 +53,11 @@ const drawerWidth = 240;
 
 const CreateProductView = () => {
   const dispatch = useDispatch();
-  const formData = useSelector(s => s.createProduct);
+  const formData = useSelector(s => s.auth.uid);
   function onSubmit(values) {
     dispatch(addToForm({ formData: values }));
-
-    setTimeout(() => {
-      alert(JSON.stringify(formData));
-    }, 1000);
+    console.log(`⭐: CreateProductView -> formData`, formData);
+    dispatch(addToFirebase(formData));
   }
   const { handleSubmit, errors, register, formState } = useForm();
 
@@ -89,10 +91,10 @@ const CreateProductView = () => {
         <Grid container item direction="column" xs={5}>
           <ThemeProvider theme={theme}>
             {/* <CSSReset /> */}
-            <SimpleGrid columns={1} spacingX={1} spacingY={3}>
-              <Heading>General Details</Heading>
-              <h2>formdata: {JSON.stringify(formData)}</h2>
-              <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <SimpleGrid columns={1} spacingX={1} spacingY={4}>
+                <Heading>General Details</Heading>
+
                 <FormControl isInvalid={errors.name} isRequired>
                   <FormLabel>What's the product name?</FormLabel>
                   <Input name="title" ref={register({ required: true })} />
@@ -121,11 +123,11 @@ const CreateProductView = () => {
                   flexDirection="row"
                 >
                   <Button type="submit" variant="outline" variantColor="blue">
-                    Next
+                    Create
                   </Button>
                 </Flex>
-              </form>
-            </SimpleGrid>
+              </SimpleGrid>
+            </form>
           </ThemeProvider>
         </Grid>
       </Grid>
