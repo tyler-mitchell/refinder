@@ -129,7 +129,7 @@ const NavigationBar = () => {
           variant="text"
           style={{ borderRadius: "25px", textTransform: "none" }}
           onClick={() => {
-            navigate("/onboard");
+            navigate("/login");
           }}
         >
           Log In
@@ -141,7 +141,7 @@ const NavigationBar = () => {
           disableElevation
           style={{ borderRadius: "25px", textTransform: "none" }}
           onClick={() => {
-            navigate("/onboard");
+            navigate("/signup");
           }}
         >
           Get Started
@@ -165,9 +165,9 @@ const Landing = () => {
   let parallax = React.useRef();
   const url = (name, wrap = false) =>
     `${
-      wrap ? "url(" : ""
+    wrap ? "url(" : ""
     }https://awv3node-homepage.surge.sh/build/assets/${name}.svg${
-      wrap ? ")" : ""
+    wrap ? ")" : ""
     }`;
 
   return (
@@ -331,7 +331,7 @@ const Landing = () => {
                 alignItems: "center",
                 justifyContent: "center"
               }}
-              // onClick={() => parallax.current.scrollTo(0)}
+            // onClick={() => parallax.current.scrollTo(0)}
             >
               <KnowledgeSection />
               <img src={url("clients-main")} style={{ width: "40%" }} />

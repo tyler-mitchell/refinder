@@ -74,20 +74,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LoginContainer = styled(Paper)`
-  margin-top: 90px;
-  margin-bottom: 300px;
 
-  width: 350px;
-  height: 350px;
-  border-radius: 30px;
-`;
-
-const textFields = [
-  { name: "first_name", label: "First Name", default: "" },
-  { name: "last_name", label: "Last Name", default: "" },
-  { name: "city", label: "City", default: "" }
-];
 const SignupForm = ({ setAuthError }) => {
   let history = useNavigate();
   const classes = useStyles();

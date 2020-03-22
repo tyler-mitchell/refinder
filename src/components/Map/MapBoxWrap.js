@@ -36,17 +36,14 @@ const MapBoxWrap = (props) => {
         mapboxApiAccessToken: 'pk.eyJ1Ijoia2hpbGFyaW8iLCJhIjoiY2s3dHZ4eHlqMDFiazNqcGE2aWJ1anBmMSJ9.AVB7C3U09RcuLw3Km_DZmA'
     }
     
-    const onSelected = (viewport, item) => {
-        setViewport({viewport})
+    const onSelect = (viewport, item) => {
+        setViewport(viewport)
         setMarkLoc({
           display: true,
-          latitude: viewport.Latitude,
-          longitude: viewport.Longitude
+          latitude: viewport.latitude,
+          longitude: viewport.longitude
         })
-        console.log(viewport)
-        console.log(item)
     }
-
 
     return (
       <div>
@@ -56,10 +53,9 @@ const MapBoxWrap = (props) => {
         viewport={viewport} 
         hideOnSelect={true}
         updateInputOnSelect={true}
-        onSelected={onSelected}
+        onSelected={onSelect}
         queryParams={queryParams}
-        initialInputValue={""}
-        input={""}
+        initialInputValue={' '}
       />
 
       <ReactMapGL
@@ -74,7 +70,7 @@ const MapBoxWrap = (props) => {
           trackUserLocation={false}
         />
 
-        {/* { markLoc.display && 
+        { markLoc.display && 
         <Marker 
           latitude={markLoc.latitude}
           longitude={markLoc.longitude}
@@ -87,7 +83,7 @@ const MapBoxWrap = (props) => {
             <Pin/>
           </div>
         </Marker>
-        } */}
+        }
 
         <MarkerPop
             lat={29.4087}
