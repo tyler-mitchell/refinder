@@ -91,7 +91,7 @@ const useStyles = makeStyles(() => ({
 
 const styles = makeStyles(theme => ({
   root: {
-    marginLeft: 70
+    position: "relative"
   },
   modal: {
     paddingLeft: 50
@@ -112,6 +112,7 @@ const CreateProductView = () => {
   const { handleSubmit, errors, register, formState } = useForm();
 
   const classes = styles();
+  const containerRef = React.useRef();
   return (
     <>
       <InsetContainer>
@@ -119,18 +120,33 @@ const CreateProductView = () => {
           side="left"
           open={false}
           // hideBackdrop={false}
-          PaperProps={{
-            container: () => null,
-            classes: {
-              root: classes.root
-            }
-          }}
+          // ModalProps={
+          //   containerRef.current ? { container: containerRef.current } : {}
+          // }
+
+          // ModalProps={{
+          //   container: containerRef.current && containerRef.current
+          // }}
+
+          PaperProps={{ style: { position: "relative" } }}
+          BackdropProps={{ style: { position: "relative" } }}
           ModalProps={{
-            classes: {
-              root: classes.root
-            },
-            container: () => null
+            container: document.getElementById("drawer-container"),
+            style: { position: "relative" }
           }}
+
+          // PaperProps={{
+          //   // container: containerRef.current && containerRef.current,
+          //   classes: {
+          //     root: classes.root
+          //   }
+          // }}
+          // ModalProps={{
+          //   container: containerRef.current && containerRef.current,
+          //   classes: {
+          //     root: classes.root
+          //   }
+          // }}
         >
           <Grid item style={{ height: "100%" }}>
             <List style={{ height: "100%" }}>
@@ -152,70 +168,59 @@ const CreateProductView = () => {
           </Grid>
         </SecondarySidebar>
 
-        <Content>
-          <Box display="flex" height="100%">
-            <Grid
-              container
-              wrap="nowrap"
-              justify="flex-start"
-              spacing={5}
-              style={{ height: "100%" }}
-            >
-              <Grid style={{ display: "flex" }} item>
-                {/* <Divider orientation="vertical" flexItem /> */}
-              </Grid>
-              <Grid container item direction="column" xs={5}>
-                <ThemeProvider theme={theme}>
-                  {/* <CSSReset /> */}
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <SimpleGrid columns={1} spacingX={1} spacingY={4}>
-                      <Heading>General Details</Heading>
+        <Grid
+          container
+          wrap="nowrap"
+          justify="flex-start"
+          spacing={5}
+          style={{ height: "100%" }}
+        >
+          <Grid style={{ display: "flex" }} item>
+            {/* <Divider orientation="vertical" flexItem /> */}
+          </Grid>
+          <Grid container item direction="column" xs={5}>
+            <ThemeProvider theme={theme}>
+              {/* <CSSReset /> */}
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <SimpleGrid columns={1} spacingX={1} spacingY={4}>
+                  <Heading>General Details</Heading>
 
-                      <FormControl isInvalid={errors.name} isRequired>
-                        <FormLabel>What's the product name?</FormLabel>
-                        <Input
-                          name="title"
-                          ref={register({ required: true })}
-                        />
+                  <FormControl isInvalid={errors.name} isRequired>
+                    <FormLabel>What's the product name?</FormLabel>
+                    <Input name="title" ref={register({ required: true })} />
 
-                        <FormErrorMessage>
-                          {errors.title && errors.title.message}
-                        </FormErrorMessage>
-                      </FormControl>
+                    <FormErrorMessage>
+                      {errors.title && errors.title.message}
+                    </FormErrorMessage>
+                  </FormControl>
 
-                      <FormControl isRequired>
-                        <FormLabel htmlFor="description">
-                          Describe the product in detail
-                        </FormLabel>
-                        <Textarea
-                          name="description"
-                          ref={register({ required: true })}
-                        />
-                        <FormErrorMessage>
-                          {errors.description && errors.description.message}
-                        </FormErrorMessage>
-                      </FormControl>
+                  <FormControl isRequired>
+                    <FormLabel htmlFor="description">
+                      Describe the product in detail
+                    </FormLabel>
+                    <Textarea
+                      name="description"
+                      ref={register({ required: true })}
+                    />
+                    <FormErrorMessage>
+                      {errors.description && errors.description.message}
+                    </FormErrorMessage>
+                  </FormControl>
 
-                      <Flex
-                        justifyContent="flex-start"
-                        alignItems="flex-start"
-                        flexDirection="row"
-                      >
-                        <Button
-                          type="submit"
-                          variant="outline"
-                          variantColor="blue"
-                        >
-                          Create
-                        </Button>
-                      </Flex>
-                    </SimpleGrid>
-                  </form>
-                </ThemeProvider>
-              </Grid>
-            </Grid>
-          </Box>
-        </Content>
+                  <Flex
+                    justifyContent="flex-start"
+                    alignItems="flex-start"
+                    flexDirection="row"
+                  >
+                    <Button type="submit" variant="outline" variantColor="blue">
+                      Create
+                    </Button>
+                  </Flex>
+                </SimpleGrid>
+              </form>
+            </ThemeProvider>
+          </Grid>
+        </Grid>
       </InsetContainer>
     </>
   );

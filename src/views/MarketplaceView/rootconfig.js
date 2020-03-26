@@ -23,14 +23,14 @@ export default {
     },
     secondarySidebar: {
       anchor: "left",
-      variant: "permanent",
+      variant: "persistent",
       width: 244,
-      collapsible: false,
+      collapsible: true,
       collapsedWidth: 64,
-      hidden: true,
+      hidden: false,
       inset: false,
       insetProps: {
-        position: "fixed"
+        position: "sticky"
       }
     },
     header: {
@@ -56,15 +56,16 @@ export default {
     sidebar: {
       anchor: "left",
       variant: "temporary",
-      width: 246,
+      width: 256,
       collapsible: false,
-      collapsedWidth: 246,
+      collapsedWidth: 64,
       hidden: false,
       inset: false,
       insetProps: {
-        position: "sticky"
+        position: "fixed"
       }
     },
+
     secondarySidebar: {
       anchor: "left",
       variant: "persistent",
@@ -76,31 +77,18 @@ export default {
       insetProps: {
         position: "sticky"
       }
-      // secondarySidebar: {
-      //   anchor: "left",
-      //   variant: "persistent",
-      //   width: 244,
-
-      //   collapsible: false,
-      //   collapsedWidth: 64,
-      //   hidden: false,
-      //   inset: false,
-      //   insetProps: {
-      //     position: "sticky"
-      //   }
-      // },
     },
     header: {
       position: "fixed",
       offsetHeight: 64,
-      clipped: false,
+      clipped: true,
       secondaryClipped: true,
       persistentBehavior: "fit",
       secondaryPersistentBehavior: "fit"
     },
     content: {
-      persistentBehavior: "none",
-      secondaryPersistentBehavior: "flexible"
+      persistentBehavior: "fit",
+      secondaryPersistentBehavior: "none"
     },
     footer: {
       persistentBehavior: "fit",
@@ -126,27 +114,25 @@ export default {
       anchor: "left",
       variant: "persistent",
       width: 244,
-
-      collapsible: false,
+      collapsible: true,
       collapsedWidth: 64,
       hidden: false,
-      inset: false,
+      inset: true,
       insetProps: {
-        position: "sticky",
-        left: 0
+        position: "sticky"
       }
     },
     header: {
       position: "fixed",
       offsetHeight: 64,
       clipped: true,
-      secondaryClipped: true,
+      secondaryClipped: false,
       persistentBehavior: "fit",
       secondaryPersistentBehavior: "fit"
     },
     content: {
       persistentBehavior: "fit",
-      secondaryPersistentBehavior: "flexible"
+      secondaryPersistentBehavior: "none"
     },
     footer: {
       persistentBehavior: "fit",

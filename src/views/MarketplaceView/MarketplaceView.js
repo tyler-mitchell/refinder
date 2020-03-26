@@ -82,7 +82,7 @@ const MarketplaceView = () => {
   const styles = useStyles();
   return (
     <Box
-      height={"100vh"}
+      height={"100%"}
       display={"flex"}
       flexDirection={"column"}
       overflow={"hidden"}
@@ -91,6 +91,7 @@ const MarketplaceView = () => {
         initialCollapsed={true}
         initialSecondaryOpened={true}
         config={rootconfig}
+        // config={cozyLayoutPreset}
         omitThemeProvider
         // style={{ overflow: "visible" }}
       >
@@ -102,76 +103,79 @@ const MarketplaceView = () => {
           collapsed
         }) => (
           <>
-            <CssBaseline />
-            <Header>
-              <Toolbar>
-                <SidebarTrigger className={headerStyles.leftTrigger}>
-                  <SidebarTriggerIcon />
-                </SidebarTrigger>
-                <Link
-                  underline="none"
-                  color="textPrimary"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                  variant="h5"
-                >
-                  Refinder
-                </Link>
-                <div style={{ flexGrow: 1 }} />
-                {userData && (
-                  <Typography variant="subtitle2">
-                    Hello, {userData.displayName}
-                  </Typography>
-                )}
-              </Toolbar>
-            </Header>
-
-            <Sidebar>
-              <div className={sidebarStyles.container}>
-                <SidebarContent />
-              </div>
-
-              <CollapseBtn className={sidebarStyles.collapseBtn}>
-                <CollapseIcon />
-              </CollapseBtn>
-            </Sidebar>
-
-            {/* <Content style={{ maxHeight: "100%" }}> */}
             <ThemeProvider theme={theme}>
-              <Routes>
-                <Route path="/" element={<DashboardView />} />
-                <Route path="/materials" element={<ProductsListView />} />
-                <Route path="/materials/:material" element={<ProductView />} />
-                <Route path="/services" element={<ProductsListView />} />
-                <Route path="/dashboard" element={<DashboardView />} />
-                <Route path="/sell" element={<CreateProductView />} />
-                <Route
-                  path="/notfound"
-                  element={
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        flexDirection: "column",
-                        alignItems: "center"
-                      }}
-                    >
-                      <img
-                        style={{ width: "30%" }}
-                        alt="not_found"
-                        src={not_found_png}
-                      />
-                      <Typography variant="h2"> not found</Typography>
-                    </div>
-                  }
-                />
-              </Routes>
-            </ThemeProvider>
-            {/* </Content> */}
+              <CssBaseline />
+              <Header>
+                <Toolbar>
+                  <SidebarTrigger className={headerStyles.leftTrigger}>
+                    <SidebarTriggerIcon />
+                  </SidebarTrigger>
+                  <Link
+                    underline="none"
+                    color="textPrimary"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                    variant="h5"
+                  >
+                    Refinder
+                  </Link>
+                  <div style={{ flexGrow: 1 }} />
+                  {userData && (
+                    <Typography variant="subtitle2">
+                      Hello, {userData.displayName}
+                    </Typography>
+                  )}
+                </Toolbar>
+              </Header>
 
-            {/* <Footer>Footer</Footer> */}
+              <Sidebar>
+                <div className={sidebarStyles.container}>
+                  <SidebarContent />
+                </div>
+
+                <CollapseBtn className={sidebarStyles.collapseBtn}>
+                  <CollapseIcon />
+                </CollapseBtn>
+              </Sidebar>
+
+              <Content>
+                <Routes>
+                  <Route path="/" element={<DashboardView />} />
+                  <Route path="/materials" element={<ProductsListView />} />
+                  <Route
+                    path="/materials/:material"
+                    element={<ProductView />}
+                  />
+                  <Route path="/services" element={<ProductsListView />} />
+                  <Route path="/dashboard" element={<DashboardView />} />
+                  <Route path="/sell" element={<CreateProductView />} />
+                  <Route
+                    path="/notfound"
+                    element={
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          flexDirection: "column",
+                          alignItems: "center"
+                        }}
+                      >
+                        <img
+                          style={{ width: "30%" }}
+                          alt="not_found"
+                          src={not_found_png}
+                        />
+                        <Typography variant="h2"> not found</Typography>
+                      </div>
+                    }
+                  />
+                </Routes>
+              </Content>
+
+              {/* <Footer>Footer</Footer> */}
+            </ThemeProvider>
           </>
         )}
       </Root>

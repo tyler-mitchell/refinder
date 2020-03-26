@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { Parallax, ParallaxLayer } from "react-spring/renderprops-addons";
 import styled from "styled-components";
+import header_image from "assets/header_image.svg";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import {
@@ -41,7 +42,7 @@ const Header = () => {
       <Grid item>
         <Typography variant="h2" style={{ marginBottom: "0.5vh" }}>
           {/* Buy and sell building materials */}A marketplace for <br />{" "}
-          building materials
+          builders and materials
         </Typography>
       </Grid>
       <Grid item xs={10}>
@@ -51,8 +52,7 @@ const Header = () => {
           style={{ marginBottom: "1.5vh" }}
         >
           {/* A community-driven marketplace for finding nearby building materials */}
-          build with construction companies, local businesses, craftsmen,
-          home-improvers etc.
+          Rediscover value in building materials
         </Typography>
       </Grid>
       <Grid item>
@@ -89,8 +89,19 @@ const WhySection = () => {
       </Grid>
       <Grid item>
         <Typography variant="subtitle1" color="inherit" gutterBottom={true}>
-          Empower users to make sustainable purchasing
+          to accelerate the adoption of circular economies
         </Typography>
+      </Grid>
+      <Grid item>
+        <Button
+          variant="contained"
+          disableElevation
+          style={{ borderRadius: "25px", textTransform: "none" }}
+          color="primary"
+          size="large"
+        >
+          Learn More
+        </Button>
       </Grid>
     </Grid>
   );
@@ -151,8 +162,6 @@ const NavigationBar = () => {
   );
 };
 
-//---
-
 const LandingContainer = ({ children }) => {
   return (
     <>
@@ -165,9 +174,9 @@ const Landing = () => {
   let parallax = React.useRef();
   const url = (name, wrap = false) =>
     `${
-    wrap ? "url(" : ""
+      wrap ? "url(" : ""
     }https://awv3node-homepage.surge.sh/build/assets/${name}.svg${
-    wrap ? ")" : ""
+      wrap ? ")" : ""
     }`;
 
   return (
@@ -177,12 +186,12 @@ const Landing = () => {
       <Content style={{ overflow: "hidden" }}>
         <Parallax ref={parallax} pages={3}>
           <ParallaxLayer
-            offset={0.5}
+            offset={1}
             speed={0.2}
             style={{ backgroundColor: "#0055ea" }}
           />
           <ParallaxLayer
-            offset={0.7}
+            offset={1.2}
             speed={0.01}
             style={{
               display: "flex",
@@ -209,7 +218,7 @@ const Landing = () => {
           />
 
           <ParallaxLayer
-            offset={0.48}
+            offset={0.98}
             speed={0.05}
             style={{ pointerEvents: "none" }}
           >
@@ -304,10 +313,13 @@ const Landing = () => {
               }}
             >
               <Header />
-              <img src={url("server")} style={{ width: "20%" }} />
+              <img
+                src={require("assets/refinder-logo-v2.svg")}
+                style={{ width: "30%" }}
+              />
             </ParallaxLayer>
             <ParallaxLayer
-              offset={0.5}
+              offset={1}
               factor={0.5}
               speed={0.1}
               // onClick={() => parallax.current.scrollTo(2)}
@@ -331,7 +343,7 @@ const Landing = () => {
                 alignItems: "center",
                 justifyContent: "center"
               }}
-            // onClick={() => parallax.current.scrollTo(0)}
+              // onClick={() => parallax.current.scrollTo(0)}
             >
               <KnowledgeSection />
               <img src={url("clients-main")} style={{ width: "40%" }} />
