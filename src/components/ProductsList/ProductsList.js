@@ -33,7 +33,7 @@ import {
 import styled from "styled-components";
 
 const ProductContainer = styled.div`
-  padding: "50px";
+  padding-bottom: "50px";
 `;
 const ProductGrid = props => {
   const { width, height, scrollY, isScrolling } = useWindowScroller(),
@@ -67,7 +67,7 @@ const ProductLog = () => {
         {!loading && (
           <Masonry
             columnGutter={25}
-            columnWidth={210}
+            // columnWidth={210}
             items={materials}
             tabIndex={false}
             clearPositions

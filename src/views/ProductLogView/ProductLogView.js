@@ -105,23 +105,25 @@ const ProductLogView = () => {
     setOpen(false);
   };
   return (
-    <Grid
-      container
-      xs={12}
-      justify="center"
-      alignItems="flex-start"
-      spacing={4}
-      style={{ paddingBottom: "30px" }}
-    >
-      <SearchBar />
+    <>
+      <Grid
+        container
+        justify="center"
+        alignItems="flex-start"
+        spacing={3}
+        style={{ paddingBottom: "30px" }}
+      >
+        <SearchBar />
 
-      <Grid item>
-        <FilterSidebar />
+        <Grid item>
+          <FilterSidebar />
+        </Grid>
+
+        <Grid item md={7} xs={11}>
+          <ProductList />
+        </Grid>
       </Grid>
-      <Grid item xs={6}>
-        <ProductList />
-      </Grid>
-    </Grid>
+    </>
   );
 };
 

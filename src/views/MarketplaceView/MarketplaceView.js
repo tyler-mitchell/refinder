@@ -37,9 +37,32 @@ import {
 } from "@mui-treasury/layout";
 
 import rootconfig from "./rootconfig";
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import {
+  ThemeProvider,
+  createMuiTheme,
+  responsiveFontSizes
+} from "@material-ui/core/styles";
 import theme from "theme";
 import { AuthContext } from "../../firebase/Auth";
+
+const theme2 = responsiveFontSizes(
+  createMuiTheme({
+    ...theme,
+    typography: {
+      fontFamily: "'Inter', sans-serif",
+
+      subtitle2: {
+        fontFamily: "'Open Sans', sans-serif",
+        fontWeight: 700
+      }
+    }
+  })
+);
+
+theme2.typography.caption = {
+  fontWeight: 700,
+  fontSize: 12
+};
 const useStyles = makeStyles(() => ({
   header: {
     boxShadow: "0 1px 2px 0 rgba(0, 0, 0, .10)",
@@ -103,7 +126,7 @@ const MarketplaceView = () => {
           collapsed
         }) => (
           <>
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme2}>
               <CssBaseline />
               <Header>
                 <Toolbar>

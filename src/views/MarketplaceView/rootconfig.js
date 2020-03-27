@@ -22,7 +22,7 @@ export default {
       }
     },
     secondarySidebar: {
-      anchor: "left",
+      anchor: "right",
       variant: "persistent",
       width: 244,
       collapsible: true,
@@ -55,8 +55,8 @@ export default {
   sm: {
     sidebar: {
       anchor: "left",
-      variant: "temporary",
-      width: 256,
+      variant: "permanent",
+      width: 64,
       collapsible: false,
       collapsedWidth: 64,
       hidden: false,
@@ -65,9 +65,8 @@ export default {
         position: "fixed"
       }
     },
-
     secondarySidebar: {
-      anchor: "left",
+      anchor: "right",
       variant: "persistent",
       width: 244,
       collapsible: true,
@@ -81,10 +80,10 @@ export default {
     header: {
       position: "fixed",
       offsetHeight: 64,
-      clipped: true,
+      clipped: false,
       secondaryClipped: true,
       persistentBehavior: "fit",
-      secondaryPersistentBehavior: "fit"
+      secondaryPersistentBehavior: "none"
     },
     content: {
       persistentBehavior: "fit",
@@ -111,13 +110,13 @@ export default {
       }
     },
     secondarySidebar: {
-      anchor: "left",
+      anchor: "right",
       variant: "persistent",
       width: 244,
       collapsible: true,
       collapsedWidth: 64,
       hidden: false,
-      inset: true,
+      inset: false,
       insetProps: {
         position: "sticky"
       }
@@ -128,7 +127,7 @@ export default {
       clipped: true,
       secondaryClipped: false,
       persistentBehavior: "fit",
-      secondaryPersistentBehavior: "fit"
+      secondaryPersistentBehavior: "none"
     },
     content: {
       persistentBehavior: "fit",

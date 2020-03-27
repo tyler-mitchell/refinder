@@ -2,7 +2,7 @@ import palette from "./palette";
 
 export default {
   fontFamily:
-    '"Baloo 2", cursive, "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
+    '"Baloo 2", cursive, "Public Sans",Roboto,"Helvetica Neue",Arial, sans-serif',
 
   h1: {
     color: palette.text.primary,
@@ -47,7 +47,8 @@ export default {
   },
   subtitle1: {
     color: palette.text.primary,
-    fontSize: 24,
+    fontSize: 18,
+    fontWeight: 500,
     letterSpacing: 0.05,
     lineHeight: 1.2
   },
@@ -71,11 +72,7 @@ export default {
     color: palette.text.primary
     //fontSize: 14
   },
-  caption: {
-    color: palette.text.secondary,
-    //fontSize: 11,
-    letterSpacing: 0.33
-  },
+
   overline: {
     color: palette.text.secondary,
     //fontSize: 11,

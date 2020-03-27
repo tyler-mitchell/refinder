@@ -314,8 +314,9 @@ const Landing = () => {
             >
               <Header />
               <img
-                src={require("assets/refinder-logo-v2.svg")}
-                style={{ width: "30%" }}
+                src={require("assets/refinder-logo.svg")}
+                style={{ height: "80%", position: "relative", top: "-12%" }}
+                alt=""
               />
             </ParallaxLayer>
             <ParallaxLayer
