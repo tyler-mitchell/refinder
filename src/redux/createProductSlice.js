@@ -14,6 +14,8 @@ export const addToFirebase = createAsyncThunk(
       uid,
       displayName,
       avatar,
+      free: false,
+
       ...formData,
       created: fieldValue.serverTimestamp()
     };

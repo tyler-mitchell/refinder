@@ -20,6 +20,7 @@
     "firebase": "^7.9.1",
     "framer-motion": "^1.8.4",
     "google-map-react": "^1.1.6",
+    "masonic": "^2.1.7",
     "react": "^16.13.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.13.0",
@@ -28,13 +29,15 @@
     "react-hook-form": "^4.10.1",
     "react-map-gl": "^5.2.3",
     "react-mapbox-gl-geocoder": "^1.1.0",
+    "react-motion-layout": "0.0.16",
     "react-redux": "^7.1.3",
     "react-router": "^6.0.0-alpha.2",
     "react-router-dom": "^6.0.0-alpha.2",
     "react-scripts": "3.4.0",
     "react-spectrum": "^1.1.6",
     "react-spring": "^8.0.27",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "timeago-react": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
