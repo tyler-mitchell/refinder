@@ -59,7 +59,7 @@ const ProductLog = () => {
     .collection("materials")
     .orderBy("created", "desc")
     .limit(30);
-  const [materials, loading, error] = useCollectionData(ref, { idField: true });
+  const [materials, loading, error] = useCollectionData(ref, { idField: "id" });
   console.log(`⭐: ProductLog -> materials`, materials);
   return (
     <>
@@ -107,8 +107,9 @@ const ProductLog = () => {
 const Product = ({ index, data }) => {
   console.log(`⭐: Product -> data`, data);
   const doc = 1;
-  console.log(`⭐: Product -> doc`, doc);
-  return <PoductCard index={index} id={doc.id} key={index} {...data} />;
+  console.log(`⭐: Product -> doc`, data.id);
+
+  return <PoductCard index={index} key={index} {...data} />;
 };
 
 export default ProductLog;

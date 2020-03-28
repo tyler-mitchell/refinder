@@ -222,16 +222,15 @@ const ProductCard = props => {
 
         <Divider />
       </motion.div>
+      <Button
+        onClick={() => {
+          navigate(props.id);
+        }}
+      >
+        View
+      </Button>
       {/* <CardActions>
         <div style={{ flexGrow: 1 }} />
-        <Button
-          style={{ color: "transparent" }}
-          onClick={() => {
-            navigate(props.id);
-          }}
-        >
-          View
-        </Button>
 
         {console.log(`⭐: props?.created.toDate()`, props?.created.toDate())}
         <Typography variant="subtitle2" color="textSecondary">

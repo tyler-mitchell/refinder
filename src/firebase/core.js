@@ -30,6 +30,14 @@ if (!firebase.apps.length) {
 
 const auth = firebase.auth();
 const database = firebase.firestore();
+
+// if (window.location.hostname === "localhost") {
+//   database.settings({
+//     host: "localhost:3000",
+//     ssl: false
+//   });
+// }
+
 const storage = firebase.storage();
 const fieldValue = firebase.firestore.FieldValue;
 
