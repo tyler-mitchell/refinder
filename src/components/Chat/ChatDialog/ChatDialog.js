@@ -81,22 +81,12 @@ const ChatDialog = ({ isAdmin }) => {
           return (
             <ChatMsg
               avatar={AVATAR}
-              side={messageGroup.sender === uid ? "right" : null}
+              side={messageGroup.sender === uid ? "right" : "left"}
               messages={messageGroup.contents}
             />
           );
         })}
 
-        <ChatMsg
-          avatar={AVATAR}
-          side={null}
-          messages={[
-            "Hi Jenny, How r u today?",
-            "Did you train yesterday",
-            "ayeeeee",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat lacus laoreet non curabitur gravida."
-          ]}
-        />
         {/* <ChatMsg
         avatar={AVATAR}
         messages={[
