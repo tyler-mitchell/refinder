@@ -171,9 +171,12 @@ const MarketplaceView = () => {
                   <Route
                     path="/materials/:materialID"
                     element={<ProductView />}
-                  >
-                    <Route path="discussion" element={<ProductChatView />} />
-                  </Route>
+                  />
+
+                  <Route
+                    path="/materials/:materialID/discussion"
+                    element={<ProductChatView />}
+                  />
                   <Route path="/services" element={<ProductsListView />} />
                   <Route path="/dashboard" element={<DashboardView />} />
                   <Route path="/sell" element={<CreateProductView />} />

@@ -93,7 +93,7 @@ const ProductView = () => {
         </div>
 
         <div>
-          <Outlet />
+          {/* <Outlet /> */}
 
           {/* <MaterialMap /> */}
         </div>
