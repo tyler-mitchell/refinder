@@ -42,18 +42,29 @@ const ChatDialog = ({ isAdmin }) => {
   // });
   const styles = useStyles();
   function groupMessages(messages) {
+    if (!messages) {
+      return [];
+    }
     const { groupArr } = messages?.reduce(
-      (acc, cur, index) => {
+      (acc, cur, index, arr) => {
         if (acc.prevSenderId === cur?.senderId || index === 0) {
           acc.group.push(cur.message);
-          if (index === messages.length - 1) {
+          if (index === arr.length - 1) {
             acc.groupArr.push({
-              sender: acc.prevSenderId,
+              sender: cur?.senderId,
               contents: acc.group
             });
           }
         } else {
           acc.groupArr.push({ sender: acc.prevSenderId, contents: acc.group });
+          if (index === arr.length - 1) {
+            acc.groupArr.push({
+              sender: cur.senderId,
+              contents: [cur.message]
+            });
+
+            return acc;
+          }
           acc.group = [cur.message];
         }
 
@@ -76,14 +87,17 @@ const ChatDialog = ({ isAdmin }) => {
           let side = "right";
         })} */}
 
-        {groupMessages(discussion?.messages).map((messageGroup, index) => {
+        {groupMessages(discussion?.messages)?.map((messageGroup, index) => {
           console.log(`⭐: ChatDialog -> messageGroup[0]`, messageGroup[0]);
           return (
-            <ChatMsg
-              avatar={AVATAR}
-              side={messageGroup.sender === uid ? "right" : "left"}
-              messages={messageGroup.contents}
-            />
+            <>
+              <ChatMsg
+                avatar={AVATAR}
+                side={messageGroup.sender === uid ? "right" : "left"}
+                messages={messageGroup.contents}
+              />
+              {messageGroup.sender}
+            </>
           );
         })}
 
@@ -126,6 +140,15 @@ const ChatDialog = ({ isAdmin }) => {
           }
         ]}
       /> */}
+
+        <Typography style={{ color: "red" }} className={styles.date}>
+          {console.log(
+            `⭐: ChatDialog -> productInfo.uid `,
+            productInfo.ownerId
+          )}
+          {uid === productInfo.ownerId ? "You are OWNER" : "You are CUSTOMER"}
+          {": " + uid}
+        </Typography>
       </Box>
     )
   );
