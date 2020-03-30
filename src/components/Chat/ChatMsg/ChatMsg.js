@@ -38,7 +38,7 @@ const ChatMsg = ({ avatar, messages, side }) => {
           return (
             // eslint-disable-next-line react/no-array-index-key
             <div
-              key={msg.id || i}
+              key={msg?.id || i}
               className={cx(styles.row, styles[`${side}Row`])}
             >
               <div className={cx(styles.msgBox, styles[`${side}MsgBox`])}>

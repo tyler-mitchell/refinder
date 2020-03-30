@@ -4,6 +4,7 @@ import SidebarContent from "./SidebarContent";
 import ProductsListView from "views/ProductLogView";
 import DashboardView from "views/DashboardView";
 import ProductView from "views/ProductView";
+import ProductChatView from "views/ProductChatView";
 
 import not_found_png from "assets/NotFound.png";
 
@@ -168,9 +169,11 @@ const MarketplaceView = () => {
                   <Route path="/" element={<DashboardView />} />
                   <Route path="/materials" element={<ProductsListView />} />
                   <Route
-                    path="/materials/:material"
+                    path="/materials/:materialID"
                     element={<ProductView />}
-                  />
+                  >
+                    <Route path="discussion" element={<ProductChatView />} />
+                  </Route>
                   <Route path="/services" element={<ProductsListView />} />
                   <Route path="/dashboard" element={<DashboardView />} />
                   <Route path="/sell" element={<CreateProductView />} />

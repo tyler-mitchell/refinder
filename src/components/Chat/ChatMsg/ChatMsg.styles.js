@@ -76,6 +76,7 @@ export default makeStyles(({ palette, spacing }) => {
     },
     image: {
       maxWidth: 120,
+      height: 120,
       maxHeight: 120
     }
   };

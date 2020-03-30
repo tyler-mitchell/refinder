@@ -49,6 +49,7 @@ import {
 } from "redux/createProductSlice";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams, useLocation } from "react-router-dom";
 const form = {
   "default-text-field": "Test Data",
   "default-email-field": "info@example.com",
@@ -113,6 +114,9 @@ const CreateProductView = () => {
 
   const classes = styles();
   const containerRef = React.useRef();
+  const location = useLocation();
+  console.log(`⭐: CreateProductView -> location`, location);
+
   return (
     <>
       <InsetContainer>

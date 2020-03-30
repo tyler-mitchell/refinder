@@ -34,7 +34,7 @@ import {
   ChevronRight as ArrowRight
 } from "@material-ui/icons";
 import styled from "styled-components";
-import { useNavigate } from "react-router";
+import { useNavigate, Navigate } from "react-router";
 
 const Thumbnail = styled.div`
   object-fit: cover;
@@ -224,7 +224,7 @@ const ProductCard = props => {
       </motion.div>
       <Button
         onClick={() => {
-          navigate(props.id);
+          navigate(props.id, { state: props });
         }}
       >
         View

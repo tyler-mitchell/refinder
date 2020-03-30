@@ -105,10 +105,6 @@ const ProductLog = () => {
 };
 
 const Product = ({ index, data }) => {
-  console.log(`⭐: Product -> data`, data);
-  const doc = 1;
-  console.log(`⭐: Product -> doc`, data.id);
-
   return <PoductCard index={index} key={index} {...data} />;
 };
 

@@ -11,7 +11,8 @@ import Search from "@material-ui/icons/Search";
 import Edit from "@material-ui/icons/Edit";
 import ThumbUp from "@material-ui/icons/ThumbUp";
 import FormatPaint from "@material-ui/icons/FormatPaint";
-import useStyles from "./ChatSettings.styles";
+import useStyles from "./SellerCard.styles";
+
 const SettingHeader = ({ children, opened }) => {
   const styles = useStyles();
   return (

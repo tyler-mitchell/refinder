@@ -24,6 +24,7 @@ export default makeStyles(() => ({
   footer: {
     height: 52,
     display: "flex",
+
     alignItems: "center",
     border: "none",
     padding: "0 8px"

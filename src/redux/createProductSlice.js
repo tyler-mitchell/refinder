@@ -19,8 +19,13 @@ export const addToFirebase = createAsyncThunk(
       ...formData,
       created: fieldValue.serverTimestamp()
     };
+
     try {
       const res = await database.collection("materials").add(product);
+      res
+        .collection("product_discussion")
+        .doc("discussion_info")
+        .set({ ownerId: uid, productId: res.id, ownerName: displayName });
     } catch (error) {}
 
     // const response = await userAPI.fetchById(userId)
