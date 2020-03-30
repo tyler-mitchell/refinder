@@ -71,7 +71,7 @@ const ChatDialog = ({ isAdmin }) => {
   }
   return (
     !loading && (
-      <Box p={"16px 30px 12px 10px"} ref={dialogRef}>
+      <Box p={"16px 30px 12px 10px"} width="100%" ref={dialogRef}>
         {/* {discussion?.messages.map((message, index) => {
           let side = "right";
         })} */}

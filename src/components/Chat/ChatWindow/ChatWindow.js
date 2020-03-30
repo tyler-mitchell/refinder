@@ -41,11 +41,13 @@ const ChatWindow = () => {
     <>
       <ChatContextProvider>
         <InsetContainer className={styles.contentContainer}>
+          <Box width="30%" />
           <div
             ref={dialogRef}
             style={{
               overflowY: "auto",
-              height: dialogHeight
+              height: dialogHeight,
+              width: "100%"
             }}
           >
             {/* <Content className={styles.content}> */}
