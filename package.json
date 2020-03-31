@@ -24,6 +24,8 @@
     "react": "^16.13.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.13.0",
+    "react-dropzone": "^10.2.2",
+    "react-easy-crop": "^2.1.0",
     "react-firebase-hooks": "^2.1.1",
     "react-firebaseui": "^4.1.0",
     "react-hook-form": "^4.10.1",

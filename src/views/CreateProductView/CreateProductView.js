@@ -40,16 +40,20 @@ import {
   Flex,
   Button,
   FormHelperText,
-  Heading
+  Heading,
+  Checkbox,
+  CheckboxGroup
 } from "@chakra-ui/core";
 import {
   addToForm,
   formDataSelector,
   addToFirebase
 } from "redux/createProductSlice";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
+import ImageInput from "components/ImageAttachment";
+import DropZone from "components/ImageAttachment/DropZone";
 const form = {
   "default-text-field": "Test Data",
   "default-email-field": "info@example.com",
@@ -85,6 +89,7 @@ const useStyles = makeStyles(() => ({
     border: "none",
     padding: "0 8px"
   },
+
   edit: {
     backgroundColor: "rgba(0,0,0,0.04)"
   }
@@ -108,9 +113,9 @@ const CreateProductView = () => {
   function onSubmit(values) {
     dispatch(addToForm({ formData: values }));
     console.log(`⭐: CreateProductView -> formData`, formData);
-    dispatch(addToFirebase(formData));
+    // dispatch(addToFirebase(formData));
   }
-  const { handleSubmit, errors, register, formState } = useForm();
+  const { handleSubmit, errors, register, formState, control } = useForm();
 
   const classes = styles();
   const containerRef = React.useRef();
@@ -184,7 +189,7 @@ const CreateProductView = () => {
           </Grid>
           <Grid container item direction="column" xs={5}>
             <ThemeProvider theme={theme}>
-              {/* <CSSReset /> */}
+              <CSSReset />
               <form onSubmit={handleSubmit(onSubmit)}>
                 <SimpleGrid columns={1} spacingX={1} spacingY={4}>
                   <Heading>General Details</Heading>
@@ -210,6 +215,24 @@ const CreateProductView = () => {
                       {errors.description && errors.description.message}
                     </FormErrorMessage>
                   </FormControl>
+
+                  <Controller
+                    name="type"
+                    control={control}
+                    as={
+                      <CheckboxGroup variantColor="green">
+                        <SimpleGrid columns={2} spacingX={1} spacingY={1}>
+                          <Checkbox value="tile">Tile</Checkbox>
+                          <Checkbox value="brick">Brick</Checkbox>
+                          <Checkbox value="glass">Glass</Checkbox>
+                          <Checkbox value="wood">Wood</Checkbox>
+                          <Checkbox value="concrete">Concrete</Checkbox>
+                          <Checkbox value="metal">Metal</Checkbox>
+                        </SimpleGrid>
+                      </CheckboxGroup>
+                    }
+                  />
+                  <DropZone />
 
                   <Flex
                     justifyContent="flex-start"
