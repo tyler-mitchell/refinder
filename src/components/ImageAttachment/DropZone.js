@@ -11,12 +11,15 @@ import {
   GridList,
   GridListTile,
   GridListTileBar,
-  IconButton
+  IconButton,
+  Button
 } from "@material-ui/core";
 // import prettyBytes from "pretty-bytes";
 import { useSelector, useDispatch } from "react-redux";
 import { storeImages, deleteImage, setPrimaryImage } from "redux/imageSlice";
+import { setProductDocId } from "redux/createProductSlice";
 import useLocalStorageState from "hooks/useLocalStorage";
+import useFirebaseUpload from "firebase/firebaseStorage";
 // import { connect } from 'react-redux';
 
 /**
@@ -40,7 +43,14 @@ function DropzoneComponent({ compression, ...props }) {
   const [newFiles, setNewFiles] = React.useState([]);
 
   const { imagesArr: imagesData, primaryImage } = useSelector(s => s.images);
+  const productDocId = useSelector(s => s.createProduct.productDocId);
+  console.log(`⭐: DropzoneComponent -> productDocId`, productDocId);
 
+  React.useEffect(() => {
+    if (!productDocId) {
+      dispatch(setProductDocId());
+    }
+  }, []);
   React.useEffect(() => {
     if (newFiles) {
       const res = imagesData.reduce((acc, cur, arr) => {
@@ -84,6 +94,23 @@ function DropzoneComponent({ compression, ...props }) {
     },
     [imageFiles]
   );
+
+  const [
+    { data, isLoading, isError, progress },
+    setFileData
+  ] = useFirebaseUpload({
+    root: "product-images",
+    fileName: "image1",
+    folder: productDocId
+  });
+  console.log(`⭐: DropzoneComponent -> progress`, progress);
+  console.log(`⭐: DropzoneComponent -> isError`, isError);
+  console.log(`⭐: DropzoneComponent -> isLoading`, isLoading);
+  console.log(`⭐: DropzoneComponent -> data`, data);
+
+  function handleUpload() {
+    setFileData(Object.keys(imageFiles).map(key => imageFiles[key]));
+  }
 
   return (
     <div className="dropzone-wrap">
@@ -168,7 +195,7 @@ function DropzoneComponent({ compression, ...props }) {
         </p>
       </StyledContainer>
 
-      <div className="box-foot mb-5 d-flex flex-row flex-wrap justify-content-between">
+      {/* <div className="box-foot mb-5 d-flex flex-row flex-wrap justify-content-between">
         <div className="modes">
           <button
             className={`lossless btn ${
@@ -185,16 +212,25 @@ function DropzoneComponent({ compression, ...props }) {
         </div>
         <button
           className="compress-btn btn"
-          disabled={true}
-          onClick={e => {
-            e.stopPropagation();
-            props.beginCompression();
+          disabled={imagesData.length <= 0}
+          onClick={() => {
+            handleUpload();
           }}
         >
-          Next
+          Upload
         </button>
       </div>
-      <style jsx>{styles}</style>
+      <style jsx>{styles}</style> */}
+
+      <Button
+        // className="compress-btn btn"
+        disabled={imagesData.length <= 0}
+        onClick={() => {
+          handleUpload();
+        }}
+      >
+        Upload
+      </Button>
     </div>
   );
 }

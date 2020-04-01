@@ -30,6 +30,7 @@ if (!firebase.apps.length) {
 
 const auth = firebase.auth();
 const database = firebase.firestore();
+const storage = firebase.storage();
 
 // if (window.location.hostname === "localhost") {
 //   database.settings({
@@ -38,7 +39,17 @@ const database = firebase.firestore();
 //   });
 // }
 
-const storage = firebase.storage();
+const taskEvent = firebase.storage.TaskEvent;
+const storageRef = firebase.storage().ref();
 const fieldValue = firebase.firestore.FieldValue;
 
-export { firebase, auth, database, storage, uiConfig, fieldValue };
+export {
+  firebase,
+  auth,
+  database,
+  storage,
+  storageRef,
+  uiConfig,
+  fieldValue,
+  taskEvent
+};
