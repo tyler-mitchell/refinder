@@ -1,80 +1,62 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+const MAX_IMAGES = 6;
 export const slice = createSlice({
   name: "images",
   initialState: {
-    stage: 0,
-
-    images: []
+    maxReached: false,
+    error: false,
+    primaryImage: null,
+    populated: 0,
+    imagesArr: Array(MAX_IMAGES).fill(0)
   },
   reducers: {
-    setStage: (state, action) => {
-      const { id } = action.payload;
-      state.stage = id;
-    },
-    clearDropzone: state => {
-      for (const it of state.images) {
-        // free memory.
-        window.URL.revokeObjectURL(it.preview);
+    deleteImage: (state, action) => {
+      const { index, name } = action.payload;
+      state.imagesArr.splice(index, 1);
+      state.imagesArr.push(0);
+      if (state.primaryImage === name) {
+        state.primaryImage = state.imagesArr[0]?.name || null;
       }
-      state.images = [];
     },
-    startAgain: state => {
-      for (const it of state.images) {
-        // free memory.
-        window.URL.revokeObjectURL(it.preview);
-      }
-      state.images = [];
+    setPrimaryImage: (state, action) => {
+      const { name } = action.payload;
+
+      state.primaryImage = name;
     },
 
     storeImages: (state, action) => {
-      // state.images.slice();
-      const { newFiles, maxLength } = action.payload;
-      // console.log(`⭐: acceptedFiles`, acceptedFiles);
-      // let requiredLength = maxLength - state.images.length;
-      // const newFiles = [];
-      // for (const it of acceptedFiles) {
-      //   if (!requiredLength) break;
-      //   const sameName = state.images.find(el => el.name === it.name);
-      //   if (typeof sameName === "undefined" && requiredLength) {
-      //     newFiles.push(it);
-      //     requiredLength--;
-      //   }
-      // }
-      // // generate previews of these new files
-      // newFiles.forEach(file => {
-      //   file.preview = window.URL.createObjectURL(file);
-      // });
-      state.images = newFiles;
-      // console.log(`⭐: state`, newFiles);
-    },
-    changeCompressionMode: (state, action) => {
-      const { mode } = action.payload;
-    },
+      const { imgMetaData } = action.payload;
 
-    // private functions
-    updateProgress: (state, action) => {
-      const { id, value } = action.payload;
-    },
-    updateFileStatus: (state, action) => {
-      const { id, status } = action.payload;
-    },
-    updateCompressedImage: (state, action) => {
-      const { id, res, status } = action.payload;
-    },
-    updateFinalResult: (state, action) => {
-      const { bytes, compressedBytes } = action.payload;
-    },
-    readyZip: (state, action) => {
-      const { bytes, compressedBytes } = action.payload;
+      for (const f of imgMetaData) {
+        // make sure the images can fit
+        if (state.imagesArr.length >= imgMetaData?.length) {
+          // find the first available position
+          const position = state.imagesArr.findIndex(i => i === 0);
+          // check if image already exists
+          const exists = state.imagesArr.find(
+            v => v.name + v.lastModified === f.name + f.lastModified
+          );
+
+          if (!exists) {
+            // initialize the first image as the primary
+            if (position === 0) {
+              state.primaryImage = f.name;
+            }
+            // replace empty index with new image data
+            state.imagesArr.splice(position, 1, f);
+
+            state.populated += 1;
+          } else {
+            state.error = "Image already exists";
+          }
+        } else {
+          state.maxReached = true;
+          state.error = "Maximum images reached";
+        }
+      }
     }
   }
 });
 
-export const {
-  setStage,
-  startAgain,
-  storeImages,
-  clearDropzone
-} = slice.actions;
+export const { storeImages, deleteImage, setPrimaryImage } = slice.actions;
 export default slice.reducer;

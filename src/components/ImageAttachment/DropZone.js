@@ -1,15 +1,21 @@
 import React, { Fragment } from "react";
-import styles, { DropzoneContainer } from "./DropZone.styles";
-import DropZoneItem from "./DropZoneItem";
+import styles, { StyledContainer, useStyles } from "./DropZone.styles";
+import ImageDropzone from "./DropZoneItem";
+
 import { useDropzone } from "react-dropzone";
+import PrimaryUnfilledIcon from "@material-ui/icons/StarBorderRounded";
+import PrimaryFilledIcon from "@material-ui/icons/StarRounded";
+import DeleteIcon from "@material-ui/icons/DeleteRounded";
+import {
+  Grid,
+  GridList,
+  GridListTile,
+  GridListTileBar,
+  IconButton
+} from "@material-ui/core";
 // import prettyBytes from "pretty-bytes";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  storeImages,
-  clearDropzone,
-  beginCompression,
-  changeCompressionMode
-} from "redux/imageSlice";
+import { storeImages, deleteImage, setPrimaryImage } from "redux/imageSlice";
 import useLocalStorageState from "hooks/useLocalStorage";
 // import { connect } from 'react-redux';
 
@@ -23,115 +29,144 @@ NOTES
     - If user select the same file twice, exclude it.
 **/
 
-const maxFileSize = 10; // 10 MB
+// 10 MB
 
+const MAX_FILE_SIZE = 10;
+const MAX_IMAGES = 6;
 function DropzoneComponent({ compression, ...props }) {
-  const [localKey, setLocalValue] = useLocalStorageState(
-    "new_product_images",
-    []
-  );
-  const [error, setError] = React.useState(null);
-  const images = useSelector(s => s.images.images);
-  const dispatch = useDispatch();
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: ["image/jpeg", "image/png"],
-    onDrop: (acceptedFiles, rejectedFiles) => {
-      // As we are manually generating the preview of selected images, so we don't need to free memory of rejected files.
-      const maxLength = 7;
-      const maxErrorTime = 3200; // 3.2 sec.
-      //  max file size handled already.
-      console.log("Accepted Files", acceptedFiles);
-      console.log("Rejected Files", rejectedFiles);
+  const classes = useStyles();
 
-      // handle errors.
-      // handle blank drag and drop also.
-      // TODO: Handle error of rejected mime type on drag and drop.
-      if (rejectedFiles.length > 0 && rejectedFiles[0].name) {
-        setError(`Max file size limit is ${maxFileSize}MB`);
-        setTimeout(() => {
-          setError(null);
-        }, maxErrorTime);
-      }
+  const [imageFiles, setImageFiles] = React.useState({});
+  const [newFiles, setNewFiles] = React.useState([]);
 
-      if (images.length + acceptedFiles.length > maxLength) {
-        setError(`Max files dropped must not be greater than ${maxLength}`);
-        setTimeout(() => {
-          setError(null);
-        }, maxErrorTime);
-      }
+  const { imagesArr: imagesData, primaryImage } = useSelector(s => s.images);
 
-      // now set the state
-      console.log(`⭐: DropzoneComponent -> acceptedFiles`, acceptedFiles);
-      setLocalValue(acceptedFiles);
+  React.useEffect(() => {
+    if (newFiles) {
+      const res = imagesData.reduce((acc, cur, arr) => {
+        const foundImg = newFiles.find(v => v.name === cur.name);
 
-      let requiredLength = maxLength - images.length;
-      const newFiles = [];
-      for (const it of acceptedFiles) {
-        // if (!requiredLength) break;
-        const sameName = images.find(el => el.name === it.name);
-        if (typeof sameName === "undefined" && requiredLength) {
-          newFiles.push(it);
-          requiredLength--;
+        if (foundImg) {
+          acc[cur?.name] = foundImg;
         }
+        if (cur?.name in imageFiles) {
+          acc[cur.name] = imageFiles[cur.name];
+        }
+        return acc;
+      }, {});
+      console.log(`⭐: DropzoneComponent -> imageFiles`, imageFiles);
+      setImageFiles(res);
+    }
+  }, [imagesData]);
+  const dispatch = useDispatch();
+
+  const onDrop = React.useCallback(
+    acceptedFiles => {
+      const imgMetaData = [];
+      for (const f of acceptedFiles) {
+        console.log(`⭐: DropzoneComponent -> acceptedFiles`, acceptedFiles);
+        const url = window.URL.createObjectURL(f);
+        imgMetaData.push({ name: f.name, blob: url });
       }
-      // generate previews of these new files
-      console.log(`⭐: DropzoneComponent -> newFiles`, newFiles);
-      window.URL = window.URL || window.webkitURL;
-      newFiles.map(file => {
-        return window.URL.createObjectURL(file);
-      });
-      console.log(`⭐: DropzoneComponent -> url`, newFiles);
-
-      // console.log(`⭐: DropzoneComponent -> file`, u);
-      dispatch(storeImages({ newFiles, maxLength }));
-
-      // console.log('Images', images);
-      // console.log('New Files', newFiles);
+      setNewFiles(acceptedFiles);
+      dispatch(storeImages({ imgMetaData }));
+      // setImages([...acceptedFiles, ...imageFiles]);
     },
-    multiple: true,
-    maxSize: maxFileSize * 1024 * 1024
-  });
+    [imageFiles]
+  );
+  const handleDelete = React.useCallback(
+    index => {
+      if (index === 0 && !imageFiles.length > 1) {
+        // setImages([]);
+      } else {
+        // setImages(imageFiles.filter((img, indx) => indx !== index));
+      }
+    },
+    [imageFiles]
+  );
 
   return (
-    <div className="dropzone-wrap" {...getRootProps()}>
-      <DropzoneContainer>
-        {images.length > 0 ? (
-          <>
-            {" "}
-            <div
-              className="clear-dropzone"
-              onClick={() => dispatch(clearDropzone())}
-            >
-              ✕
-            </div>
-            <ul className="list-unstyled d-flex flex-row flex-wrap align-items-center">
-              {images.map(it => (
-                <DropZoneItem />
-              ))}
-            </ul>
-          </>
-        ) : (
-          <>
-            <input name="image" {...getInputProps()} />
-            {/* <img
-              // src={require("assets/refinder-logo.svg")}
-              width="250"
-              alt="dropIcon"
-              className="dropIcon"
-            /> */}
-            <p
-              // className="lead meta-01 mb-0 font-weight-bold"
-              style={{ letterSpacing: "1px" }}
-            >
-              Click to Upload
-            </p>
-            <p className="meta-02 mb-0" style={{ letterSpacing: "1px" }}>
-              or drop your files
-            </p>
-          </>
-        )}
-        <div className={error ? "error-box show" : "error-box"}>{error}</div>
-      </DropzoneContainer>
+    <div className="dropzone-wrap">
+      <StyledContainer maxFileSize={MAX_FILE_SIZE}>
+        <Grid container>
+          {/* <Grid item container xs={6}> */}
+          <GridList cellHeight="200" spacing={3} className={classes.gridList}>
+            {imagesData.map((image, i) => {
+              return (
+                <GridListTile
+                  className={classes.gridListTile}
+                  component="div"
+                  key={i}
+                  cols={1}
+                  rows={1}
+                  item
+                  xs={6}
+                >
+                  <ImageDropzone
+                    onDrop={onDrop}
+                    key={i}
+                    imageIndex={i}
+                    image={image || null}
+                    onDelete={handleDelete}
+                    totalImages={imagesData.length}
+                  />
+                  {image && (
+                    <GridListTileBar
+                      style={{ borderRadius: "5px" }}
+                      // title={tile.title}
+                      // titlePosition="top"
+                      title={
+                        image.name === primaryImage ? (
+                          <IconButton
+                            aria-label={`primary`}
+                            className={classes.iconFilled}
+                          >
+                            <PrimaryFilledIcon fontSize="large" />
+                          </IconButton>
+                        ) : (
+                          <IconButton
+                            aria-label={`primary`}
+                            className={classes.icon}
+                            onClick={() => {
+                              dispatch(setPrimaryImage({ name: image.name }));
+                            }}
+                          >
+                            <PrimaryUnfilledIcon fontSize="large" />
+                          </IconButton>
+                        )
+                      }
+                      actionIcon={
+                        <IconButton
+                          aria-label={`delete`}
+                          className={classes.icon}
+                          onClick={() => {
+                            window.URL.revokeObjectURL(imagesData[i]);
+                            dispatch(
+                              deleteImage({ index: i, name: image.name })
+                            );
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      }
+                      actionPosition="right"
+                      className={classes.titleBar}
+                    />
+                  )}
+                </GridListTile>
+              );
+            })}
+          </GridList>
+          {/* </Grid> */}
+          <Grid item xs={8}></Grid>
+        </Grid>
+        <p
+          className="small"
+          style={{ position: "absolute", left: "2em", bottom: ".2em" }}
+        >
+          Max file size limit:&nbsp;<strong>{MAX_FILE_SIZE} MB</strong>
+        </p>
+      </StyledContainer>
 
       <div className="box-foot mb-5 d-flex flex-row flex-wrap justify-content-between">
         <div className="modes">
@@ -139,34 +174,24 @@ function DropzoneComponent({ compression, ...props }) {
             className={`lossless btn ${
               compression === "lossless" ? "active" : ""
             }`}
-            onClick={e => {
-              e.stopPropagation();
-              e.preventDefault();
-              props.changeCompressionMode("lossless");
-            }}
           >
             Lossless
           </button>
           <button
             className={`lossy btn ${compression === "lossy" ? "active" : ""}`}
-            onClick={e => {
-              e.stopPropagation();
-              e.preventDefault();
-              props.changeCompressionMode("lossy");
-            }}
           >
             Lossy
           </button>
         </div>
         <button
           className="compress-btn btn"
-          disabled={images?.length > 0 ? false : true}
+          disabled={true}
           onClick={e => {
             e.stopPropagation();
             props.beginCompression();
           }}
         >
-          {images.length > 0 ? "Begin Compression" : "Select First"}
+          Next
         </button>
       </div>
       <style jsx>{styles}</style>

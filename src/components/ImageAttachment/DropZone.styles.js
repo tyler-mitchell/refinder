@@ -1,9 +1,43 @@
 import { css } from "styled-components";
 import grey from "@material-ui/core/colors/grey";
 import red from "@material-ui/core/colors/red";
+import { Container, makeStyles } from "@material-ui/core";
 import styled from "styled-components";
 import React from "react";
-const StyledContainer = styled.div`
+
+export const useStyles = makeStyles(theme => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden",
+    backgroundColor: theme.palette.background.paper
+  },
+  gridList: {
+    width: 500,
+    height: "100%",
+
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: "translateZ(0)"
+  },
+  gridListTile: {
+    // width: "200px",
+    overflow: "hidden",
+    borderRadius: "5px"
+  },
+  titleBar: {
+    background:
+      "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
+      "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)"
+  },
+  icon: {
+    color: "white"
+  },
+  iconFilled: {
+    color: "#f8bb32"
+  }
+}));
+export const StyledContainer = styled.div`
   min-height: 400px;
   padding: 0.8rem;
   background: #fff;
@@ -19,17 +53,7 @@ const StyledContainer = styled.div`
 `;
 
 export const DropzoneContainer = ({ maxFileSize, children }) => {
-  return (
-    <StyledContainer>
-      {children}
-      <p
-        className="small"
-        style={{ position: "absolute", left: "2em", bottom: ".2em" }}
-      >
-        Max file size limit:&nbsp;<strong>{maxFileSize} MB</strong>
-      </p>
-    </StyledContainer>
-  );
+  return <StyledContainer>{children}</StyledContainer>;
 };
 
 export default css`
