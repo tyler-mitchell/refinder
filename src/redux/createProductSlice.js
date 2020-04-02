@@ -5,7 +5,11 @@ export const addToFirebase = createAsyncThunk(
   async (test, { getState, requestId }) => {
     // const { currentRequestId, loading } = getState().users;
     const { uid, displayName, avatar } = getState().auth.userData;
-    const { data: formData, productDocId } = getState().createProduct;
+    const {
+      data: formData,
+      productDocId,
+      productImages
+    } = getState().createProduct;
 
     // if (loading !== "pending" || requestId !== currentRequestId) {
     //   return;
@@ -15,6 +19,7 @@ export const addToFirebase = createAsyncThunk(
       displayName,
       avatar,
       free: false,
+      productImages,
 
       ...formData,
       created: fieldValue.serverTimestamp()
@@ -42,7 +47,8 @@ export const createProductSlice = createSlice({
   initialState: {
     data: {},
     res: null,
-    productDocId: null
+    productDocId: null,
+    productImages: []
   },
 
   reducers: {
@@ -50,6 +56,11 @@ export const createProductSlice = createSlice({
       const { formData } = action.payload;
       console.log(`⭐: formData`, formData);
       state.data = { ...state.data, ...formData };
+    },
+    addProductImage: (state, action) => {
+      const { data } = action.payload;
+
+      state.productImages.push(data);
     },
     setProductDocId: state => {
       state.productDocId = database.collection("materials").doc().id;
@@ -69,7 +80,8 @@ export const {
   increment,
   decrement,
   addToForm,
-  setProductDocId
+  setProductDocId,
+  addProductImage
 } = createProductSlice.actions;
 
 export default createProductSlice.reducer;

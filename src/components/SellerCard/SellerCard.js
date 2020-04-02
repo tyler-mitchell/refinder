@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
@@ -48,18 +49,36 @@ const Setting = ({ label, icon, blue }) => {
   );
 };
 
-const ChatSettings = () => {
+const SellerCard = ({ name }) => {
   const styles = useStyles();
   return (
     <div>
-      <Box p={"14px 14px 16px 14px"} textAlign={"center"}>
+      <Box
+        p={"14px 14px 16px 14px"}
+        textAlign={"center"}
+        display="flex"
+        flexDirection="column"
+        alignContent="center"
+      >
         <Avatar
           className={styles.avatar}
           src={"https://i.pravatar.cc/300?img=13"}
         />
-        <Typography className={styles.name} variant={"h1"} align={"center"}>
-          Imaad Casey
+        <Typography
+          className={styles.name}
+          variant={"h1"}
+          align={"center"}
+          gutterBottom
+        >
+          {name}
         </Typography>
+        <Button
+          color="primary"
+          variant="contained"
+          style={{ textTransform: "none" }}
+        >
+          Make Offer
+        </Button>
       </Box>
       <Divider />
       <SettingHeader opened>Options</SettingHeader>
@@ -79,4 +98,4 @@ const ChatSettings = () => {
   );
 };
 
-export default ChatSettings;
+export default SellerCard;

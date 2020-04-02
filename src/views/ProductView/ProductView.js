@@ -7,7 +7,11 @@ import {
   Tabs,
   Tab,
   Paper,
-  makeStyles
+  makeStyles,
+  GridList,
+  Grid,
+  GridListTile,
+  Container
 } from "@material-ui/core";
 import MaterialMap from "components/Map";
 import ChatWindow from "components/Chat";
@@ -22,6 +26,8 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import { database } from "firebase/core";
 import { initializeProduct } from "redux/productSlice";
 import { useDispatch, useSelector } from "react-redux";
+import ProductImages from "./ProductImages";
+import SellerCard from "components/SellerCard";
 const useStyles = makeStyles({
   root: {
     flexGrow: 1
@@ -74,23 +80,48 @@ const ProductView = () => {
             <Tab value="discussion" label="Offer" />
           </Tabs>
         </Paper>
-        <div>
-          <Typography variant="h3">{product?.title}</Typography>
-          <Button
-            onClick={() => {
-              navigate("discussion");
-            }}
+        <Container maxWidth="lg" style={{ paddingTop: "30px" }}>
+          <Grid
+            container
+            component={Paper}
+            variant="outlined"
+            style={{ padding: "20px" }}
+            item
+            justify="space-between"
+            // alignContent="stretch"
+            // xs={5}
           >
-            Make Offer
-          </Button>
+            <Grid item>
+              <ProductImages
+                productImages={product?.productImages ?? [{ downloadUrl: "" }]}
+              />
+            </Grid>
+
+            <Grid item>
+              <Paper
+                variant="outlined"
+                style={{ padding: "10px", borderRadius: "8px" }}
+              >
+                <SellerCard name={product?.displayName} />
+              </Paper>
+            </Grid>
+            {/* <Button
+                  onClick={() => {
+                    navigate("discussion");
+                  }}
+                >
+                  Make Offer
+                </Button> */}
+          </Grid>
+
           {/* <img 
-                src={require(`./wood1.jpg`)}
-                alt="woodSomething"
-                width="40"
-                height="40"
-                align="left"
-            /> */}
-        </div>
+                  src={require(`./wood1.jpg`)}
+                  alt="woodSomething"
+                  width="40"
+                  height="40"
+                  align="left"
+              /> */}
+        </Container>
 
         <div>
           {/* <Outlet /> */}

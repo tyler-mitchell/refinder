@@ -1,6 +1,7 @@
 import { storage, storageRef, taskEvent } from "./core";
 import { useState, useEffect } from "react";
-
+import { addProductImage } from "redux/createProductSlice";
+import { useDispatch } from "react-redux";
 /**
  * Utility function to upload a file in a Firebase storage bucket
  *
@@ -62,6 +63,7 @@ export async function createOrUpdateFile(resource, rawFile, uploadFile) {
 // const storageRef = storage().ref();
 
 function FirebaseFileUploadApi(fileInfo) {
+  const dispatch = useDispatch();
   const { root, fileName, folder } = fileInfo;
   console.log(`⭐: FirebaseFileUploadApi -> folder`, folder);
   // the data from the file upload response
@@ -75,6 +77,7 @@ function FirebaseFileUploadApi(fileInfo) {
   // used for tracking the % of upload completed
   const [progress, setProgress] = useState(null);
 
+  const [imgDataArr, setImgDataArr] = useState([]);
   const promises = [];
   // this function will be called when the any properties in the dependency array changes
   useEffect(() => {
@@ -92,7 +95,7 @@ function FirebaseFileUploadApi(fileInfo) {
         if (!Array.isArray(fileData)) return;
 
         // setting the firebase properties for the file upload
-        fileData.forEach(fileData => {
+        fileData.forEach(({ file: fileData, primary }) => {
           const resourceName = fileName ? fileName : fileData?.name;
           let ref = storageRef.child(`${root}/${folder}/${fileData.name}`);
           let uploadTask = ref.put(fileData);
@@ -118,10 +121,13 @@ function FirebaseFileUploadApi(fileInfo) {
               // need to get the url to download the file
               let downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
               // set the data when upload has completed
+              const { fullPath, contentType } = uploadTask.snapshot.metadata;
               setData({
-                metaData: uploadTask.snapshot.metadata,
-                downloadUrl
+                metaData: { fullPath, contentType },
+                downloadUrl,
+                isPrimary: primary
               });
+
               // reset progress
               setProgress(null);
             }
@@ -138,6 +144,13 @@ function FirebaseFileUploadApi(fileInfo) {
     fileData && uploadData();
   }, [fileData]);
 
-  return [{ data, isLoading, isError, progress }, setFileData];
+  useEffect(() => {
+    if (data) {
+      setImgDataArr([...imgDataArr, data]);
+      dispatch(addProductImage({ data }));
+    }
+  }, [data]);
+
+  return [{ imgDataArr, data, isLoading, isError, progress }, setFileData];
 }
 export default FirebaseFileUploadApi;
