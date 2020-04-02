@@ -107,15 +107,25 @@ const SellerCard = ({ name }) => {
         <Button
           color="primary"
           variant="contained"
-          style={{ textTransform: "none" }}
+          style={{ textTransform: "none", marginBottom: "10px" }}
           onClick={() => {
             navigate("discussion");
           }}
         >
           Make Offer
         </Button>
+        <Button
+          // color="primary"
+          variant="outlined"
+          style={{ textTransform: "none", opacity: 0.7 }}
+          onClick={() => {
+            navigate("discussion");
+          }}
+        >
+          <Typography color="textSecondary"> Contact Seller</Typography>
+        </Button>
       </Box>
-      <Divider />
+      {/* <Divider /> */}
       {/* <SettingHeader opened>Options</SettingHeader>
       <Box pb={2}>
         <Setting label={"Search in Conversation"} icon={<Search />} />

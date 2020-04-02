@@ -9,6 +9,7 @@ import {
   Paper,
   makeStyles,
   GridList,
+  Box,
   Grid,
   GridListTile,
   Container
@@ -105,6 +106,7 @@ const ProductView = () => {
                     {product?.title}
                   </Typography>
                 </Grid>
+                <Box mb="15px" />
                 <Grid item>
                   <Typography
                     variant="subtitle1"

@@ -12,6 +12,7 @@ import {
   Toolbar,
   CssBaseline,
   Typography,
+  Chip,
   Avatar,
   ListItem,
   List,
@@ -148,16 +149,37 @@ const MarketplaceView = () => {
                     Refinder
                   </Link>
 
-                  <div style={{ flexGrow: 1 }} />
+                  {/* <div style={{ flexGrow: 1 }} /> */}
 
                   <SearchBar />
-                  <div style={{ flexGrow: 1 }} />
+                  {/* <div style={{ flexGrow: 1 }} /> */}
                   {userData && (
-                    <Typography variant="subtitle2">
-                      Hello, {userData.displayName}
-                    </Typography>
+                    <Chip
+                      size="small"
+                      variant="outlined"
+                      icon={
+                        <Avatar
+                          style={{
+                            height: "24px",
+                            width: "24px",
+                            position: "relative",
+                            left: -2
+                          }}
+                          src={userData?.avatar}
+                        />
+                      }
+                      label={
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          noWrap
+                        >
+                          {userData.displayName}
+                        </Typography>
+                      }
+                    />
                   )}
-                  <div style={{ flexGrow: 1 }} />
+                  {/* <div style={{ flexGrow: 1 }} /> */}
                 </Toolbar>
               </Header>
 

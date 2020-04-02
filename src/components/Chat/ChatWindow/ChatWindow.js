@@ -63,7 +63,7 @@ const ChatWindow = () => {
               className={styles.contentContainer}
               style={{ background: "#EBEAE9" }}
             >
-              <Box width="30%" />
+              {/* <Box width="30%" /> */}
               {/* <div
                 ref={dialogRef}
                 style={{
@@ -90,7 +90,7 @@ const ChatWindow = () => {
               </SecondaryInsetSidebar> */}
             </InsetContainer>
 
-            <InsetContainer></InsetContainer>
+            {/* <InsetContainer></InsetContainer> */}
             <Footer className={styles.footer}>
               {" "}
               <ChatBar />

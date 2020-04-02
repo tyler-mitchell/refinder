@@ -1,6 +1,14 @@
 import React from "react";
 import cx from "clsx";
-import { Typography, makeStyles, Card, CardContent } from "@material-ui/core";
+import {
+  Typography,
+  makeStyles,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Divider
+} from "@material-ui/core";
 const useOverShadowStyles = {
   root: ({ inactive }) => ({
     boxShadow: "0px 14px 80px rgba(34, 35, 58, 0.2)",
@@ -21,25 +29,26 @@ const useStyles = makeStyles(() => ({
     color: "#9e9e9e",
     letterSpacing: "2px",
     fontSize: 14,
-    marginTop: 12
+    marginTop: 0
   },
   heading: {
     textAlign: "center",
-    fontSize: 32,
-    lineHeight: 2,
-    fontWeight: 300,
+    fontSize: 26,
+
+    lineHeight: 1,
+    fontWeight: 600,
     fontFamily:
       // eslint-disable-next-line max-len
       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
     // marginBottom: "0.72em",
     "&:after": {
-      content: '""',
-      width: 24,
-      height: 2,
-      backgroundColor: "#ddd",
-      display: "block",
-      margin: "8px auto",
-      borderRadius: 2
+      // content: '""',
+      // width: 24,
+      // height: 2,
+      // backgroundColor: "#ddd",
+      // display: "block",
+      // // margin: "8px auto",
+      // borderRadius: 2
     }
   },
   body: {
@@ -53,16 +62,20 @@ const useStyles = makeStyles(() => ({
   root: {
     boxShadow: "0px 14px 80px rgba(34, 35, 58, 0.2)",
     width: "200px",
-    borderRadius: "30px 15px 8px 30px"
+    height: "108px"
+    // display: "flex",
+    // justifyContent: "center",
+    // alignItems: "center"
+    // borderRadius: "45px 25px 8px 45px"
   }
 }));
 
-const Offer = ({ price, overline }) => {
+const Offer = ({ price, overline, classes }) => {
   const styles = useStyles();
   // const shadowStyles = useOverShadowStyles({ inactive: true });
   return (
     <Card className={cx(styles.root)}>
-      <CardContent>
+      <CardContent style={{ paddingBottom: 0 }}>
         {overline && (
           <Typography
             component={"span"}
@@ -76,6 +89,7 @@ const Offer = ({ price, overline }) => {
           component={"h4"}
           // {...headingProps}
           className={cx(styles.heading)}
+          gutterBottom
         >
           {/* {heading} */}
           {price}
@@ -84,6 +98,10 @@ const Offer = ({ price, overline }) => {
           {body}
         </Typography> */}
       </CardContent>
+      <Divider />
+      <CardActions style={{ padding: 0, marginBottom: 0 }}>
+        <Button style={{ width: "100%" }}>Accept</Button>
+      </CardActions>
     </Card>
   );
 };

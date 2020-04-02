@@ -17,6 +17,7 @@ export default makeStyles(() => ({
     // flex: 1,
     minHeight: 0,
     height: "500px",
+    width: "100%",
     borderRadius: "10px"
   },
   content: {

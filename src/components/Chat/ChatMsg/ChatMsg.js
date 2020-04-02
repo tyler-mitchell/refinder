@@ -54,7 +54,11 @@ const ChatMsg = ({ avatar, messages, side }) => {
                   <img className={styles.image} alt={msg.alt} {...msg} />
                 )}
                 {typeof msg === "object" && msg.type === "offer" && (
-                  <Offer price="$32" overline="Your offer" />
+                  <Offer
+                    classes={styles[`${side}Row`]}
+                    price="$32"
+                    overline="Current price"
+                  />
                   // <img className={styles.image} alt={msg.alt} {...msg} />
                 )}
                 <IconButton className={styles.iconBtn}>
