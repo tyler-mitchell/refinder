@@ -113,7 +113,7 @@ const CreateProductView = () => {
   function onSubmit(values) {
     dispatch(addToForm({ formData: values }));
     console.log(`⭐: CreateProductView -> formData`, formData);
-    // dispatch(addToFirebase(formData));
+    dispatch(addToFirebase(formData));
   }
   const { handleSubmit, errors, register, formState, control } = useForm();
 
