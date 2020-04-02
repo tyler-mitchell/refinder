@@ -10,12 +10,14 @@ export default makeStyles(() => ({
     overflowY: "auto"
   },
   insetDrawerPaper: {
-    width: "100%",
-    maxWidth: 300
+    width: "100%"
+    // maxWidth: 300
   },
   contentContainer: {
-    flex: 1,
-    minHeight: 0
+    // flex: 1,
+    minHeight: 0,
+    height: "500px",
+    borderRadius: "10px"
   },
   content: {
     maxHeight: "100%",

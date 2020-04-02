@@ -9,7 +9,7 @@ import Gif from "@material-ui/icons/Gif";
 import Image from "@material-ui/icons/Image";
 import Note from "@material-ui/icons/Note";
 import ThumbUp from "@material-ui/icons/ThumbUp";
-import TagFaces from "@material-ui/icons/TagFaces";
+import SendIcon from "@material-ui/icons/SendRounded";
 import { useForm, Controller } from "react-hook-form";
 import useStyles from "./ChatBar.styles";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,13 +29,13 @@ const ChatBar = ({ concise }) => {
   return (
     <>
       <AddCircle className={styles.icon} />
-      {!concise && (
+      {/* {!concise && (
         <>
           <Gif className={styles.icon} />
           <Note className={styles.icon} />
           <Image className={styles.icon} />
         </>
-      )}
+      )} */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         style={{ width: "100%", position: "relative" }}
@@ -51,12 +51,12 @@ const ChatBar = ({ concise }) => {
           name="message"
           endAdornment={
             <InputAdornment position={"end"}>
-              <TagFaces className={styles.icon} />
+              <SendIcon className={styles.icon} />
             </InputAdornment>
           }
         />
       </form>
-      <ThumbUp className={styles.icon} />
+      {/* <ThumbUp className={styles.icon} /> */}
     </>
   );
 };

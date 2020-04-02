@@ -96,11 +96,15 @@ const ChatDialog = ({ isAdmin }) => {
                 side={messageGroup.sender === uid ? "right" : "left"}
                 messages={messageGroup.contents}
               />
-              {messageGroup.sender}
+              {/* {messageGroup.sender} */}
             </>
           );
         })}
-
+        <ChatMsg
+          avatar={AVATAR}
+          side={"right"}
+          messages={[{ type: "offer" }]}
+        />
         {/* <ChatMsg
         avatar={AVATAR}
         messages={[
@@ -146,8 +150,8 @@ const ChatDialog = ({ isAdmin }) => {
             `⭐: ChatDialog -> productInfo.uid `,
             productInfo.ownerId
           )}
-          {uid === productInfo.ownerId ? "You are OWNER" : "You are CUSTOMER"}
-          {": " + uid}
+          {/* {uid === productInfo.ownerId ? "You are OWNER" : "You are CUSTOMER"} */}
+          {/* {": " + uid} */}
         </Typography>
       </Box>
     )

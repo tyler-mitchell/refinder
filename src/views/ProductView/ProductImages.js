@@ -82,7 +82,7 @@ export default function TextMobileStepper({ productImages }) {
       <MobileStepper
         steps={maxSteps}
         position="static"
-        variant="text"
+        variant="dots"
         activeStep={activeStep}
         nextButton={
           <Button

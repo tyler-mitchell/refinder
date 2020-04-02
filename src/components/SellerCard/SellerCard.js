@@ -8,12 +8,13 @@ import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
+import StarIcon from "@material-ui/icons/Star";
 import Search from "@material-ui/icons/Search";
 import Edit from "@material-ui/icons/Edit";
 import ThumbUp from "@material-ui/icons/ThumbUp";
 import FormatPaint from "@material-ui/icons/FormatPaint";
 import useStyles from "./SellerCard.styles";
-
+import { useNavigate } from "react-router";
 const SettingHeader = ({ children, opened }) => {
   const styles = useStyles();
   return (
@@ -32,6 +33,7 @@ const SettingHeader = ({ children, opened }) => {
 
 const Setting = ({ label, icon, blue }) => {
   const styles = useStyles();
+
   return (
     <Box
       height={"44px"}
@@ -51,6 +53,7 @@ const Setting = ({ label, icon, blue }) => {
 
 const SellerCard = ({ name }) => {
   const styles = useStyles();
+  const navigate = useNavigate();
   return (
     <div>
       <Box
@@ -72,16 +75,48 @@ const SellerCard = ({ name }) => {
         >
           {name}
         </Typography>
+        <Box mb={2}>
+          <StarIcon
+            style={{
+              color: "#FFCA28",
+              marginRight: "7px",
+              verticalAlign: "middle",
+              alignItems: "center",
+              position: "relative"
+            }}
+          />
+
+          <Typography
+            color="textSecondary"
+            display="inline"
+            // style={{ display: "inline-block" }}
+            // variant={"subtitle2"}
+          >
+            <b>4.8/5</b>
+          </Typography>
+          {"    "}
+          <Typography
+            color="textSecondary"
+            display="inline"
+            // style={{ display: "inline-block" }}
+            // variant={"subtitle2"}
+          >
+            (6)
+          </Typography>
+        </Box>
         <Button
           color="primary"
           variant="contained"
           style={{ textTransform: "none" }}
+          onClick={() => {
+            navigate("discussion");
+          }}
         >
           Make Offer
         </Button>
       </Box>
       <Divider />
-      <SettingHeader opened>Options</SettingHeader>
+      {/* <SettingHeader opened>Options</SettingHeader>
       <Box pb={2}>
         <Setting label={"Search in Conversation"} icon={<Search />} />
         <Setting label={"Edit Nicknames"} icon={<Edit />} />
@@ -93,7 +128,7 @@ const SellerCard = ({ name }) => {
       <Divider />
       <SettingHeader>Shared files</SettingHeader>
       <Divider />
-      <SettingHeader>Shared Photos</SettingHeader>
+      <SettingHeader>Shared Photos</SettingHeader> */}
     </div>
   );
 };

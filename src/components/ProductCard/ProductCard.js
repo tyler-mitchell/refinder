@@ -93,6 +93,13 @@ const ProductCard = props => {
   const lightBlurColor = "#FAFAFA";
   const navigate = useNavigate();
   const classes = useStyles();
+  function getThumbnail() {
+    if (props?.productImages) {
+      return props.productImages.find(img => img.isPrimary === true)
+        .downloadUrl;
+    }
+    return `https://source.unsplash.com/collection/8793876/${props.index})`;
+  }
   return (
     <Card
       style={{
@@ -153,7 +160,7 @@ const ProductCard = props => {
               // classes={classes}
               // style={{ borderRadius: "7px" }}
               // component="img"
-              image={`https://source.unsplash.com/collection/8793876/${props.index})`}
+              image={getThumbnail()}
               title="material image"
             />
           </Grid>
@@ -227,7 +234,7 @@ const ProductCard = props => {
           navigate(props.id, { state: props });
         }}
       >
-        View
+        {/* View */}
       </Button>
       {/* <CardActions>
         <div style={{ flexGrow: 1 }} />

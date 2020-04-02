@@ -28,6 +28,7 @@ import { initializeProduct } from "redux/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ProductImages from "./ProductImages";
 import SellerCard from "components/SellerCard";
+import Map from "components/Map";
 const useStyles = makeStyles({
   root: {
     flexGrow: 1
@@ -68,7 +69,7 @@ const ProductView = () => {
   return (
     !loading && (
       <>
-        <Paper className={classes.root}>
+        {/* <Paper className={classes.root}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -79,31 +80,59 @@ const ProductView = () => {
             <Tab value="" label="Product Detail" />
             <Tab value="discussion" label="Offer" />
           </Tabs>
-        </Paper>
-        <Container maxWidth="lg" style={{ paddingTop: "30px" }}>
+        </Paper> */}
+        <Container maxWidth="lg" style={{ padding: "30px" }}>
           <Grid
             container
-            component={Paper}
-            variant="outlined"
-            style={{ padding: "20px" }}
+            // spacing={3}
+            style={{ background: "white" }}
             item
             justify="space-between"
             // alignContent="stretch"
             // xs={5}
           >
-            <Grid item>
-              <ProductImages
-                productImages={product?.productImages ?? [{ downloadUrl: "" }]}
-              />
+            <Grid item container xs={9} spacing={2}>
+              <Grid item xs={6}>
+                <ProductImages
+                  productImages={
+                    product?.productImages ?? [{ downloadUrl: "" }]
+                  }
+                />
+              </Grid>
+              <Grid container item direction="column" xs={6}>
+                <Grid item>
+                  <Typography variant="h4" style={{ fontWeight: "bold" }}>
+                    {product?.title}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography
+                    variant="subtitle1"
+                    style={{ fontWeight: "bold" }}
+                    gutterBottom
+                  >
+                    Description
+                  </Typography>
+                  <Typography variant="body1" gutterBottom>
+                    {product?.description}
+                  </Typography>
+                  <Outlet />
+                </Grid>
+              </Grid>
             </Grid>
 
-            <Grid item>
-              <Paper
-                variant="outlined"
-                style={{ padding: "10px", borderRadius: "8px" }}
-              >
-                <SellerCard name={product?.displayName} />
-              </Paper>
+            <Grid item container direction="column" spacing={3} xs={3}>
+              <Grid item>
+                <Paper
+                  variant="outlined"
+                  style={{ padding: "10px", borderRadius: "8px" }}
+                >
+                  <SellerCard name={product?.displayName} />
+                </Paper>
+              </Grid>
+              <Grid item style={{ width: "100%" }}>
+                <Map />
+              </Grid>
             </Grid>
             {/* <Button
                   onClick={() => {

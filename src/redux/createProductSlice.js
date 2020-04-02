@@ -59,8 +59,11 @@ export const createProductSlice = createSlice({
     },
     addProductImage: (state, action) => {
       const { data } = action.payload;
-
-      state.productImages.push(data);
+      if (data.isPrimary) {
+        state.productImages.unshift(data);
+      } else {
+        state.productImages.push(data);
+      }
     },
     setProductDocId: state => {
       state.productDocId = database.collection("materials").doc().id;

@@ -113,7 +113,7 @@ const ProductLogView = () => {
         spacing={3}
         style={{ paddingBottom: "30px" }}
       >
-        <SearchBar />
+        {/* <SearchBar /> */}
 
         <Grid item>
           <FilterSidebar />

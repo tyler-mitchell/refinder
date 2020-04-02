@@ -45,6 +45,7 @@ import {
 } from "@material-ui/core/styles";
 import theme from "theme";
 import { AuthContext } from "../../firebase/Auth";
+import SearchBar from "components/SearchBar";
 
 const theme2 = responsiveFontSizes(
   createMuiTheme({
@@ -115,6 +116,7 @@ const MarketplaceView = () => {
         initialCollapsed={true}
         initialSecondaryOpened={true}
         config={rootconfig}
+        style={{ background: "#EBEAE9" }}
         // config={cozyLayoutPreset}
         omitThemeProvider
         // style={{ overflow: "visible" }}
@@ -129,7 +131,7 @@ const MarketplaceView = () => {
           <>
             <ThemeProvider theme={theme2}>
               <CssBaseline />
-              <Header>
+              <Header style={{ background: "white" }}>
                 <Toolbar>
                   <SidebarTrigger className={headerStyles.leftTrigger}>
                     <SidebarTriggerIcon />
@@ -141,16 +143,21 @@ const MarketplaceView = () => {
                     onClick={() => {
                       navigate("/");
                     }}
-                    variant="h5"
+                    variant="h6"
                   >
                     Refinder
                   </Link>
+
+                  <div style={{ flexGrow: 1 }} />
+
+                  <SearchBar />
                   <div style={{ flexGrow: 1 }} />
                   {userData && (
                     <Typography variant="subtitle2">
                       Hello, {userData.displayName}
                     </Typography>
                   )}
+                  <div style={{ flexGrow: 1 }} />
                 </Toolbar>
               </Header>
 
@@ -171,12 +178,14 @@ const MarketplaceView = () => {
                   <Route
                     path="/materials/:materialID"
                     element={<ProductView />}
-                  />
-
+                  >
+                    <Route path="discussion" element={<ProductChatView />} />
+                  </Route>
+                  {/* 
                   <Route
                     path="/materials/:materialID/discussion"
                     element={<ProductChatView />}
-                  />
+                  /> */}
                   <Route path="/services" element={<ProductsListView />} />
                   <Route path="/dashboard" element={<DashboardView />} />
                   <Route path="/sell" element={<CreateProductView />} />

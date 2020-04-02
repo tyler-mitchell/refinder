@@ -124,7 +124,7 @@ export default {
     header: {
       position: "fixed",
       offsetHeight: 64,
-      clipped: true,
+      clipped: false,
       secondaryClipped: false,
       persistentBehavior: "fit",
       secondaryPersistentBehavior: "none"

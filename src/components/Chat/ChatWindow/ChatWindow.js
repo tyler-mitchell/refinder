@@ -2,8 +2,15 @@ import React, { Suspense } from "react";
 import ChatSettings from "components/Chat/ChatSettings";
 import ChatBar from "components/Chat/ChatBar";
 import ChatDialog from "components/Chat/ChatDialog";
-
-import { Container, Grid, makeStyles, Box } from "@material-ui/core";
+import { useNavigate } from "react-router";
+import {
+  Container,
+  Grid,
+  makeStyles,
+  Box,
+  Dialog,
+  DialogContent
+} from "@material-ui/core";
 import ChatContextProvider from "../ChatContext";
 import {
   Root,
@@ -20,6 +27,7 @@ import useStyles from "./ChatWindow.styles";
 // const ChatDialog = React.lazy(() => import("../ChatDialog"));
 const ChatWindow = () => {
   const styles = useStyles();
+  let navigate = useNavigate();
   const dialogRef = React.createRef();
   const [dialogHeight, setDialogHeight] = React.useState(0);
   React.useLayoutEffect(() => {
@@ -40,36 +48,55 @@ const ChatWindow = () => {
   return (
     <>
       <ChatContextProvider>
-        <InsetContainer className={styles.contentContainer}>
-          <Box width="30%" />
-          <div
-            ref={dialogRef}
-            style={{
-              overflowY: "auto",
-              height: dialogHeight,
-              width: "100%"
-            }}
-          >
-            {/* <Content className={styles.content}> */}
-            {/* <Suspense fallback={<div>loading</div>}> */}
-            <ChatDialog />
-            {/* </Suspense> */}
-            {/* </Content> */}
-          </div>
+        <Dialog
+          open={true}
+          // onClose={handleClose}
+          onClose={() => {
+            navigate("../");
+          }}
+          maxWidth="xl"
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogContent style={{ width: "100%" }}>
+            <InsetContainer
+              className={styles.contentContainer}
+              style={{ background: "#EBEAE9" }}
+            >
+              <Box width="30%" />
+              {/* <div
+                ref={dialogRef}
+                style={{
+                  overflowY: "auto",
+                  height: dialogHeight,
+                  width: "100%"
+                }}
+              > */}
+              {/* <Content className={styles.content}> */}
+              {/* <Suspense fallback={<div>loading</div>}> */}
+              <ChatDialog />
+              <div className={styles.footer}></div>
 
-          <SecondaryInsetSidebar
-            className={styles.insetSidebar}
-            BodyProps={{ className: styles.insetBody }}
-            PaperProps={{ classes: { root: styles.insetDrawerPaper } }}
-          >
-            <ChatSettings />
-          </SecondaryInsetSidebar>
-        </InsetContainer>
-        <InsetContainer></InsetContainer>
+              {/* </Suspense> */}
+              {/* </Content> */}
+              {/* </div> */}
 
-        <Footer className={styles.footer}>
-          <ChatBar />
-        </Footer>
+              {/* <SecondaryInsetSidebar
+                className={styles.insetSidebar}
+                BodyProps={{ className: styles.insetBody }}
+                PaperProps={{ classes: { root: styles.insetDrawerPaper } }}
+              >
+                <ChatSettings />
+              </SecondaryInsetSidebar> */}
+            </InsetContainer>
+
+            <InsetContainer></InsetContainer>
+            <Footer className={styles.footer}>
+              {" "}
+              <ChatBar />
+            </Footer>
+          </DialogContent>
+        </Dialog>
       </ChatContextProvider>
     </>
   );
