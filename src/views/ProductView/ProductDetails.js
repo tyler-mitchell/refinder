@@ -5,7 +5,7 @@ import MinusIcon from "@material-ui/icons/Remove";
 const Price = () => {
   return (
     <>
-      <Typography variant="h6">$ 150 / lb </Typography>
+      <Typography variant="h6">$ 150 </Typography>
     </>
   );
 };

@@ -37,7 +37,7 @@ import FavoriteIcon from "@material-ui/icons/FavoriteBorderRounded";
 import FavoriteIconFilled from "@material-ui/icons/FavoriteRounded";
 import MoreOptionsIcon from "@material-ui/icons/MoreHorizRounded";
 import ShareIcon from "@material-ui/icons/ShareRounded";
-
+import TimeAgo from "timeago-react";
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -134,14 +134,25 @@ const ProductView = () => {
                       <MoreOptionsIcon />
                     </IconButton>
                   </Box>
-                  <Typography
-                    variant="subtitle2"
-                    color="textSecondary"
-                    style={{ fontWeight: "bold" }}
-                    gutterBottom
-                  >
-                    29103 Flying Arrow
-                  </Typography>
+                  <Box display="flex" justifyContent="space-between">
+                    <Typography
+                      variant="subtitle2"
+                      color="textSecondary"
+                      // display="inline"
+                      style={{ fontWeight: "bold" }}
+                    >
+                      29103 Flying Arrow
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      color="textSecondary"
+                      align="right"
+                      // display="inline"
+                      style={{ fontWeight: "bold" }}
+                    >
+                      <TimeAgo datetime={product?.created?.toDate()} />
+                    </Typography>
+                  </Box>
                 </Grid>
                 <Divider />
                 <Box mb="15px" />
