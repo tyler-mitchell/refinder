@@ -9,7 +9,7 @@ import {
   makeStyles,
   Box,
   Dialog,
-  DialogContent
+  DialogContent,
 } from "@material-ui/core";
 import ChatContextProvider from "../ChatContext";
 import {
@@ -20,7 +20,7 @@ import {
   SecondaryInsetSidebar,
   InsetContainer,
   Footer,
-  ConfigGenerator
+  ConfigGenerator,
 } from "@mui-treasury/layout";
 import useStyles from "./ChatWindow.styles";
 
@@ -57,11 +57,16 @@ const ChatWindow = () => {
           maxWidth="xl"
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          PaperProps={{
+            style: {
+              borderRadius: "10px",
+            },
+          }}
         >
           <DialogContent style={{ width: "100%" }}>
             <InsetContainer
               className={styles.contentContainer}
-              style={{ background: "#EBEAE9" }}
+              style={{ background: "#f8f8f7" }}
             >
               {/* <Box width="30%" /> */}
               {/* <div

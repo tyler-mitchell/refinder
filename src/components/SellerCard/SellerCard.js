@@ -45,7 +45,7 @@ const Setting = ({ label, icon, blue }) => {
     >
       <Typography variant={"body2"}>{label}</Typography>
       {React.cloneElement(icon, {
-        className: cx(styles.settingIcon, blue && styles.blue)
+        className: cx(styles.settingIcon, blue && styles.blue),
       })}
     </Box>
   );
@@ -71,6 +71,7 @@ const SellerCard = ({ name }) => {
           className={styles.name}
           variant={"h1"}
           align={"center"}
+          style={{ fontFamily: "Inter", fontWeight: 700 }}
           gutterBottom
         >
           {name}
@@ -82,7 +83,7 @@ const SellerCard = ({ name }) => {
               marginRight: "7px",
               verticalAlign: "middle",
               alignItems: "center",
-              position: "relative"
+              position: "relative",
             }}
           />
 
@@ -92,13 +93,19 @@ const SellerCard = ({ name }) => {
             // style={{ display: "inline-block" }}
             // variant={"subtitle2"}
           >
-            <b>4.8/5</b>
+            <span style={{ fontWeight: 490 }}>
+              4.8
+              <Box px="2px" fontWeight={430} display="inline">
+                {"/"}
+              </Box>
+              5
+            </span>
           </Typography>
           {"    "}
           <Typography
             color="textSecondary"
             display="inline"
-            // style={{ display: "inline-block" }}
+            style={{ fontWeight: 260 }}
             // variant={"subtitle2"}
           >
             (6)
@@ -122,7 +129,10 @@ const SellerCard = ({ name }) => {
             navigate("discussion");
           }}
         >
-          <Typography color="textSecondary"> Contact Seller</Typography>
+          <Typography color="textSecondary" style={{ fontWeight: 550 }}>
+            {" "}
+            Contact Seller
+          </Typography>
         </Button>
       </Box>
       {/* <Divider /> */}

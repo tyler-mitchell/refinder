@@ -2,11 +2,11 @@ import palette from "./palette";
 
 export default {
   fontFamily:
-    '"Baloo 2", cursive, "Public Sans",Roboto,"Helvetica Neue",Arial, sans-serif',
+    '"Baloo 2", cursive, "Public Sans", Roboto,"Helvetica Neue",Arial, sans-serif',
 
   h1: {
     color: palette.text.primary,
-    fontWeight: 500
+    fontWeight: 500,
 
     //fontSize: 35,
     // letterSpacing: 0.24,
@@ -15,7 +15,7 @@ export default {
     color: palette.text.primary,
     fontWeight: 600,
     verticalAlign: "bottom",
-    lineHeight: 1
+    lineHeight: 1,
     // lineHeight: '0.5em',
 
     //fontSize: 29,
@@ -25,51 +25,51 @@ export default {
     color: palette.text.primary,
     fontWeight: 500,
     //fontSize: 24,
-    letterSpacing: 0.06
+    letterSpacing: 0.06,
   },
   h4: {
     color: palette.text.primary,
     fontWeight: 500,
     //fontSize: 20,
-    letterSpacing: 0.06
+    letterSpacing: 0.06,
   },
   h5: {
     color: palette.text.primary,
     fontWeight: 500,
     //fontSize: 16,
-    letterSpacing: 0.05
+    letterSpacing: 0.05,
   },
   h6: {
     color: palette.text.primary,
     fontWeight: 500,
     //fontSize: 14,
-    letterSpacing: 0.05
+    letterSpacing: 0.05,
   },
   subtitle1: {
     color: palette.text.primary,
     fontSize: 18,
     fontWeight: 500,
     letterSpacing: 0.05,
-    lineHeight: 1.2
+    lineHeight: 1.2,
   },
   subtitle2: {
     color: palette.text.secondary,
     fontWeight: 400,
     //fontSize: 14,
-    letterSpacing: 0.05
+    letterSpacing: 0.05,
   },
   body1: {
     color: palette.text.primary,
     //fontSize: 14,
-    letterSpacing: 0.05
+    letterSpacing: 0.05,
   },
   body2: {
     color: palette.text.secondary,
     //fontSize: 12,
-    letterSpacing: 0.04
+    letterSpacing: 0.04,
   },
   button: {
-    color: palette.text.primary
+    color: palette.text.primary,
     //fontSize: 14
   },
 
@@ -79,6 +79,6 @@ export default {
     fontWeight: 500,
     letterSpacing: 0.33,
 
-    textTransform: "uppercase"
-  }
+    textTransform: "uppercase",
+  },
 };

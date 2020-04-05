@@ -115,7 +115,7 @@ const ProductLogView = () => {
       >
         {/* <SearchBar /> */}
 
-        <Grid item>
+        <Grid item style={{ zIndex: 30, position: "relative " }}>
           <FilterSidebar />
         </Grid>
 

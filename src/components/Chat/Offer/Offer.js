@@ -7,7 +7,7 @@ import {
   CardContent,
   CardActions,
   Button,
-  Divider
+  Divider,
 } from "@material-ui/core";
 const useOverShadowStyles = {
   root: ({ inactive }) => ({
@@ -16,30 +16,32 @@ const useOverShadowStyles = {
     ...(!inactive && {
       "&:hover": {
         transform: "translateY(2px)",
-        boxShadow: "0 4px 20px 0 rgba(0,0,0,0.12)"
-      }
-    })
-  })
+        boxShadow: "0 4px 20px 0 rgba(0,0,0,0.12)",
+      },
+    }),
+  }),
 };
 
 const useStyles = makeStyles(() => ({
   overline: {
     display: "block",
     textAlign: "center",
-    color: "#9e9e9e",
+
     letterSpacing: "2px",
     fontSize: 14,
-    marginTop: 0
+    fontFamily: "Work Sans",
+    fontWeight: 510,
+    marginTop: 0,
+    marginBottom: 4,
   },
   heading: {
     textAlign: "center",
-    fontSize: 26,
+    fontSize: 24,
 
     lineHeight: 1,
-    fontWeight: 600,
-    fontFamily:
-      // eslint-disable-next-line max-len
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+    fontWeight: 450,
+    opacity: 0.86,
+
     // marginBottom: "0.72em",
     "&:after": {
       // content: '""',
@@ -49,7 +51,7 @@ const useStyles = makeStyles(() => ({
       // display: "block",
       // // margin: "8px auto",
       // borderRadius: 2
-    }
+    },
   },
   body: {
     textAlign: "center",
@@ -57,17 +59,16 @@ const useStyles = makeStyles(() => ({
     color: "#222",
     lineHeight: 1.75,
     width: "88%",
-    margin: "0 auto"
+    margin: "0 auto",
   },
   root: {
-    boxShadow: "0px 14px 80px rgba(34, 35, 58, 0.2)",
+    boxShadow: "0px 5px 20px rgba(34, 35, 58, 0.05)",
     width: "200px",
-    height: "108px"
+    height: "108px",
     // display: "flex",
     // justifyContent: "center",
     // alignItems: "center"
-    // borderRadius: "45px 25px 8px 45px"
-  }
+  },
 }));
 
 const Offer = ({ price, overline, classes }) => {
@@ -79,6 +80,7 @@ const Offer = ({ price, overline, classes }) => {
         {overline && (
           <Typography
             component={"span"}
+            color="textSecondary"
             // {...overlineProps}
             className={cx(styles.overline)}
           >
@@ -99,8 +101,27 @@ const Offer = ({ price, overline, classes }) => {
         </Typography> */}
       </CardContent>
       <Divider />
-      <CardActions style={{ padding: 0, marginBottom: 0 }}>
-        <Button style={{ width: "100%" }}>Accept</Button>
+      <CardActions
+        style={{
+          padding: 0,
+          color: "green",
+
+          marginBottom: 0,
+        }}
+      >
+        <Button
+          variant="contained"
+          color="inherit"
+          style={{
+            borderTopLeftRadius: 0,
+            borderTopRightRadius: 0,
+            width: "100%",
+            color: "white",
+            background: "lightgreen",
+          }}
+        >
+          Accept
+        </Button>
       </CardActions>
     </Card>
   );

@@ -21,7 +21,7 @@ import {
   ListItemAvatar,
   Box,
   makeStyles,
-  Tooltip
+  Tooltip,
 } from "@material-ui/core";
 import CreateProductView from "views/CreateProductView";
 import {
@@ -35,14 +35,14 @@ import {
   SidebarTrigger,
   cozyLayoutPreset,
   SidebarTriggerIcon,
-  InsetContainer
+  InsetContainer,
 } from "@mui-treasury/layout";
 
 import rootconfig from "./rootconfig";
 import {
   ThemeProvider,
   createMuiTheme,
-  responsiveFontSizes
+  responsiveFontSizes,
 } from "@material-ui/core/styles";
 import theme from "theme";
 import { AuthContext } from "../../firebase/Auth";
@@ -55,51 +55,57 @@ const theme2 = responsiveFontSizes(
       fontFamily: "'Inter', sans-serif",
 
       subtitle2: {
-        fontFamily: "'Open Sans', sans-serif",
-        fontWeight: 700
-      }
-    }
+        fontFamily: "'Public Sans', sans-serif",
+        fontWeight: 700,
+      },
+      body2: {
+        fontFamily: "'Work Sans', sans-serif",
+        fontWeight: 210,
+      },
+    },
   })
 );
 
 theme2.typography.caption = {
-  fontWeight: 700,
-  fontSize: 12
+  // fontFamily: "'Inter', sans-serif",
+  fontFamily: "'Work Sans', sans-serif",
+  fontWeight: 570,
+  fontSize: 14,
 };
 const useStyles = makeStyles(() => ({
   header: {
     boxShadow: "0 1px 2px 0 rgba(0, 0, 0, .10)",
-    backgroundColor: "#ffffff"
+    backgroundColor: "#ffffff",
   },
   insetBody: {
     borderLeft: "1px solid rgba(0, 0, 0, 0.08)",
-    overflowY: "auto"
+    overflowY: "auto",
   },
   insetDrawerPaper: {
     width: "100%",
-    maxWidth: 300
+    maxWidth: 300,
   },
   contentContainer: {
     flex: 1,
 
-    height: "100%"
+    height: "100%",
   },
   content: {
     maxHeight: "100%",
 
     flex: 1,
-    overflowY: "auto"
+    overflowY: "auto",
   },
   footer: {
     height: 52,
     display: "flex",
     alignItems: "center",
     border: "none",
-    padding: "0 8px"
+    padding: "0 8px",
   },
   edit: {
-    backgroundColor: "rgba(0,0,0,0.04)"
-  }
+    backgroundColor: "rgba(0,0,0,0.04)",
+  },
 }));
 
 const MarketplaceView = () => {
@@ -127,7 +133,7 @@ const MarketplaceView = () => {
           sidebarStyles,
           containerStyles,
           contentStyles,
-          collapsed
+          collapsed,
         }) => (
           <>
             <ThemeProvider theme={theme2}>
@@ -163,7 +169,7 @@ const MarketplaceView = () => {
                             height: "24px",
                             width: "24px",
                             position: "relative",
-                            left: -2
+                            left: -2,
                           }}
                           src={userData?.avatar}
                         />
@@ -219,7 +225,7 @@ const MarketplaceView = () => {
                           display: "flex",
                           justifyContent: "center",
                           flexDirection: "column",
-                          alignItems: "center"
+                          alignItems: "center",
                         }}
                       >
                         <img

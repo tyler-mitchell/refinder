@@ -13,7 +13,7 @@ import useStyles from "./ChatMsg.styles";
 import Offer from "components/Chat/Offer";
 const ChatMsg = ({ avatar, messages, side }) => {
   const styles = useStyles();
-  const attachClass = index => {
+  const attachClass = (index) => {
     if (index === 0) {
       return styles[`${side}First`];
     }
@@ -57,7 +57,7 @@ const ChatMsg = ({ avatar, messages, side }) => {
                   <Offer
                     classes={styles[`${side}Row`]}
                     price="$32"
-                    overline="Current price"
+                    overline="Seller's price"
                   />
                   // <img className={styles.image} alt={msg.alt} {...msg} />
                 )}
@@ -82,12 +82,12 @@ const ChatMsg = ({ avatar, messages, side }) => {
 ChatMsg.propTypes = {
   avatar: PropTypes.string,
   messages: PropTypes.arrayOf(PropTypes.string),
-  side: PropTypes.oneOf(["left", "right"])
+  side: PropTypes.oneOf(["left", "right"]),
 };
 ChatMsg.defaultProps = {
   avatar: "",
   messages: [],
-  side: "left"
+  side: "left",
 };
 
 export default ChatMsg;

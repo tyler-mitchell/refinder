@@ -16,7 +16,7 @@ import {
   Divider,
   CardActions,
   CardActionArea,
-  makeStyles
+  makeStyles,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import { Link } from "react-router-dom";
@@ -31,7 +31,7 @@ import {
   Search as InfoOutlined,
   StarBorder,
   ChevronLeft as ArrowLeft,
-  ChevronRight as ArrowRight
+  ChevronRight as ArrowRight,
 } from "@material-ui/icons";
 import styled from "styled-components";
 import { useNavigate, Navigate } from "react-router";
@@ -45,17 +45,17 @@ const Thumbnail = styled.div`
   background-image: ${({ image }) => `url(${image})`};
   height: 100px;
 `;
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    padding: "5%"
+    padding: "5%",
   },
   img: {
     // maxHeight: "5%",
     // objectFit: "cover",
-    borderRadius: "10px"
+    borderRadius: "10px",
 
     // paddingTop: "50%"
-  }
+  },
 }));
 const CarouselArrow = ({ icon: Icon, direction, hovered }) => {
   const { left, right } =
@@ -70,7 +70,7 @@ const CarouselArrow = ({ icon: Icon, direction, hovered }) => {
         left,
         right,
 
-        background: "white"
+        background: "white",
         // paddingLeft: left,
         // height: "25px",
         // width: "25px"
@@ -86,7 +86,7 @@ const CarouselArrow = ({ icon: Icon, direction, hovered }) => {
   );
 };
 
-const ProductCard = props => {
+const ProductCard = (props) => {
   const [hovered, setHovered] = React.useState(false);
   const lightColor = "#ffff";
   const contrastColor = "#FFFF";
@@ -95,7 +95,7 @@ const ProductCard = props => {
   const classes = useStyles();
   function getThumbnail() {
     if (props?.productImages) {
-      return props.productImages.find(img => img.isPrimary === true)
+      return props.productImages.find((img) => img.isPrimary === true)
         .downloadUrl;
     }
     return `https://source.unsplash.com/collection/8793876/${props.index})`;
@@ -109,12 +109,17 @@ const ProductCard = props => {
         // minWidth: "300px",
         // maxHeight: "300px",
         zIndex: props.index,
-        boxShadow:
-          "0 6.7px 5.3px  rgba(0, 0, 0, 0.05), 0 22.3px 17.9px  rgba(0, 0, 0, 0.003), 0 100px 80px rgba(0, 0, 0, 0.02)",
-        height: "100%"
+        // boxShadow:
+        //   "0 6.7px 5.3px  rgba(0, 0, 0, 0.05), 0 22.3px 17.9px  rgba(0, 0, 0, 0.003), 0 100px 80px rgba(0, 0, 0, 0.02)",
+        //
+
+        // boxShadow:
+        //   "-80px 0px 28px 0 rgba(0, 0, 0, 0.005 ), 0 12px 28px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
+
+        height: "100%",
       }}
       elevation={0}
-      // variant="outlined"
+      variant="outlined"
     >
       {/* <Box m="5%"> */}
 
@@ -136,26 +141,33 @@ const ProductCard = props => {
           <Grid item md={12} xs={3} style={{ position: "relative" }}>
             <Chip
               label={
-                <Typography variant="caption" color="textSecondary">
-                  ${((props.index * props.index + 9) % 78) * 5}
+                <Typography
+                  variant="caption"
+                  color="textSecondary"
+                  style={{ fontWeight: 472 }}
+                >
+                  <span style={{ fontWeight: 490, color: "" }}>$</span>
+                  {((props.index * props.index + 9) % 78) * 5}
                 </Typography>
               }
               size="small"
               style={{
-                borderRadius: "3px 0 0 0",
+                borderRadius: "4px",
                 background: "white",
                 position: "absolute",
+                boxShadow:
+                  "0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
 
-                bottom: 2,
-                right: 0
+                bottom: 11.5,
+                right: 5.5,
               }}
             />
             <CardMedia
               disableRipple
               style={{
-                paddingTop: "50%",
+                paddingTop: "70%",
                 marginBottom: "3%",
-                borderRadius: "4px"
+                borderRadius: "4px",
               }}
               // classes={classes}
               // style={{ borderRadius: "7px" }}
@@ -174,7 +186,7 @@ const ProductCard = props => {
               height: "100%",
               display: "relative",
               borderRadius: "4px",
-              overflow: "hidden"
+              overflow: "hidden",
             }}
           >
             <CardActionArea>
@@ -192,7 +204,7 @@ const ProductCard = props => {
                     // top: -10,
                     // color: "white",
                     // padding: "3px",
-                    borderRadius: "4px"
+                    borderRadius: "4px",
                   }}
                 >
                   Wood
@@ -208,6 +220,7 @@ const ProductCard = props => {
                   display="inline"
                   component="legend"
                   variant="body1"
+                  style={{ fontWeight: 310 }}
                   color="textPrimary"
                 >
                   {props.title}
@@ -227,7 +240,7 @@ const ProductCard = props => {
           </Grid>
         </CardContent>
 
-        <Divider />
+        {/* <Divider /> */}
       </motion.div>
       <Button
         onClick={() => {

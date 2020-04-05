@@ -9,10 +9,12 @@ import {
   Paper,
   makeStyles,
   GridList,
+  Divider,
   Box,
   Grid,
   GridListTile,
-  Container
+  IconButton,
+  Container,
 } from "@material-ui/core";
 import MaterialMap from "components/Map";
 import ChatWindow from "components/Chat";
@@ -21,7 +23,7 @@ import {
   useLocation,
   useNavigate,
   Outlet,
-  useOutlet
+  useOutlet,
 } from "react-router-dom";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { database } from "firebase/core";
@@ -30,22 +32,28 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductImages from "./ProductImages";
 import SellerCard from "components/SellerCard";
 import Map from "components/Map";
+import ProductDetails from "./ProductDetails";
+import FavoriteIcon from "@material-ui/icons/FavoriteBorderRounded";
+import FavoriteIconFilled from "@material-ui/icons/FavoriteRounded";
+import MoreOptionsIcon from "@material-ui/icons/MoreHorizRounded";
+import ShareIcon from "@material-ui/icons/ShareRounded";
+
 const useStyles = makeStyles({
   root: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 });
 
 const ProductView = () => {
   let { materialID } = useParams();
   let navigate = useNavigate();
   const location = useLocation();
-  const productInfo = useSelector(state => state.message);
+  const productInfo = useSelector((state) => state.message);
 
   const productRef = database.doc(`materials/${materialID}`);
   const dispatch = useDispatch();
   const [product, loading, error] = useDocumentData(productRef, {
-    idField: "productId"
+    idField: "productId",
   });
   console.log(`⭐: ProductView -> product`, product);
 
@@ -101,23 +109,69 @@ const ProductView = () => {
                 />
               </Grid>
               <Grid container item direction="column" xs={6}>
-                <Grid item>
-                  <Typography variant="h4" style={{ fontWeight: "bold" }}>
-                    {product?.title}
+                <Grid item style={{ width: "100%" }}>
+                  <Box
+                    display="flex"
+                    width="100%"
+                    justifyContent="space-between"
+                    alignItems="flex-start"
+                  >
+                    <Typography
+                      variant="h4"
+                      display="inline"
+                      align="left"
+                      style={{ fontWeight: "bold" }}
+                      gutterBottom
+                    >
+                      {product?.title}
+                    </Typography>
+                    <Box flexGrow={1} />
+                    <IconButton size="small">
+                      <FavoriteIcon />
+                    </IconButton>
+                    <Box mx="2px" />
+                    <IconButton edge="right" size="small">
+                      <MoreOptionsIcon />
+                    </IconButton>
+                  </Box>
+                  <Typography
+                    variant="subtitle2"
+                    color="textSecondary"
+                    style={{ fontWeight: "bold" }}
+                    gutterBottom
+                  >
+                    29103 Flying Arrow
                   </Typography>
                 </Grid>
+                <Divider />
                 <Box mb="15px" />
                 <Grid item>
                   <Typography
                     variant="subtitle1"
-                    style={{ fontWeight: "bold" }}
-                    gutterBottom
+                    style={{
+                      fontWeight: "bold",
+                      fontFamily: "Public Sans",
+                      fontSize: 19,
+                    }}
+                    // gutterBottom
                   >
                     Description
                   </Typography>
-                  <Typography variant="body1" gutterBottom>
+
+                  <Typography
+                    variant="body1"
+                    style={{
+                      // fontFamily: "Public Sans",
+                      fontSize: 18,
+                      fontWeight: 400,
+                    }}
+                    gutterBottom
+                  >
                     {product?.description}
                   </Typography>
+                  <Divider />
+                  <Box mb="15px" />
+                  <ProductDetails />
                   <Outlet />
                 </Grid>
               </Grid>
@@ -127,7 +181,12 @@ const ProductView = () => {
               <Grid item>
                 <Paper
                   variant="outlined"
-                  style={{ padding: "10px", borderRadius: "8px" }}
+                  style={{
+                    padding: "10px",
+                    borderRadius: "8px",
+                    boxShadow:
+                      "-6px 8px 28px 0 rgba(0, 0, 0, 0.06), -2px 0 4px 0 rgba(0, 0, 0, 0.01), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
+                  }}
                 >
                   <SellerCard name={product?.displayName} />
                 </Paper>

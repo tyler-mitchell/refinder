@@ -7,7 +7,7 @@ import {
   Container,
   Box,
   Paper,
-  CssBaseline
+  CssBaseline,
 } from "@material-ui/core";
 import { Parallax, ParallaxLayer } from "react-spring/renderprops-addons";
 import styled from "styled-components";
@@ -25,7 +25,7 @@ import {
   SidebarTrigger,
   cozyLayoutPreset,
   contentBasedLayoutPreset,
-  SidebarTriggerIcon
+  SidebarTriggerIcon,
 } from "@mui-treasury/layout";
 
 const StyledContent = styled(Content)`
@@ -197,7 +197,7 @@ const Landing = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
-              pointerEvents: "none"
+              pointerEvents: "none",
             }}
           >
             <img src={url("earth")} style={{ width: "40%" }} />
@@ -213,7 +213,7 @@ const Landing = () => {
             speed={0}
             style={{
               backgroundImage: url("stars", true),
-              backgroundSize: "cover"
+              backgroundSize: "cover",
             }}
           />
 
@@ -293,7 +293,7 @@ const Landing = () => {
             style={{
               backgroundSize: "80%",
               backgroundPosition: "center",
-              backgroundImage: url("clients", true)
+              backgroundImage: url("clients", true),
             }}
           />
           <Container
@@ -309,7 +309,7 @@ const Landing = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                scrollSnapAlign: "center"
+                scrollSnapAlign: "center",
               }}
             >
               <Header />
@@ -329,7 +329,7 @@ const Landing = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 pointerEvent: "none",
-                scrollSnapAlign: "center"
+                scrollSnapAlign: "center",
               }}
             >
               <WhySection />
@@ -342,7 +342,7 @@ const Landing = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
               }}
               // onClick={() => parallax.current.scrollTo(0)}
             >
