@@ -146,6 +146,8 @@ const ProductView = () => {
                 <Divider />
                 <Box mb="15px" />
                 <Grid item>
+                  <ProductDetails />
+                  <Box mb="15px" />
                   <Typography
                     variant="subtitle1"
                     style={{
@@ -170,8 +172,7 @@ const ProductView = () => {
                     {product?.description}
                   </Typography>
                   <Divider />
-                  <Box mb="15px" />
-                  <ProductDetails />
+
                   <Outlet />
                 </Grid>
               </Grid>
