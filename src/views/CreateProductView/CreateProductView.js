@@ -198,14 +198,19 @@ const CreateProductView = () => {
               <DialogTitle>{formSteps[activeStep - 1]}</DialogTitle>
               <DialogContent
                 id="drawer-c"
-                style={{ overflow: "visible", height: "60vh", width: "100%" }}
+                style={{
+                  overflow: "visible",
+                  height: "60vh",
+                  width: "100%",
+                  borderRadius: "10px",
+                }}
               >
                 <div
                   style={{
                     position: "relative",
                     display: "flex",
 
-                    // height: "100%",
+                    height: "100%",
                     justifyContent: "center",
 
                     width: "100%",

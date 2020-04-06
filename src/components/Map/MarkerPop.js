@@ -20,7 +20,7 @@ const MarkerPop = ({ lat, lng, options, children }) => {
         longitude={lng}
         offsetTop={-20}
         offsetLeft={-10}
-        draggable={false}
+        draggable={true}
         captureClick={true}
       >
         <div onClick={() => setInfo(!showInfo)}>

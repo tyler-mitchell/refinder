@@ -30,6 +30,7 @@
     "react-firebaseui": "^4.1.0",
     "react-hook-form": "^4.10.1",
     "react-map-gl": "^5.2.3",
+    "react-map-gl-geocoder": "^2.0.11",
     "react-mapbox-gl-geocoder": "^1.1.0",
     "react-motion-layout": "0.0.16",
     "react-redux": "^7.1.3",

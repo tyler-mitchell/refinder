@@ -1,6 +1,7 @@
 import React from "react";
 import AddDetails from "./AddDetails";
 import AddPhotos from "./AddPhotos";
+import ChooseLocation from "./ChooseLocation";
 
 const ProductSteps = ({ activeStep }) => {
   switch (activeStep) {
@@ -10,7 +11,18 @@ const ProductSteps = ({ activeStep }) => {
       return <AddPhotos />;
 
     case 3:
-      return <div>Test</div>;
+      return (
+        <div
+          style={{
+            overflow: "hidden",
+            borderRadius: "6px",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <ChooseLocation />
+        </div>
+      );
     case 4:
       return <AddDetails />;
 

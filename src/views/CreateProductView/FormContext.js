@@ -7,16 +7,23 @@ const FormContextProvider = ({ children }) => {
     triggerValidation,
     errors,
     register,
+    unregister,
     formState,
+    setValue,
     control,
+    getValues,
   } = useForm();
+
   const ctx = {
     handleSubmit,
     triggerValidation,
     errors,
     register,
+    unregister,
+    setValue,
     formState,
     control,
+    getValues,
   };
   return <FormContext.Provider value={ctx}>{children}</FormContext.Provider>;
 };

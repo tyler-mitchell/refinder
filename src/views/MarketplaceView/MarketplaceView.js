@@ -60,7 +60,7 @@ const theme2 = responsiveFontSizes(
       },
       body2: {
         fontFamily: "'Work Sans', sans-serif",
-        fontWeight: 210,
+        fontWeight: 350,
       },
     },
   })
