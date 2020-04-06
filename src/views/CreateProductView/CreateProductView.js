@@ -13,7 +13,7 @@ import {
   Sidebar,
   InsetSidebar,
   SecondarySidebar,
-  Content
+  Content,
 } from "@mui-treasury/layout";
 import {
   Container,
@@ -23,234 +23,235 @@ import {
   ListItemText,
   ListItemIcon,
   Divider,
-  makeStyles
+  makeStyles,
+  AppBar,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  DialogTitle,
+  Toolbar,
+  Button as MuiButton,
 } from "@material-ui/core";
-import {
-  ThemeProvider,
-  CSSReset,
-  theme,
-  Box,
-  Accordion,
-  SimpleGrid,
-  FormControl,
-  FormLabel,
-  Input,
-  FormErrorMessage,
-  Textarea,
-  Flex,
-  Button,
-  FormHelperText,
-  Heading,
-  Checkbox,
-  CheckboxGroup
-} from "@chakra-ui/core";
+
 import {
   addToForm,
   formDataSelector,
-  addToFirebase
+  addToFirebase,
 } from "redux/createProductSlice";
 import { useForm, Controller } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
-import ImageInput from "components/ImageAttachment";
-import DropZone from "components/ImageAttachment/DropZone";
+
+import ProductSteps from "./ProductSteps";
+import FormContextProvider, { FormContext } from "./FormContext";
 const form = {
   "default-text-field": "Test Data",
   "default-email-field": "info@example.com",
-  "number-text-field": 6
+  "number-text-field": 6,
 };
 
 const drawerWidth = 240;
 const useStyles = makeStyles(() => ({
   header: {
     boxShadow: "0 1px 2px 0 rgba(0, 0, 0, .10)",
-    backgroundColor: "#ffffff"
+    backgroundColor: "#ffffff",
   },
   insetBody: {
     borderLeft: "1px solid rgba(0, 0, 0, 0.08)",
-    overflowY: "auto"
+    overflowY: "auto",
   },
   insetDrawerPaper: {
     width: "100%",
-    maxWidth: 300
+    maxWidth: 300,
   },
   contentContainer: {
     flex: 1,
-    minHeight: 0
+    minHeight: 0,
   },
   content: {
     maxHeight: "100%",
-    overflowY: "auto"
+    overflowY: "auto",
   },
   footer: {
     height: 52,
     display: "flex",
     alignItems: "center",
     border: "none",
-    padding: "0 8px"
+    padding: "0 8px",
   },
 
   edit: {
-    backgroundColor: "rgba(0,0,0,0.04)"
-  }
+    backgroundColor: "rgba(0,0,0,0.04)",
+  },
 }));
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles((theme) => ({
   root: {
-    position: "relative"
+    position: "relative",
   },
   modal: {
-    paddingLeft: 50
+    paddingLeft: 50,
   },
   paper: {
     right: 0,
-    paddingLeft: 50
-  }
+    paddingLeft: 50,
+  },
 }));
+
+const formSteps = [
+  "General Details",
+  "Upload Photos",
+  "Location",
+  "Price and Payment",
+];
+const TOTAL_STEPS = formSteps.length;
 const CreateProductView = () => {
   const dispatch = useDispatch();
-  const formData = useSelector(s => s.auth.uid);
+  const formData = useSelector((s) => s.auth.uid);
+  const [completedSteps, setCompletedSteps] = React.useState(0);
   function onSubmit(values) {
+    if (activeStep < TOTAL_STEPS) {
+      setActiveStep(activeStep + 1);
+      setCompletedSteps(activeStep);
+    }
     dispatch(addToForm({ formData: values }));
+
     console.log(`⭐: CreateProductView -> formData`, formData);
-    dispatch(addToFirebase(formData));
+
+    if (activeStep === TOTAL_STEPS) {
+      dispatch(addToFirebase(formData));
+    }
   }
-  const { handleSubmit, errors, register, formState, control } = useForm();
+
+  const {
+    handleSubmit,
+    triggerValidation,
+    errors,
+    register,
+    formState,
+    control,
+  } = React.useContext(FormContext);
 
   const classes = styles();
   const containerRef = React.useRef();
   const location = useLocation();
   console.log(`⭐: CreateProductView -> location`, location);
+  const [activeStep, setActiveStep] = React.useState(1);
 
   return (
-    <>
-      <InsetContainer>
-        <SecondarySidebar
-          side="left"
-          open={false}
-          // hideBackdrop={false}
-          // ModalProps={
-          //   containerRef.current ? { container: containerRef.current } : {}
-          // }
+    <div
+      style={{
+        position: "relative",
+        height: "calc(100vh - 64px)",
+        width: "100%",
+        padding: "30px",
+      }}
+    >
+      <Dialog
+        fullWidth
+        maxWidth="md"
+        open={true}
+        style={{ overflow: "visible" }}
+        PaperProps={{ style: { overflow: "visible" } }}
+        scroll="body"
+        ref={containerRef}
+      >
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div style={{ display: "flex" }}>
+            <Drawer
+              open={true}
+              hideBackdrop={true}
+              variant="permanent"
+              PaperProps={{
+                style: { position: "relative", userSelect: "none" },
+              }}
+              BackdropProps={{ style: { position: "relative" } }}
+              ModalProps={{
+                container: document.getElementById("drawer-c"),
+                style: { position: "relative" },
+              }}
+            >
+              <Grid item style={{ height: "100%" }}>
+                <List style={{ height: "100%" }}>
+                  {formSteps.map((text, index) => (
+                    <ListItem
+                      button={index < completedSteps + 1}
+                      key={text}
+                      selected={index + 1 === activeStep}
+                      onClick={() => {
+                        if (index + 1 < completedSteps) {
+                          setActiveStep(index + 1);
+                        }
+                      }}
+                    >
+                      <ListItemIcon>
+                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                      </ListItemIcon>
+                      <ListItemText primary={text} />
+                    </ListItem>
+                  ))}
+                  <div style={{ flexGrow: 1 }} />
+                </List>
+              </Grid>
+            </Drawer>
+            <div style={{ width: "100%" }}>
+              <DialogTitle>{formSteps[activeStep - 1]}</DialogTitle>
+              <DialogContent
+                id="drawer-c"
+                style={{ overflow: "visible", height: "60vh", width: "100%" }}
+              >
+                <div
+                  style={{
+                    position: "relative",
+                    display: "flex",
 
-          // ModalProps={{
-          //   container: containerRef.current && containerRef.current
-          // }}
+                    // height: "100%",
+                    justifyContent: "center",
 
-          PaperProps={{ style: { position: "relative" } }}
-          BackdropProps={{ style: { position: "relative" } }}
-          ModalProps={{
-            container: document.getElementById("drawer-container"),
-            style: { position: "relative" }
-          }}
+                    width: "100%",
 
-          // PaperProps={{
-          //   // container: containerRef.current && containerRef.current,
-          //   classes: {
-          //     root: classes.root
-          //   }
-          // }}
-          // ModalProps={{
-          //   container: containerRef.current && containerRef.current,
-          //   classes: {
-          //     root: classes.root
-          //   }
-          // }}
-        >
-          <Grid item style={{ height: "100%" }}>
-            <List style={{ height: "100%" }}>
-              {[
-                "General Details",
-                "Location",
-                "Price and Payment",
-                "Drafts"
-              ].map((text, index) => (
-                <ListItem button key={text}>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              ))}
-              <div style={{ flexGrow: 1 }} />
-            </List>
-          </Grid>
-        </SecondarySidebar>
-
-        <Grid
-          container
-          wrap="nowrap"
-          justify="flex-start"
-          spacing={5}
-          style={{ height: "100%" }}
-        >
-          <Grid style={{ display: "flex" }} item>
-            {/* <Divider orientation="vertical" flexItem /> */}
-          </Grid>
-          <Grid container item direction="column" xs={5}>
-            <ThemeProvider theme={theme}>
-              <CSSReset />
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <SimpleGrid columns={1} spacingX={1} spacingY={4}>
-                  <Heading>General Details</Heading>
-
-                  <FormControl isInvalid={errors.name} isRequired>
-                    <FormLabel>What's the product name?</FormLabel>
-                    <Input name="title" ref={register({ required: true })} />
-
-                    <FormErrorMessage>
-                      {errors.title && errors.title.message}
-                    </FormErrorMessage>
-                  </FormControl>
-
-                  <FormControl isRequired>
-                    <FormLabel htmlFor="description">
-                      Describe the product in detail
-                    </FormLabel>
-                    <Textarea
-                      name="description"
-                      ref={register({ required: true })}
-                    />
-                    <FormErrorMessage>
-                      {errors.description && errors.description.message}
-                    </FormErrorMessage>
-                  </FormControl>
-
-                  <Controller
-                    name="type"
-                    control={control}
-                    as={
-                      <CheckboxGroup variantColor="green">
-                        <SimpleGrid columns={2} spacingX={1} spacingY={1}>
-                          <Checkbox value="tile">Tile</Checkbox>
-                          <Checkbox value="brick">Brick</Checkbox>
-                          <Checkbox value="glass">Glass</Checkbox>
-                          <Checkbox value="wood">Wood</Checkbox>
-                          <Checkbox value="concrete">Concrete</Checkbox>
-                          <Checkbox value="metal">Metal</Checkbox>
-                        </SimpleGrid>
-                      </CheckboxGroup>
-                    }
-                  />
-                  <DropZone />
-
-                  <Flex
-                    justifyContent="flex-start"
-                    alignItems="flex-start"
-                    flexDirection="row"
-                  >
-                    <Button type="submit" variant="outline" variantColor="blue">
-                      Create
-                    </Button>
-                  </Flex>
-                </SimpleGrid>
-              </form>
-            </ThemeProvider>
-          </Grid>
-        </Grid>
-      </InsetContainer>
-    </>
+                    background: "white",
+                  }}
+                >
+                  <ProductSteps activeStep={activeStep} />
+                </div>
+              </DialogContent>
+            </div>
+          </div>
+          <Divider />
+          <DialogActions>
+            <MuiButton
+              onClick={() => {
+                if (activeStep > 1) {
+                  setActiveStep(activeStep - 1);
+                }
+              }}
+              variant="outlined"
+              variantColor="blue"
+            >
+              Back
+            </MuiButton>
+            <MuiButton
+              type="submit"
+              onClick={() => {}}
+              variant="outlined"
+              variantColor="blue"
+            >
+              Next
+            </MuiButton>
+          </DialogActions>
+        </form>
+      </Dialog>
+    </div>
   );
 };
 
-export default CreateProductView;
+const CreateProductViewContextWrap = () => {
+  return (
+    <FormContextProvider>
+      <CreateProductView />
+    </FormContextProvider>
+  );
+};
+
+export default CreateProductViewContextWrap;

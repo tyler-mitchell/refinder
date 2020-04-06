@@ -18,8 +18,8 @@ export default {
       hidden: false,
       inset: false,
       insetProps: {
-        position: "fixed"
-      }
+        position: "fixed",
+      },
     },
     secondarySidebar: {
       anchor: "right",
@@ -30,8 +30,8 @@ export default {
       hidden: false,
       inset: false,
       insetProps: {
-        position: "sticky"
-      }
+        position: "sticky",
+      },
     },
     header: {
       position: "fixed",
@@ -39,18 +39,18 @@ export default {
       clipped: false,
       secondaryClipped: false,
       persistentBehavior: "fit",
-      secondaryPersistentBehavior: "fit"
+      secondaryPersistentBehavior: "fit",
     },
     content: {
       persistentBehavior: "fit",
-      secondaryPersistentBehavior: "none"
+      secondaryPersistentBehavior: "none",
     },
     footer: {
       persistentBehavior: "fit",
       secondaryPersistentBehavior: "none",
       insetBehavior: "fit",
-      secondaryInsetBehavior: "none"
-    }
+      secondaryInsetBehavior: "none",
+    },
   },
   sm: {
     sidebar: {
@@ -62,8 +62,8 @@ export default {
       hidden: false,
       inset: false,
       insetProps: {
-        position: "fixed"
-      }
+        position: "fixed",
+      },
     },
     secondarySidebar: {
       anchor: "right",
@@ -74,8 +74,8 @@ export default {
       hidden: false,
       inset: false,
       insetProps: {
-        position: "sticky"
-      }
+        position: "sticky",
+      },
     },
     header: {
       position: "fixed",
@@ -83,18 +83,18 @@ export default {
       clipped: false,
       secondaryClipped: true,
       persistentBehavior: "fit",
-      secondaryPersistentBehavior: "none"
+      secondaryPersistentBehavior: "none",
     },
     content: {
       persistentBehavior: "fit",
-      secondaryPersistentBehavior: "none"
+      secondaryPersistentBehavior: "none",
     },
     footer: {
       persistentBehavior: "fit",
       secondaryPersistentBehavior: "none",
       insetBehavior: "fit",
-      secondaryInsetBehavior: "none"
-    }
+      secondaryInsetBehavior: "none",
+    },
   },
   md: {
     sidebar: {
@@ -106,8 +106,8 @@ export default {
       hidden: false,
       inset: false,
       insetProps: {
-        position: "fixed"
-      }
+        position: "fixed",
+      },
     },
     secondarySidebar: {
       anchor: "right",
@@ -118,8 +118,8 @@ export default {
       hidden: false,
       inset: false,
       insetProps: {
-        position: "sticky"
-      }
+        position: "sticky",
+      },
     },
     header: {
       position: "fixed",
@@ -127,17 +127,17 @@ export default {
       clipped: false,
       secondaryClipped: false,
       persistentBehavior: "fit",
-      secondaryPersistentBehavior: "none"
+      secondaryPersistentBehavior: "none",
     },
     content: {
       persistentBehavior: "fit",
-      secondaryPersistentBehavior: "none"
+      secondaryPersistentBehavior: "fit",
     },
     footer: {
       persistentBehavior: "fit",
       secondaryPersistentBehavior: "none",
       insetBehavior: "fit",
-      secondaryInsetBehavior: "none"
-    }
-  }
+      secondaryInsetBehavior: "none",
+    },
+  },
 };

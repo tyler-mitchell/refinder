@@ -121,7 +121,7 @@ const MarketplaceView = () => {
     >
       <Root
         initialCollapsed={true}
-        initialSecondaryOpened={true}
+        // initialSecondaryOpened={true}
         config={rootconfig}
         style={{ background: "#EBEAE9" }}
         // config={cozyLayoutPreset}

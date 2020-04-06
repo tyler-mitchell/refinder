@@ -1,18 +1,22 @@
 import React, { Fragment } from "react";
 import styles, { StyledContainer, useStyles } from "./DropZone.styles";
 import ImageDropzone from "./DropZoneItem";
-
+import useImgStyles from "components/ProductImages/ProductImages.styles";
 import { useDropzone } from "react-dropzone";
 import PrimaryUnfilledIcon from "@material-ui/icons/StarBorderRounded";
 import PrimaryFilledIcon from "@material-ui/icons/StarRounded";
 import DeleteIcon from "@material-ui/icons/DeleteRounded";
+import ImageIcon from "@material-ui/icons/AddAPhotoOutlined";
 import {
   Grid,
   GridList,
   GridListTile,
   GridListTileBar,
   IconButton,
-  Button
+  Button,
+  Divider,
+  Typography,
+  Paper,
 } from "@material-ui/core";
 // import prettyBytes from "pretty-bytes";
 import { useSelector, useDispatch } from "react-redux";
@@ -38,12 +42,13 @@ const MAX_FILE_SIZE = 10;
 const MAX_IMAGES = 6;
 function DropzoneComponent({ compression, ...props }) {
   const classes = useStyles();
-
+  const imgClasses = useImgStyles();
+  const [previewImage, setPreviewImage] = React.useState(0);
   const [imageFiles, setImageFiles] = React.useState({});
   const [newFiles, setNewFiles] = React.useState([]);
 
-  const { imagesArr: imagesData, primaryImage } = useSelector(s => s.images);
-  const productDocId = useSelector(s => s.createProduct.productDocId);
+  const { imagesArr: imagesData, primaryImage } = useSelector((s) => s.images);
+  const productDocId = useSelector((s) => s.createProduct.productDocId);
 
   React.useEffect(() => {
     if (!productDocId) {
@@ -53,13 +58,13 @@ function DropzoneComponent({ compression, ...props }) {
   React.useEffect(() => {
     if (newFiles) {
       const res = imagesData.reduce((acc, cur, index, arr) => {
-        const foundImg = newFiles.find(v => v.name === cur.name);
+        const foundImg = newFiles.find((v) => v.name === cur.name);
 
         if (foundImg) {
           acc[cur?.name] = {
             file: foundImg,
             name: `image${index}`,
-            primary: cur?.name === primaryImage ? true : false
+            primary: cur?.name === primaryImage ? true : false,
           };
         }
         if (cur?.name in imageFiles) {
@@ -74,7 +79,7 @@ function DropzoneComponent({ compression, ...props }) {
   const dispatch = useDispatch();
 
   const onDrop = React.useCallback(
-    acceptedFiles => {
+    (acceptedFiles) => {
       const imgMetaData = [];
       for (const f of acceptedFiles) {
         console.log(`⭐: DropzoneComponent -> acceptedFiles`, acceptedFiles);
@@ -87,24 +92,14 @@ function DropzoneComponent({ compression, ...props }) {
     },
     [imageFiles]
   );
-  const handleDelete = React.useCallback(
-    index => {
-      if (index === 0 && !imageFiles.length > 1) {
-        // setImages([]);
-      } else {
-        // setImages(imageFiles.filter((img, indx) => indx !== index));
-      }
-    },
-    [imageFiles]
-  );
 
   const [
     { imgDataArr, data, isLoading, isError, progress },
-    setFileData
+    setFileData,
   ] = useFirebaseUpload({
     root: "product-images",
     fileName: "image1",
-    folder: productDocId
+    folder: productDocId,
   });
   // console.log(`⭐: DropzoneComponent -> progress`, progress);
   // console.log(`⭐: DropzoneComponent -> isError`, isError);
@@ -112,35 +107,93 @@ function DropzoneComponent({ compression, ...props }) {
   console.log(`⭐: DropzoneComponent -> imgDataArr`, imgDataArr);
 
   function handleUpload() {
-    setFileData(Object.keys(imageFiles).map(key => imageFiles[key]));
+    setFileData(Object.keys(imageFiles).map((key) => imageFiles[key]));
+  }
+
+  function handleDelete(i, name) {
+    window.URL.revokeObjectURL(imagesData[i]);
+    dispatch(deleteImage({ index: i, name: name }));
+  }
+  function handleSetPrimary(imgName) {
+    dispatch(setPrimaryImage({ name: imgName }));
   }
 
   return (
-    <div className="dropzone-wrap">
-      <StyledContainer maxFileSize={MAX_FILE_SIZE}>
-        <Grid container>
-          {/* <Grid item container xs={6}> */}
-          <GridList cellHeight="200" spacing={3} className={classes.gridList}>
-            {imagesData.map((image, i) => {
-              return (
-                <GridListTile
-                  className={classes.gridListTile}
-                  component="div"
-                  key={i}
-                  cols={1}
-                  rows={1}
-                  item
-                  xs={6}
+    <div>
+      {/* <StyledContainer maxFileSize={MAX_FILE_SIZE}> */}
+      <div
+        className={imgClasses.root}
+        style={{
+          display: "flex",
+          justifyItems: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        {/* <Grid item container xs={6}> */}
+        <Paper
+          className={imgClasses.img}
+          variant="outlined"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: "10px",
+          }}
+        >
+          {imagesData[previewImage]?.blob ? (
+            <img
+              className={imgClasses.img}
+              src={imagesData[previewImage].blob}
+              alt={"hello"}
+            />
+          ) : (
+            <>
+              <Typography
+                color="textSecondary"
+                variant="h6"
+                display="block"
+                align="center"
+              >
+                <span style={{ color: "#44b6ff" }}> Add Photos</span>
+                <Typography
+                  display="block"
+                  color="textSecondary"
+                  align="center"
                 >
-                  <ImageDropzone
-                    onDrop={onDrop}
-                    key={i}
-                    imageIndex={i}
-                    image={image || null}
-                    onDelete={handleDelete}
-                    totalImages={imagesData.length}
-                  />
-                  {image && (
+                  upload or drag and drop below
+                </Typography>
+              </Typography>
+            </>
+
+            // <ImageIcon />
+          )}
+        </Paper>
+
+        <Grid
+          container
+          justify="center"
+          spacing={1}
+          xs={12}
+          style={{ width: "80%" }}
+        >
+          {imagesData.map((image, i) => {
+            return (
+              <Grid item key={i}>
+                <ImageDropzone
+                  classes={imgClasses}
+                  onDrop={onDrop}
+                  key={i}
+                  imageIndex={i}
+                  image={image || null}
+                  onDelete={handleDelete}
+                  onSetPrimary={handleSetPrimary}
+                  setPreviewImage={setPreviewImage}
+                  previewImageIndex={previewImage}
+                  totalImages={imagesData.length}
+                  isPrimary={image.name === primaryImage}
+                />
+                {/* {image && (
                     <GridListTileBar
                       style={{ borderRadius: "5px" }}
                       // title={tile.title}
@@ -169,12 +222,7 @@ function DropzoneComponent({ compression, ...props }) {
                         <IconButton
                           aria-label={`delete`}
                           className={classes.icon}
-                          onClick={() => {
-                            window.URL.revokeObjectURL(imagesData[i]);
-                            dispatch(
-                              deleteImage({ index: i, name: image.name })
-                            );
-                          }}
+                          onClick={() => {}}
                         >
                           <DeleteIcon />
                         </IconButton>
@@ -182,21 +230,16 @@ function DropzoneComponent({ compression, ...props }) {
                       actionPosition="right"
                       className={classes.titleBar}
                     />
-                  )}
-                </GridListTile>
-              );
-            })}
-          </GridList>
-          {/* </Grid> */}
-          <Grid item xs={8}></Grid>
+                  )} */}
+              </Grid>
+            );
+          })}
         </Grid>
-        <p
-          className="small"
-          style={{ position: "absolute", left: "2em", bottom: ".2em" }}
-        >
-          Max file size limit:&nbsp;<strong>{MAX_FILE_SIZE} MB</strong>
-        </p>
-      </StyledContainer>
+        {/* </Grid> */}
+        <Grid item xs={8}></Grid>
+      </div>
+
+      {/* </StyledContainer> */}
 
       {/* <div className="box-foot mb-5 d-flex flex-row flex-wrap justify-content-between">
         <div className="modes">
@@ -225,7 +268,7 @@ function DropzoneComponent({ compression, ...props }) {
       </div>
       <style jsx>{styles}</style> */}
 
-      <Button
+      {/* <Button
         // className="compress-btn btn"
         disabled={imagesData.length <= 0}
         onClick={() => {
@@ -233,12 +276,12 @@ function DropzoneComponent({ compression, ...props }) {
         }}
       >
         Upload
-      </Button>
+      </Button> */}
     </div>
   );
 }
 
 DropzoneComponent.defaultProps = {
-  images: []
+  images: [],
 };
 export default DropzoneComponent;

@@ -29,7 +29,7 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import { database } from "firebase/core";
 import { initializeProduct } from "redux/productSlice";
 import { useDispatch, useSelector } from "react-redux";
-import ProductImages from "./ProductImages";
+import ProductImages from "components/ProductImages";
 import SellerCard from "components/SellerCard";
 import Map from "components/Map";
 import ProductDetails from "./ProductDetails";
