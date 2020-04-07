@@ -21,7 +21,7 @@ import {
 // import prettyBytes from "pretty-bytes";
 import { useSelector, useDispatch } from "react-redux";
 import { storeImages, deleteImage, setPrimaryImage } from "redux/imageSlice";
-import { setProductDocId } from "redux/createProductSlice";
+import { setProductDocId, addProductImage } from "redux/createProductSlice";
 import useLocalStorageState from "hooks/useLocalStorage";
 import useFirebaseUpload from "firebase/firebaseStorage";
 import { FormContext } from "views/CreateProductView/FormContext";
@@ -105,7 +105,7 @@ function DropzoneComponent({ compression, ...props }) {
   // console.log(`⭐: DropzoneComponent -> progress`, progress);
   // console.log(`⭐: DropzoneComponent -> isError`, isError);
   // console.log(`⭐: DropzoneComponent -> isLoading`, isLoading);
-  console.log(`⭐: DropzoneComponent -> imgDataArr`, imgDataArr);
+  // console.log(`⭐: DropzoneComponent -> imgDataArr`, imgDataArr);
 
   function handleUpload() {
     setFileData(Object.keys(imageFiles).map((key) => imageFiles[key]));

@@ -100,6 +100,15 @@ function FirebaseFileUploadApi(fileInfo) {
           const resourceName = fileName ? fileName : fileData?.name;
           let ref = storageRef.child(`${root}/${folder}/${fileData.name}`);
           let uploadTask = ref.put(fileData);
+          // let uploadTaskPromise = uploadTask.then(async () => {
+          //   let downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
+          //   const { fullPath, contentType } = uploadTask.snapshot.metadata;
+          //   return {
+          //     metaData: { fullPath, contentType },
+          //     downloadUrl,
+          //     isPrimary: primary,
+          //   };
+          // });
           promises.push(uploadTask);
 
           console.log(`⭐: uploadData -> uploadTask`, uploadTask);
