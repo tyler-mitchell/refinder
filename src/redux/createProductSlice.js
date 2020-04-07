@@ -8,7 +8,7 @@ export const addToFirebase = createAsyncThunk(
     const {
       data: formData,
       productDocId,
-      productImages
+      productImages,
     } = getState().createProduct;
 
     // if (loading !== "pending" || requestId !== currentRequestId) {
@@ -22,7 +22,7 @@ export const addToFirebase = createAsyncThunk(
       productImages,
 
       ...formData,
-      created: fieldValue.serverTimestamp()
+      created: fieldValue.serverTimestamp(),
     };
 
     try {
@@ -34,7 +34,9 @@ export const addToFirebase = createAsyncThunk(
         .collection("product_discussion")
         .doc("discussion_info")
         .set({ ownerId: uid, productId: res.id, ownerName: displayName });
-    } catch (error) {}
+    } catch (error) {
+      console.log(`⭐: error`, error);
+    }
 
     // const response = await userAPI.fetchById(userId)
     return uid;
@@ -48,7 +50,7 @@ export const createProductSlice = createSlice({
     data: {},
     res: null,
     productDocId: null,
-    productImages: []
+    productImages: [],
   },
 
   reducers: {
@@ -65,26 +67,26 @@ export const createProductSlice = createSlice({
         state.productImages.push(data);
       }
     },
-    setProductDocId: state => {
+    setProductDocId: (state) => {
       state.productDocId = database.collection("materials").doc().id;
-    }
+    },
   },
   extraReducers: {
     // Add reducers for additional action types here, and handle loading state as needed
     [addToFirebase.fulfilled]: (state, action) => {
       // Add user to the state array
       state.res = action.payload;
-    }
-  }
+    },
+  },
 });
 
-export const selectFormData = state => state.counter.value;
+export const selectFormData = (state) => state.counter.value;
 export const {
   increment,
   decrement,
   addToForm,
   setProductDocId,
-  addProductImage
+  addProductImage,
 } = createProductSlice.actions;
 
 export default createProductSlice.reducer;

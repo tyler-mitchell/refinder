@@ -109,6 +109,16 @@ const CreateProductView = () => {
   const dispatch = useDispatch();
   const formData = useSelector((s) => s.auth.uid);
   const [completedSteps, setCompletedSteps] = React.useState(0);
+  const {
+    handleSubmit,
+    triggerValidation,
+    errors,
+    register,
+    formState,
+    getValues,
+    control,
+    handleFileUpload,
+  } = React.useContext(FormContext);
   function onSubmit(values) {
     if (activeStep < TOTAL_STEPS) {
       setActiveStep(activeStep + 1);
@@ -119,18 +129,12 @@ const CreateProductView = () => {
     console.log(`⭐: CreateProductView -> formData`, formData);
 
     if (activeStep === TOTAL_STEPS) {
-      dispatch(addToFirebase(formData));
+      // getValues();
+      console.log(`⭐: onSubmit -> getValues()`, getValues());
+      console.log(`⭐: onSubmit -> DISPATCHED FIREBASE`, activeStep);
+      handleFileUpload();
     }
   }
-
-  const {
-    handleSubmit,
-    triggerValidation,
-    errors,
-    register,
-    formState,
-    control,
-  } = React.useContext(FormContext);
 
   const classes = styles();
   const containerRef = React.useRef();

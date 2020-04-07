@@ -23,11 +23,9 @@ const ProductSteps = ({ activeStep }) => {
           <ChooseLocation />
         </div>
       );
-    case 4:
-      return <AddDetails />;
 
     default:
-      return;
+      return <></>;
   }
 };
 

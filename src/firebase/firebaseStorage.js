@@ -14,12 +14,12 @@ export async function uploadFileToBucket(rawFile, storageRef) {
   console.log("Beginning upload");
   return storageRef
     .put(rawFile)
-    .then(snapshot => {
+    .then((snapshot) => {
       console.log("Uploaded file !");
       // Add url
       return storageRef.getDownloadURL();
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
       throw new Error({ message: error.message_, status: 401 });
     });
@@ -44,7 +44,7 @@ export async function createOrUpdateFile(resource, rawFile, uploadFile) {
   // In this case, no need to upload
   return storageRef
     .getMetadata()
-    .then(metadata => {
+    .then((metadata) => {
       console.log(metadata);
       if (metadata && metadata.size === rawFile.size) {
         console.log("file already exists");
@@ -77,6 +77,7 @@ function FirebaseFileUploadApi(fileInfo) {
   // used for tracking the % of upload completed
   const [progress, setProgress] = useState(null);
 
+  const [allDone, setAllDone] = useState(false);
   const [imgDataArr, setImgDataArr] = useState([]);
   const promises = [];
   // this function will be called when the any properties in the dependency array changes
@@ -106,12 +107,12 @@ function FirebaseFileUploadApi(fileInfo) {
           // application UI
           uploadTask.on(
             taskEvent.STATE_CHANGED,
-            _progress => {
+            (_progress) => {
               var value = _progress.bytesTransferred / _progress.totalBytes;
               console.log("Upload is " + value * 100 + "% done");
               setProgress({ value });
             },
-            _error => {
+            (_error) => {
               setIsLoading(false);
               setIsError(_error);
             },
@@ -125,7 +126,7 @@ function FirebaseFileUploadApi(fileInfo) {
               setData({
                 metaData: { fullPath, contentType },
                 downloadUrl,
-                isPrimary: primary
+                isPrimary: primary,
               });
 
               // reset progress
@@ -138,7 +139,7 @@ function FirebaseFileUploadApi(fileInfo) {
         setIsError(_error);
       }
     };
-    Promise.all(promises).then(tasks => {
+    Promise.all(promises).then((tasks) => {
       console.log("all uploads complete");
     });
     fileData && uploadData();
@@ -147,10 +148,19 @@ function FirebaseFileUploadApi(fileInfo) {
   useEffect(() => {
     if (data) {
       setImgDataArr([...imgDataArr, data]);
+      console.log(`⭐: imgDataArr`, imgDataArr);
+      console.log(`⭐: fileData`, fileData);
       dispatch(addProductImage({ data }));
+      if (imgDataArr?.length === fileData.length) {
+        setAllDone(true);
+        console.log(`⭐: ALLLLLLLLLL DONE`, true);
+      }
     }
   }, [data]);
 
-  return [{ imgDataArr, data, isLoading, isError, progress }, setFileData];
+  return [
+    { imgDataArr, data, isLoading, isError, progress, allDone },
+    setFileData,
+  ];
 }
 export default FirebaseFileUploadApi;

@@ -24,6 +24,7 @@ import { storeImages, deleteImage, setPrimaryImage } from "redux/imageSlice";
 import { setProductDocId } from "redux/createProductSlice";
 import useLocalStorageState from "hooks/useLocalStorage";
 import useFirebaseUpload from "firebase/firebaseStorage";
+import { FormContext } from "views/CreateProductView/FormContext";
 // import { connect } from 'react-redux';
 
 /**
@@ -44,7 +45,7 @@ function DropzoneComponent({ compression, ...props }) {
   const classes = useStyles();
   const imgClasses = useImgStyles();
   const [previewImage, setPreviewImage] = React.useState(0);
-  const [imageFiles, setImageFiles] = React.useState({});
+  const { imageFiles, setImageFiles } = React.useContext(FormContext);
   const [newFiles, setNewFiles] = React.useState([]);
 
   const { imagesArr: imagesData, primaryImage } = useSelector((s) => s.images);
