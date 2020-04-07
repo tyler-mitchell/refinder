@@ -49,13 +49,7 @@ function DropzoneComponent({ compression, ...props }) {
   const [newFiles, setNewFiles] = React.useState([]);
 
   const { imagesArr: imagesData, primaryImage } = useSelector((s) => s.images);
-  const productDocId = useSelector((s) => s.createProduct.productDocId);
 
-  React.useEffect(() => {
-    if (!productDocId) {
-      dispatch(setProductDocId());
-    }
-  }, []);
   React.useEffect(() => {
     if (newFiles) {
       const res = imagesData.reduce((acc, cur, index, arr) => {
@@ -93,23 +87,6 @@ function DropzoneComponent({ compression, ...props }) {
     },
     [imageFiles]
   );
-
-  const [
-    { imgDataArr, data, isLoading, isError, progress },
-    setFileData,
-  ] = useFirebaseUpload({
-    root: "product-images",
-    fileName: "image1",
-    folder: productDocId,
-  });
-  // console.log(`⭐: DropzoneComponent -> progress`, progress);
-  // console.log(`⭐: DropzoneComponent -> isError`, isError);
-  // console.log(`⭐: DropzoneComponent -> isLoading`, isLoading);
-  // console.log(`⭐: DropzoneComponent -> imgDataArr`, imgDataArr);
-
-  function handleUpload() {
-    setFileData(Object.keys(imageFiles).map((key) => imageFiles[key]));
-  }
 
   function handleDelete(i, name) {
     window.URL.revokeObjectURL(imagesData[i]);

@@ -1,6 +1,6 @@
 import { storageRef } from "firebase/core";
-async function handleUpload(productDocId, imageFiles) {
-  const filesArr = Object.keys(imageFiles).map((key) => imageFiles[key]);
+async function fbMultiImageUpload(productDocId, imageFilesObj) {
+  const filesArr = Object.keys(imageFilesObj).map((key) => imageFilesObj[key]);
 
   let fileInfo = {
     root: "product-images",
@@ -15,13 +15,21 @@ async function handleUpload(productDocId, imageFiles) {
         const ref = storageRef.child(`${root}/${folder}/${file.name}`);
         const uploadTask = await ref.put(file);
         const downloadUrl = await uploadTask.ref.getDownloadURL();
-        return downloadUrl;
+        // const { fullPath, contentType } = uploadTask.snapshot.metadata;
+
+        return {
+          downloadUrl,
+          isPrimary: primary,
+        };
       })
     );
 
-    fbImgData.then((data) => {
-      console.log("META DATA: ", data);
-      // dispatch(addProductImage({ data }));
-    });
+    // fbImgData.then((data) => {
+    //   console.log("META DATA: ", data);
+
+    //   // dispatch(addProductImage({ data }));
+    // });
+    return fbImgData;
   } catch (error) {}
 }
+export default fbMultiImageUpload;

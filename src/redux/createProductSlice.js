@@ -1,26 +1,20 @@
 import { createAsyncThunk, createSlice, unwrapResult } from "@reduxjs/toolkit";
 import { database, fieldValue } from "firebase/core";
+import fbMultiImageUpload from "firebase/fbMultiUpload";
 export const addToFirebase = createAsyncThunk(
   "createProduct/addToFirebase",
-  async (test, { getState, requestId }) => {
+  async (productImages, { getState, requestId }) => {
     // const { currentRequestId, loading } = getState().users;
-    const { uid, displayName, avatar } = getState().auth.userData;
-    const {
-      data: formData,
-      productDocId,
-      productImages,
-    } = getState().createProduct;
 
-    // if (loading !== "pending" || requestId !== currentRequestId) {
-    //   return;
-    // }
+    const { uid, displayName, avatar } = getState().auth.userData;
+    const { data: formData, productDocId } = getState().createProduct;
+
     const product = {
       uid,
       displayName,
       avatar,
       free: false,
       productImages,
-
       ...formData,
       created: fieldValue.serverTimestamp(),
     };
@@ -38,21 +32,23 @@ export const addToFirebase = createAsyncThunk(
       console.log(`⭐: error`, error);
     }
 
-    // const response = await userAPI.fetchById(userId)
     return uid;
-    // return response.data
   }
 );
 
+const initialState = {
+  data: {},
+  res: null,
+  uploading: false,
+  error: false,
+  productDocId: null,
+  finished: false,
+  productImages: [],
+};
+
 export const createProductSlice = createSlice({
   name: "createProduct",
-  initialState: {
-    data: {},
-    res: null,
-    productDocId: null,
-    productImages: [],
-  },
-
+  initialState: initialState,
   reducers: {
     addToForm: (state, action) => {
       const { formData } = action.payload;
@@ -61,21 +57,26 @@ export const createProductSlice = createSlice({
     },
     addProductImage: (state, action) => {
       const { data } = action.payload;
-      if (data.isPrimary) {
-        state.productImages.unshift(data);
-      } else {
-        state.productImages.push(data);
-      }
+      state.productImages = data;
     },
     setProductDocId: (state) => {
       state.productDocId = database.collection("materials").doc().id;
     },
+    resetCreateProductState: (state) => {
+      return initialState;
+    },
   },
   extraReducers: {
-    // Add reducers for additional action types here, and handle loading state as needed
     [addToFirebase.fulfilled]: (state, action) => {
-      // Add user to the state array
-      state.res = action.payload;
+      state.uploading = false;
+      state.error = false;
+      state.finished = true;
+    },
+    [addToFirebase.pending]: (state, action) => {
+      state.uploading = true;
+    },
+    [addToFirebase.rejected]: (state, action) => {
+      state.error = true;
     },
   },
 });
@@ -87,6 +88,7 @@ export const {
   addToForm,
   setProductDocId,
   addProductImage,
+  resetCreateProductState,
 } = createProductSlice.actions;
 
 export default createProductSlice.reducer;

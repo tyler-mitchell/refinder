@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 // import './index.css'
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import NextIcon from "@material-ui/icons/ArrowForwardRounded";
 import FormContainer from "../../components/Fields/FormContainer";
 import {
   InsetContainer,
@@ -26,6 +27,7 @@ import {
   makeStyles,
   AppBar,
   Dialog,
+  CircularProgress,
   DialogContent,
   DialogActions,
   DialogTitle,
@@ -33,24 +35,13 @@ import {
   Button as MuiButton,
 } from "@material-ui/core";
 
-import {
-  addToForm,
-  formDataSelector,
-  addToFirebase,
-} from "redux/createProductSlice";
 import { useForm, Controller } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
 
 import ProductSteps from "./ProductSteps";
 import FormContextProvider, { FormContext } from "./FormContext";
-const form = {
-  "default-text-field": "Test Data",
-  "default-email-field": "info@example.com",
-  "number-text-field": 6,
-};
 
-const drawerWidth = 240;
 const useStyles = makeStyles(() => ({
   header: {
     boxShadow: "0 1px 2px 0 rgba(0, 0, 0, .10)",
@@ -98,17 +89,9 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const formSteps = [
-  "General Details",
-  "Upload Photos",
-  "Location",
-  "Price and Payment",
-];
-const TOTAL_STEPS = formSteps.length;
 const CreateProductView = () => {
   const dispatch = useDispatch();
-  const formData = useSelector((s) => s.auth.uid);
-  const [completedSteps, setCompletedSteps] = React.useState(0);
+
   const {
     handleSubmit,
     triggerValidation,
@@ -118,29 +101,19 @@ const CreateProductView = () => {
     getValues,
     control,
     handleFileUpload,
+    onSubmit,
+    activeStep,
+    setActiveStep,
+    formSteps,
+    completedSteps,
+    uploading,
+    error,
   } = React.useContext(FormContext);
-  function onSubmit(values) {
-    if (activeStep < TOTAL_STEPS) {
-      setActiveStep(activeStep + 1);
-      setCompletedSteps(activeStep);
-    }
-    dispatch(addToForm({ formData: values }));
-
-    console.log(`⭐: CreateProductView -> formData`, formData);
-
-    if (activeStep === TOTAL_STEPS) {
-      // getValues();
-      console.log(`⭐: onSubmit -> getValues()`, getValues());
-      console.log(`⭐: onSubmit -> DISPATCHED FIREBASE`, activeStep);
-      handleFileUpload();
-    }
-  }
 
   const classes = styles();
   const containerRef = React.useRef();
   const location = useLocation();
   console.log(`⭐: CreateProductView -> location`, location);
-  const [activeStep, setActiveStep] = React.useState(1);
 
   return (
     <div
@@ -241,8 +214,16 @@ const CreateProductView = () => {
               Back
             </MuiButton>
             <MuiButton
+              endIcon={
+                uploading ? (
+                  <CircularProgress size={20} thickness={5} />
+                ) : (
+                  <NextIcon />
+                )
+              }
               type="submit"
               onClick={() => {}}
+              disabled={uploading}
               variant="outlined"
               variantColor="blue"
             >

@@ -23,7 +23,6 @@ const ProductSteps = ({ activeStep }) => {
           <ChooseLocation />
         </div>
       );
-
     default:
       return <></>;
   }
