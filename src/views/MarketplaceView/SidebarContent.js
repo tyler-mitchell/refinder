@@ -12,13 +12,13 @@ import {
   ListItemText,
   Link,
   ListItemAvatar,
-  Tooltip
+  Tooltip,
 } from "@material-ui/core";
 
 const navigationLinks = [
   { label: "Dashboard", icon: <DashboardIcon />, path: "" },
   { label: "Materials", icon: <MaterialIcon />, path: "materials" },
-  { label: "Sell", icon: <SellIcon />, path: "sell" }
+  { label: "Sell", icon: <SellIcon />, path: "selling" },
 ];
 const SidebarContent = () => {
   const navigate = useNavigate();

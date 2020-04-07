@@ -8,7 +8,10 @@ import Typography from "@material-ui/core/Typography";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import NextIcon from "@material-ui/icons/ArrowForwardRounded";
+import CloseIcon from "@material-ui/icons/CloseRounded";
 import FormContainer from "../../components/Fields/FormContainer";
+import { useNavigate } from "react-router-dom";
+
 import {
   InsetContainer,
   Sidebar,
@@ -31,6 +34,7 @@ import {
   DialogContent,
   DialogActions,
   DialogTitle,
+  IconButton,
   Toolbar,
   Button as MuiButton,
 } from "@material-ui/core";
@@ -108,12 +112,15 @@ const CreateProductView = () => {
     completedSteps,
     uploading,
     error,
+    modalOpen,
+    setModalOpen,
   } = React.useContext(FormContext);
 
   const classes = styles();
   const containerRef = React.useRef();
   const location = useLocation();
   console.log(`⭐: CreateProductView -> location`, location);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -127,12 +134,27 @@ const CreateProductView = () => {
       <Dialog
         fullWidth
         maxWidth="md"
-        open={true}
+        open={modalOpen}
+        closeAfterTransition
+        // transitionDuration={{ appear: 3000, exit: 3000, enter: 3000 }}
+        onExited={() => {
+          navigate("../");
+        }}
         style={{ overflow: "visible" }}
         PaperProps={{ style: { overflow: "visible" } }}
         scroll="body"
         ref={containerRef}
       >
+        <IconButton
+          style={{ position: "absolute", top: 2, right: 2 }}
+          size="small"
+          onClick={() => {
+            // navigate("../");
+            setModalOpen(false);
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div style={{ display: "flex" }}>
             <Drawer
@@ -140,7 +162,11 @@ const CreateProductView = () => {
               hideBackdrop={true}
               variant="permanent"
               PaperProps={{
-                style: { position: "relative", userSelect: "none" },
+                style: {
+                  position: "relative",
+                  userSelect: "none",
+                  borderTopLeftRadius: "15px",
+                },
               }}
               BackdropProps={{ style: { position: "relative" } }}
               ModalProps={{

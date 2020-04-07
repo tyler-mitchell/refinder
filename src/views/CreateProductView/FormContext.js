@@ -8,8 +8,10 @@ import {
   formDataSelector,
   addToFirebase,
   setProductDocId,
+  resetCreateProductState,
 } from "redux/createProductSlice";
 import fbMultiImageUpload from "firebase/fbMultiUpload";
+import { useNavigate } from "react-router-dom";
 export const FormContext = React.createContext();
 
 const formSteps = [
@@ -33,7 +35,7 @@ const FormContextProvider = ({ children }) => {
     control,
     getValues,
   } = useForm();
-
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const { productDocId, uploading, error, finished } = useSelector(
     (s) => s.createProduct
@@ -41,12 +43,19 @@ const FormContextProvider = ({ children }) => {
 
   // TODO:
   // Make sure productID is reset after submission
-
+  const [modalOpen, setModalOpen] = React.useState(true);
   React.useEffect(() => {
     if (!productDocId) {
       dispatch(setProductDocId());
     }
   }, []);
+
+  React.useEffect(() => {
+    if (finished) {
+      dispatch(resetCreateProductState());
+      setModalOpen(false);
+    }
+  }, [finished]);
 
   const [imageFiles, setImageFiles] = React.useState({});
   const [activeStep, setActiveStep] = React.useState(1);
@@ -95,7 +104,8 @@ const FormContextProvider = ({ children }) => {
     onSubmit,
     error,
     uploading,
-    finished,
+    modalOpen,
+    setModalOpen,
   };
   return <FormContext.Provider value={ctx}>{children}</FormContext.Provider>;
 };
