@@ -5,7 +5,7 @@ import {
   Routes,
   Route,
   Outlet,
-  Redirect
+  // Redirect
 } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
 import theme from "./theme/index";
@@ -16,7 +16,7 @@ import MarketplaceView from "./views/MarketplaceView";
 import { CssBaseline } from "@material-ui/core";
 import LoginView from "./views/OnboardView/LoginView";
 import SignupView from "./views/OnboardView/SignupView";
-import ProductView from "./views/ProductView/ProductView.js"
+import ProductView from "./views/ProductView/ProductView.js";
 
 const Router = () => {
   return (
@@ -28,7 +28,7 @@ const Router = () => {
         <Route path="/signup" element={<SignupView />} />
         <Route path="marketplace/*" element={<MarketplaceView />} />
         <Route path="/productview" exact element={<ProductView />} />
-        <Redirect from="/*/*" to="/marketplace/notfound" />
+
         {/* <Route path="*">
          
         </Route> */}
