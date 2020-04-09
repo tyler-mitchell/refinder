@@ -3,45 +3,33 @@ import Geocoder from "react-mapbox-gl-geocoder";
 import ReactMapGL, { GeolocateControl, Marker, Popup } from "react-map-gl";
 import MarkerPop from "./MarkerPop.js";
 import Pin from "./pin.js";
-import { css } from "styled-components";
+import styled from "styled-components";
 import "./mapcss.css";
 
-const MapBoxWrap = props => {
-  const targetRef = React.useRef();
+const MapBoxWrap = (props) => {
   const [viewport, setViewport] = useState({
     //2000 width is more than a full 1080p screen
     width: "100%",
     height: 300,
     latitude: 29.4087,
     longitude: -98.5011,
-    zoom: 12
+    zoom: 12,
   });
   const [dimensions, setDimensions] = useState({
     width: 0,
-    height: 0
+    height: 0,
   });
 
   const [markLoc, setMarkLoc] = useState({
     display: false,
     latitude: viewport.latitude,
-    longitude: viewport.longitude
+    longitude: viewport.longitude,
   });
 
-  const geolocateStyle = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    margin: 10
-  };
-
-  const queryParams = {
-    country: "us"
-  };
-
-  const mapAccess = {
-    mapboxApiAccessToken:
-      "pk.eyJ1Ijoia2hpbGFyaW8iLCJhIjoiY2s3dHZ4eHlqMDFiazNqcGE2aWJ1anBmMSJ9.AVB7C3U09RcuLw3Km_DZmA"
-  };
+  // const mapAccess = {
+  //   mapboxApiAccessToken:
+  //     "pk.eyJ1Ijoia2hpbGFyaW8iLCJhIjoiY2s3dHZ4eHlqMDFiazNqcGE2aWJ1anBmMSJ9.AVB7C3U09RcuLw3Km_DZmA",
+  // };
 
   const onSelect = (viewport, item) => {
     setViewport(viewport);
@@ -49,7 +37,7 @@ const MapBoxWrap = props => {
       display: true,
       latitude: viewport.latitude,
 
-      longitude: viewport.longitude
+      longitude: viewport.longitude,
     });
   };
 
@@ -69,7 +57,7 @@ const MapBoxWrap = props => {
         className="map_box_container"
         style={{
           borderRadius: "10px",
-          overflow: "hidden"
+          overflow: "hidden",
           // width: "100%",
           // height: "100%",
           // position: "relative"
@@ -82,6 +70,7 @@ const MapBoxWrap = props => {
           // {...dimensions}
           // width={"100%"}
           // height="100%"
+          mapStyle={"mapbox://styles/haxzie/cjxg35uth252i1cmu2r0gomx7"}
           onViewportChange={setViewport}
           dragRotate={false}
         >
@@ -91,30 +80,30 @@ const MapBoxWrap = props => {
             trackUserLocation={false}
           /> */}
 
-          {markLoc.display && (
+          {/* {markLoc.display && ( */}
+          {true && (
             <Marker
-              latitude={markLoc.latitude}
-              longitude={markLoc.longitude}
+              latitude={markLoc.latitude || 29.4087}
+              longitude={markLoc.longitude || -98.5011}
               offsetTop={-20}
               offsetLeft={-10}
+              markerColor={"red"}
               draggable={false}
               captureClick={true}
             >
-              <div>
-                <Pin />
-              </div>
+              <Pin />
             </Marker>
           )}
-
+          {/* 
           <MarkerPop
             lat={29.4087}
             lng={-98.5011}
             options={{
               price: 11,
               img: "wood1.jpg",
-              store: "Good Wood Wood Goods"
+              store: "Good Wood Wood Goods",
             }}
-          />
+          /> */}
         </ReactMapGL>
       </div>
     </>

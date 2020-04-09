@@ -1,12 +1,10 @@
 import React from "react";
-import { Typography, Container, Link } from "@material-ui/core";
+import { Typography, Container, Link, Grid } from "@material-ui/core";
+import Map from "components/Map/MapBoxWrap";
 const DashboardView = () => {
   return (
-    <Container maxWidth="lg">
-      <Typography variant={"overline"}>Welcome to</Typography>
-      <Typography weight={"bold"} variant={"h4"} gutterBottom>
-        <Link underline={"none"}>Refinder </Link> Marketplace
-      </Typography>
+    <Container maxWidth="md">
+      <Map />
     </Container>
   );
 };

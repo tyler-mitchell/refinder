@@ -117,6 +117,7 @@ const ProductCard = (props) => {
         //   "-80px 0px 28px 0 rgba(0, 0, 0, 0.005 ), 0 12px 28px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
 
         height: "100%",
+        boxShadow: "0 1px 2px 0 rgba(31,45,61,.15)",
       }}
       elevation={0}
       variant="outlined"
@@ -155,8 +156,8 @@ const ProductCard = (props) => {
                 borderRadius: "4px",
                 background: "white",
                 position: "absolute",
-                boxShadow:
-                  "0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
+                // boxShadow:
+                //   "0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
 
                 bottom: 11.5,
                 right: 5.5,
