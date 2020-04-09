@@ -35,7 +35,22 @@ import {
 } from "@material-ui/icons";
 import styled from "styled-components";
 import { useNavigate, Navigate } from "react-router";
-
+const ViewButton = styled(Button)`
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  /* min-width: 300px; */
+  /* height: 100%; */
+  /* min-height: 66px; */
+  color: rgba(0, 0, 0, 1);
+  font-weight: 630;
+  background: #fff;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: none;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03), 0 4px 9px rgba(0, 0, 0, 0.05);
+  margin-left: 10px;
+  margin-bottom: 8px;
+`;
 const Thumbnail = styled.div`
   object-fit: cover;
   display: block;
@@ -103,7 +118,7 @@ const ProductCard = (props) => {
   return (
     <Card
       style={{
-        borderRadius: "6px",
+        borderRadius: "5px",
         position: "relative",
 
         // minWidth: "300px",
@@ -115,9 +130,9 @@ const ProductCard = (props) => {
 
         // boxShadow:
         //   "-80px 0px 28px 0 rgba(0, 0, 0, 0.005 ), 0 12px 28px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
-
+        borderColor: "rgba(0,0,0,0.01)",
         height: "100%",
-        boxShadow: "0 1px 2px 0 rgba(31,45,61,.15)",
+        boxShadow: "0 0px 1px 0 rgba(31,45,61,.5)",
       }}
       elevation={0}
       variant="outlined"
@@ -145,7 +160,7 @@ const ProductCard = (props) => {
                 <Typography
                   variant="caption"
                   color="textSecondary"
-                  style={{ fontWeight: 472 }}
+                  style={{ fontWeight: 492, color: "white" }}
                 >
                   <span style={{ fontWeight: 490, color: "" }}>$</span>
                   {((props.index * props.index + 9) % 78) * 5}
@@ -154,7 +169,7 @@ const ProductCard = (props) => {
               size="small"
               style={{
                 borderRadius: "4px",
-                background: "white",
+                background: "#000",
                 position: "absolute",
                 // boxShadow:
                 //   "0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
@@ -243,13 +258,13 @@ const ProductCard = (props) => {
 
         {/* <Divider /> */}
       </motion.div>
-      <Button
+      <ViewButton
         onClick={() => {
           navigate(props.id, { state: props });
         }}
       >
-        {/* View */}
-      </Button>
+        View
+      </ViewButton>
       {/* <CardActions>
         <div style={{ flexGrow: 1 }} />
 
