@@ -210,13 +210,21 @@ const MarketplaceView = () => {
                   >
                     <Route path="discussion" element={<ProductChatView />} />
                   </Route>
+
                   {/* 
                   <Route
                     path="/materials/:materialID/discussion"
                     element={<ProductChatView />}
                   /> */}
                   <Route path="/services" element={<ProductsListView />} />
-                  <Route path="/dashboard" element={<DashboardView />} />
+                  <Route path="/dashboard" element={<DashboardView />}>
+                    <Route
+                      path="/materials/:materialID"
+                      element={<ProductView />}
+                    >
+                      <Route path="discussion" element={<ProductChatView />} />
+                    </Route>
+                  </Route>
                   <Route path="/selling" element={<SellerDashboardView />}>
                     <Route path="new" element={<CreateProductView />} />
                   </Route>

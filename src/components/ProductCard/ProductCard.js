@@ -14,10 +14,12 @@ import {
   CardContent,
   Button,
   Divider,
+  Avatar,
   CardActions,
   CardActionArea,
   makeStyles,
 } from "@material-ui/core";
+import PinIcon from "@material-ui/icons/Room";
 import Rating from "@material-ui/lab/Rating";
 import { Link } from "react-router-dom";
 import { database } from "firebase/core";
@@ -35,21 +37,28 @@ import {
 } from "@material-ui/icons";
 import styled from "styled-components";
 import { useNavigate, Navigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { setMapLocation } from "redux/listingsSlice";
 const ViewButton = styled(Button)`
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  /* min-width: 300px; */
-  /* height: 100%; */
-  /* min-height: 66px; */
-  color: rgba(0, 0, 0, 1);
+  /* border: 1px solid rgba(0, 0, 0, 0.5); */
+  /* width: 100%; */
+
   font-weight: 630;
-  background: #fff;
+  color: white;
+  background: black;
   font-size: 12px;
-  letter-spacing: 1px;
+
   text-transform: none;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03), 0 4px 9px rgba(0, 0, 0, 0.05);
-  margin-left: 10px;
+  &:hover {
+    color: black;
+  }
+  /* background: rgba(0, 0, 0, 0.5); */
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03), 0 4px 9px rgba(0, 0, 0, 0.02); */
+  transition: all 0.2s;
   margin-bottom: 8px;
+  margin-left: 5px;
+  margin-right: 5px;
 `;
 const Thumbnail = styled.div`
   object-fit: cover;
@@ -102,6 +111,7 @@ const CarouselArrow = ({ icon: Icon, direction, hovered }) => {
 };
 
 const ProductCard = (props) => {
+  const dispatch = useDispatch();
   const [hovered, setHovered] = React.useState(false);
   const lightColor = "#ffff";
   const contrastColor = "#FFFF";
@@ -124,15 +134,16 @@ const ProductCard = (props) => {
         // minWidth: "300px",
         // maxHeight: "300px",
         zIndex: props.index,
-        // boxShadow:
-        //   "0 6.7px 5.3px  rgba(0, 0, 0, 0.05), 0 22.3px 17.9px  rgba(0, 0, 0, 0.003), 0 100px 80px rgba(0, 0, 0, 0.02)",
-        //
+        boxShadow:
+          "0 6.7px 5.3px  rgba(0, 0, 0, 0.05), 0 22.3px 17.9px  rgba(0, 0, 0, 0.003), 0 100px 80px rgba(0, 0, 0, 0.02)",
 
         // boxShadow:
         //   "-80px 0px 28px 0 rgba(0, 0, 0, 0.005 ), 0 12px 28px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
-        borderColor: "rgba(0,0,0,0.01)",
+        // border: "solid 6px #fcfcfd",
+        border: "none",
         height: "100%",
-        boxShadow: "0 0px 1px 0 rgba(31,45,61,.5)",
+
+        // boxShadow: "0 0px 1px 0 rgba(31,45,61,.5)",
       }}
       elevation={0}
       variant="outlined"
@@ -160,16 +171,23 @@ const ProductCard = (props) => {
                 <Typography
                   variant="caption"
                   color="textSecondary"
-                  style={{ fontWeight: 492, color: "white" }}
+                  style={{ fontWeight: 600, color: "#09a742", opacity: 0.7 }}
                 >
-                  <span style={{ fontWeight: 490, color: "" }}>$</span>
-                  {((props.index * props.index + 9) % 78) * 5}
+                  {props?.address?.address}
                 </Typography>
+                // <Typography
+                //   variant="caption"
+                //   color="textSecondary"
+                //   style={{ fontWeight: 600, color: "#09a742", opacity: 0.7 }}
+                // >
+                //   <span style={{ fontWeight: 600, color: "#09a742" }}>$</span>
+                //   {((props.index * props.index + 9) % 78) * 5}
+                // </Typography>
               }
               size="small"
               style={{
                 borderRadius: "4px",
-                background: "#000",
+                background: "#fff",
                 position: "absolute",
                 // boxShadow:
                 //   "0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
@@ -205,74 +223,101 @@ const ProductCard = (props) => {
               overflow: "hidden",
             }}
           >
-            <CardActionArea>
-              <Grid item container justify="space-between">
-                <Typography
-                  display="inline"
-                  align="right"
-                  component="legend"
-                  variant="caption"
-                  style={{
-                    opacity: 0.8,
+            <Grid item container justify="space-between" alignItems="center">
+              <Typography
+                display="inline"
+                align="right"
+                component="legend"
+                variant="caption"
+                style={{
+                  opacity: 0.8,
 
-                    // right: -20,
-                    // position: "absolute",
-                    // top: -10,
-                    // color: "white",
-                    // padding: "3px",
-                    borderRadius: "4px",
-                  }}
-                >
-                  Wood
-                </Typography>
-              </Grid>
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="flex-start"
-                mb="3px"
+                  // right: -20,
+                  // position: "absolute",
+                  // top: -10,
+                  // color: "white",
+                  // padding: "3px",
+                  borderRadius: "4px",
+                }}
               >
-                <Typography
-                  display="inline"
-                  component="legend"
-                  variant="body1"
-                  style={{ fontWeight: 310 }}
-                  color="textPrimary"
-                >
-                  {props.title}
-                </Typography>
-              </Box>
-              <Box>
-                <Typography
-                  color="textSecondary"
-                  display="block"
-                  variant="body1"
-                >
-                  {/* <TruncatedText lines={4}>{props.description}</TruncatedText> */}
-                </Typography>
-              </Box>
-              {/* <Rating name="read-only" value={props.index + (1 % 5)} readOnly /> */}
-            </CardActionArea>
+                Wood
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                style={{ fontWeight: 600 }}
+                color="textSecondary"
+              >
+                <TimeAgo live={false} datetime={props?.created?.toDate()} />
+              </Typography>
+            </Grid>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="flex-start"
+              mb="3px"
+            >
+              <Chip
+                avatar={
+                  <Avatar>
+                    <PinIcon style={{ fontSize: 12 }} />
+                  </Avatar>
+                }
+                onClick={() => {
+                  dispatch(
+                    setMapLocation({
+                      location: {
+                        latitude: props.address.latitude,
+                        longitude: props.address.longitude,
+                      },
+                    })
+                  );
+                }}
+                label={props?.address?.address}
+                clickable
+                color="secondary"
+                size="small"
+              />
+              <Typography
+                display="inline"
+                component="legend"
+                variant="body1"
+                style={{ fontWeight: 310 }}
+                color="textPrimary"
+              >
+                {props.title}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography color="textSecondary" display="block" variant="body1">
+                {/* <TruncatedText lines={4}>{props.description}</TruncatedText> */}
+              </Typography>
+            </Box>
+            {/* <Rating name="read-only" value={props.index + (1 % 5)} readOnly /> */}
           </Grid>
         </CardContent>
 
         {/* <Divider /> */}
       </motion.div>
-      <ViewButton
-        onClick={() => {
-          navigate(props.id, { state: props });
-        }}
+
+      <CardActions
+      // style={{
+      //   display: "flex",
+      //   justifyContent: "center",
+      //   alignItems: "center",
+      // }}
       >
-        View
-      </ViewButton>
-      {/* <CardActions>
         <div style={{ flexGrow: 1 }} />
 
-        {console.log(`⭐: props?.created.toDate()`, props?.created.toDate())}
-        <Typography variant="subtitle2" color="textSecondary">
-          <TimeAgo datetime={props?.created?.toDate()} />
-        </Typography>
-      </CardActions> */}
+        <ViewButton
+          color="default"
+          variant="outlined"
+          onClick={() => {
+            navigate(`./materials/${props.id}`, { state: props });
+          }}
+        >
+          View
+        </ViewButton>
+      </CardActions>
     </Card>
   );
 };

@@ -1,20 +1,30 @@
 import React, { useState } from "react";
 import Geocoder from "react-mapbox-gl-geocoder";
-import ReactMapGL, { GeolocateControl, Marker, Popup } from "react-map-gl";
+import ReactMapGL, {
+  GeolocateControl,
+  Marker,
+  Popup,
+  FlyToInterpolator,
+  WebMercatorViewport,
+} from "react-map-gl";
 import MarkerPop from "./MarkerPop.js";
 import Pin from "./pin.js";
 import styled from "styled-components";
 import "./mapcss.css";
+import { useDispatch, useSelector } from "react-redux";
+const MapBoxWrap = ({ width = "100%", height = 300, x, y }) => {
+  // console.log(`⭐: MapBoxWrap -> y`, y);
+  // console.log(`⭐: MapBoxWrap -> x`, x);
+  const { listings, loading, mapLocation } = useSelector((s) => s.listings);
 
-const MapBoxWrap = (props) => {
   const [viewport, setViewport] = useState({
     //2000 width is more than a full 1080p screen
+    ...mapLocation,
     width: "100%",
-    height: 300,
-    latitude: 29.4087,
-    longitude: -98.5011,
+    height: height,
     zoom: 12,
   });
+
   const [dimensions, setDimensions] = useState({
     width: 0,
     height: 0,
@@ -41,6 +51,41 @@ const MapBoxWrap = (props) => {
     });
   };
 
+  // function goToAddress(vp){
+  //   const newViewPort = {
+
+  //   }
+  //   setViewport({...viewport, ...mapLocation,...vp})
+  // }
+
+  React.useEffect(() => {
+    const wmVp = new WebMercatorViewport({
+      longitude: mapLocation.longitude,
+      latitude: mapLocation.latitude,
+      zoom: 12,
+    });
+
+    const [newLong, newLat] =
+      x && y
+        ? wmVp.getMapCenterByLngLatPosition({
+            pos: [x / 2, y / 4],
+            lngLat: [mapLocation.longitude, mapLocation.latitude],
+          })
+        : [mapLocation.longitude, mapLocation.latitude];
+
+    console.log(`⭐: MapBoxWrap -> mapLocation`, mapLocation);
+    console.log(`⭐: MapBoxWrap -> newLong`, newLong);
+    console.log(`⭐: MapBoxWrap -> newLat`, newLat);
+    const newViewport = {
+      ...viewport,
+      latitude: newLat,
+      longitude: newLong,
+      zoom: 12,
+      transitionDuration: 1000,
+      transitionInterpolator: new FlyToInterpolator(),
+    };
+    setViewport(newViewport);
+  }, [mapLocation]);
   return (
     <>
       {/* <Geocoder
@@ -81,19 +126,26 @@ const MapBoxWrap = (props) => {
           /> */}
 
           {/* {markLoc.display && ( */}
-          {true && (
-            <Marker
-              latitude={markLoc.latitude || 29.4087}
-              longitude={markLoc.longitude || -98.5011}
-              offsetTop={-20}
-              offsetLeft={-10}
-              markerColor={"red"}
-              draggable={false}
-              captureClick={true}
-            >
-              <Pin />
-            </Marker>
-          )}
+
+          {listings.map((product) => {
+            if (product?.address) {
+              return (
+                <Marker
+                  latitude={product.address.latitude || 29.4087}
+                  longitude={product.address.longitude || -98.5011}
+                  // offsetTop={-20}
+                  // offsetLeft={-10}
+                  markerColor={"red"}
+                  draggable={false}
+                  captureClick={true}
+                >
+                  <Pin />
+                </Marker>
+              );
+            } else {
+              return <></>;
+            }
+          })}
           {/* 
           <MarkerPop
             lat={29.4087}

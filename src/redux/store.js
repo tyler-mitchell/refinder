@@ -4,6 +4,7 @@ import createProductSlice from "./createProductSlice";
 import authSlice from "./authSlice";
 import productSlice from "./productSlice";
 import imageSlice from "./imageSlice";
+import listingsSlice from "./listingsSlice";
 
 export default configureStore({
   reducer: {
@@ -11,11 +12,12 @@ export default configureStore({
     createProduct: createProductSlice,
     auth: authSlice,
     product: productSlice,
-    images: imageSlice
+    images: imageSlice,
+    listings: listingsSlice,
   },
   middleware: getDefaultMiddleware({
     serializabilityCheck: {
-      ignoredActions: ["images.images"]
-    }
-  })
+      ignoredActions: ["images.images"],
+    },
+  }),
 });

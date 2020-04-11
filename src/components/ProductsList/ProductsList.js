@@ -10,7 +10,7 @@ import {
   InputBase,
   IconButton,
   Typography,
-  CardContent
+  CardContent,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 
@@ -22,37 +22,20 @@ import {
   Search as InfoOutlined,
   StarBorder,
   ChevronLeft as ArrowLeft,
-  ChevronRight as ArrowRight
+  ChevronRight as ArrowRight,
 } from "@material-ui/icons";
 import {
   Masonry,
   FreeMasonry,
   useWindowScroller,
-  useContainerRect
+  useContainerRect,
 } from "masonic";
 import styled from "styled-components";
-
+import { useDispatch } from "react-redux";
+import { initializeListings, setLoading } from "redux/listingsSlice";
 const ProductContainer = styled.div`
-  padding-bottom: "50px";
+  /* padding-bottom: "50px"; */
 `;
-const ProductGrid = props => {
-  const { width, height, scrollY, isScrolling } = useWindowScroller(),
-    [rect, containerRef] = useContainerRect(width, height);
-
-  return React.createElement(
-    FreeMasonry,
-    Object.assign(
-      {
-        width: rect.width,
-        height,
-        scrollTop: Math.max(0, scrollY - (rect.top + scrollY)),
-        isScrolling,
-        containerRef
-      },
-      props
-    )
-  );
-};
 
 const ProductLog = () => {
   const ref = database
@@ -60,6 +43,16 @@ const ProductLog = () => {
     .orderBy("created", "desc")
     .limit(30);
   const [materials, loading, error] = useCollectionData(ref, { idField: "id" });
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (materials && !loading) {
+      dispatch(initializeListings({ listings: materials }));
+    } else if (loading) {
+      dispatch(setLoading());
+    }
+  }, [loading]);
   console.log(`⭐: ProductLog -> materials`, materials);
   return (
     <>
@@ -72,7 +65,7 @@ const ProductLog = () => {
             tabIndex={false}
             clearPositions
             render={Product}
-            scrollTop={0}
+            // scrollTop={0}
             itemHeightEstimate={280}
             overscanBy={20}
           />
