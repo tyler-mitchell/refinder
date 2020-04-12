@@ -106,7 +106,7 @@ const StyledCardMedia = styled(CardActionArea)`
 `;
 
 const StyledLikeAction = styled.div`
-  opacity: 0;
+  opacity: ${({ liked }) => (liked ? 1 : 0)};
   display: flex;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 6px;
@@ -213,7 +213,7 @@ const ProductCard = (props) => {
                 size="small"
                 style={{
                   position: "absolute",
-                  letterSpacing: "0.5px",
+                  letterSpacing: "0.4px",
                   left: 5,
                   top: 5,
                   zIndex: 2,
@@ -249,7 +249,7 @@ const ProductCard = (props) => {
                 // component="img"
                 image={getThumbnail()}
               />
-              <StyledLikeAction>
+              <StyledLikeAction liked={liked}>
                 <IconButton
                   size="small"
                   onClick={(e) => {

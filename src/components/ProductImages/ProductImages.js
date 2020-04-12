@@ -35,6 +35,7 @@ export default function TextMobileStepper({ productImages }) {
         position="static"
         variant="dots"
         activeStep={activeStep}
+        style={{ background: "white" }}
         nextButton={
           <Button
             size="small"

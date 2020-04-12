@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import SidebarContent from "./SidebarContent";
 import ProductsListView from "views/ProductLogView";
 import DashboardView from "views/DashboardView";
+import { ProductModalView } from "views/DashboardView/DashboardView";
 import ProductView from "views/ProductView";
 import SellerDashboardView from "views/SellerDashboardView";
 import ProductChatView from "views/ProductChatView";
@@ -204,14 +205,20 @@ const MarketplaceView = () => {
 
               <Content>
                 <Routes>
-                  <Route path="/" element={<DashboardView />} />
+                  {/* <Route path="/" element={<DashboardView />} /> */}
                   <Route path="/materials" element={<ProductsListView />} />
-                  <Route
+                  <Route path="/" element={<DashboardView />}>
+                    <Route
+                      path="/materials/:materialID"
+                      element={<ProductModalView />}
+                    />
+                  </Route>
+                  {/* <Route
                     path="/materials/:materialID"
                     element={<ProductView />}
                   >
                     <Route path="discussion" element={<ProductChatView />} />
-                  </Route>
+                  </Route> */}
 
                   {/* 
                   <Route
@@ -219,14 +226,7 @@ const MarketplaceView = () => {
                     element={<ProductChatView />}
                   /> */}
                   <Route path="/services" element={<ProductsListView />} />
-                  <Route path="/dashboard" element={<DashboardView />}>
-                    <Route
-                      path="/materials/:materialID"
-                      element={<ProductView />}
-                    >
-                      <Route path="discussion" element={<ProductChatView />} />
-                    </Route>
-                  </Route>
+
                   <Route path="/selling" element={<SellerDashboardView />}>
                     <Route path="new" element={<CreateProductView />} />
                   </Route>

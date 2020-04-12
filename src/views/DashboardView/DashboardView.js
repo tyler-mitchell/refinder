@@ -12,9 +12,12 @@ import {
   ListItemIcon,
   ListItemAvatar,
   ListItemSecondaryAction,
+  IconButton,
+  Dialog,
   ListSubheader,
   ListItemText,
   Avatar,
+  DialogContent,
   List,
   ListItem,
 } from "@material-ui/core";
@@ -26,6 +29,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import WoodIcon from "@material-ui/icons/FilterHdr";
 import ChevronRightIcon from "@material-ui/icons/ChevronRightRounded";
 import useDimensions from "hooks/useDimensions";
+import { Outlet, useNavigate } from "react-router-dom";
+import CloseIcon from "@material-ui/icons/Close";
+import ProductView from "views/ProductView";
 
 function getMaterialColor(material) {
   switch (material) {
@@ -136,11 +142,48 @@ const CategoryListItem = ({ title, subtitle, icon: Icon, type }) => {
   );
 };
 
+export const ProductModalView = ({ children }) => {
+  const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = React.useState(true);
+  return (
+    <Dialog
+      fullWidth
+      maxWidth="lg"
+      open={modalOpen}
+      // open={true}
+      closeAfterTransition
+      // transitionDuration={{ appear: 3000, exit: 3000, enter: 3000 }}
+      onExited={() => {
+        navigate("/marketplace");
+      }}
+      style={{ overflow: "visible" }}
+      PaperProps={{ style: { overflow: "visible" } }}
+      scroll="body"
+      // ref={containerRef}
+    >
+      <IconButton
+        style={{ position: "absolute", top: 2, right: 2 }}
+        size="small"
+        onClick={() => {
+          // navigate("../");
+          setModalOpen(false);
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
+
+      <DialogContent style={{ minHeight: "723px" }}>
+        <ProductView />
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 const DashboardView = () => {
   const { reference, handleSubmit, reset, control } = useForm();
 
   const styles = useStyles();
-
+  const [modalOpen, setModalOpen] = React.useState(true);
   const [ref, { x, y, width }] = useDimensions();
   return (
     <Container
@@ -234,7 +277,10 @@ const DashboardView = () => {
               </List>
               <Divider orientation="vertical" flexItem />
               <ProductViewContainer>
-                <ProductList />
+                <ProductList
+                  modalOpen={modalOpen}
+                  setModalOpen={setModalOpen}
+                />
               </ProductViewContainer>
             </div>
           </ExplorerWrapper>
@@ -252,7 +298,6 @@ const DashboardView = () => {
             opacity: 0,
           }}
         >
-          {" "}
           <div
             style={{
               width: "100%",
@@ -261,9 +306,7 @@ const DashboardView = () => {
               background: "blue",
             }}
             ref={ref}
-          >
-            Hello
-          </div>
+          ></div>
         </Grid>
       </Grid>
 
@@ -279,6 +322,8 @@ const DashboardView = () => {
       >
         <Map x={x} y={y} height="100%" />
       </div>
+
+      <Outlet />
     </Container>
   );
 };
