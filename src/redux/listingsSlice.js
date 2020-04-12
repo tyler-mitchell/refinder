@@ -12,6 +12,7 @@ export const listingsSlice = createSlice({
       latitude: 29.4087,
       longitude: -98.5011,
     },
+    currentProductId: false,
   },
   reducers: {
     initializeListings: (state, action) => {
@@ -21,8 +22,9 @@ export const listingsSlice = createSlice({
       state.listings = listings;
     },
     setMapLocation: (state, action) => {
-      const { location } = action.payload;
+      const { location, productId } = action.payload;
       state.mapLocation = location;
+      state.currentProductId = productId;
     },
     setLoading: (state) => {
       state.loading = true;

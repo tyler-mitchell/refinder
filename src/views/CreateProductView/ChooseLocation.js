@@ -247,6 +247,10 @@ const MapBoxWrap = (props) => {
           onViewportChange={handleGeocoderViewportChange}
           onResult={(res) => {
             setValue("address", parseAddress(res?.result));
+            console.log(
+              `⭐: MapBoxWrap -> parseAddress(res?.result)`,
+              parseAddress(res?.result)
+            );
             console.log("RESULT: ", res);
             console.log("GETVALUES::: ", getValues());
           }}
@@ -266,16 +270,6 @@ const MapBoxWrap = (props) => {
             </div>
           </Marker>
         )} */}
-
-        <MarkerPop
-          lat={markLoc.latitude}
-          lng={markLoc.longitude}
-          options={{
-            price: 11,
-            img: "wood1.jpg",
-            store: "Good Wood Wood Goods",
-          }}
-        />
       </ReactMapGL>
       {/* </div> */}
     </>

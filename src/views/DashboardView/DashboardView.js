@@ -248,13 +248,18 @@ const DashboardView = () => {
             // height: "100%",
             // position: "relative",
             userSelect: "none",
-            zIndex: 100,
+            // zIndex: 100,
             opacity: 0,
           }}
         >
           {" "}
           <div
-            style={{ width: "100%", height: "100%", background: "blue" }}
+            style={{
+              width: "100%",
+              userSelect: "none",
+              height: "100%",
+              background: "blue",
+            }}
             ref={ref}
           >
             Hello

@@ -22,7 +22,9 @@ import {
   ListItemAvatar,
   Box,
   makeStyles,
+  Button,
   Tooltip,
+  Divider,
 } from "@material-ui/core";
 import CreateProductView from "views/CreateProductView";
 import {
@@ -160,32 +162,32 @@ const MarketplaceView = () => {
 
                   <SearchBar />
                   {/* <div style={{ flexGrow: 1 }} /> */}
-                  {userData && (
-                    <Chip
-                      size="small"
-                      variant="outlined"
-                      icon={
-                        <Avatar
-                          style={{
-                            height: "24px",
-                            width: "24px",
-                            position: "relative",
-                            left: -2,
-                          }}
-                          src={userData?.avatar}
-                        />
-                      }
-                      label={
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          noWrap
-                        >
-                          {userData.displayName}
-                        </Typography>
-                      }
-                    />
+                  <Divider orientation="vertical" flexItem variant="middle" />
+                  {userData ? (
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <Avatar
+                        size="large"
+                        style={{
+                          height: "24px",
+                          width: "24px",
+                          position: "relative",
+                          left: -2,
+                        }}
+                        src={userData?.avatar}
+                      />
+                      <div style={{ margin: "3px" }} />
+                      <Typography
+                        variant="subtitle2"
+                        color="textSecondary"
+                        noWrap
+                      >
+                        {userData.displayName}
+                      </Typography>
+                    </div>
+                  ) : (
+                    <Button variant="outlined">Login</Button>
                   )}
+
                   {/* <div style={{ flexGrow: 1 }} /> */}
                 </Toolbar>
               </Header>

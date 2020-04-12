@@ -17,15 +17,19 @@ import {
   Avatar,
   CardActions,
   CardActionArea,
+  Link as MuiLink,
   makeStyles,
 } from "@material-ui/core";
-import PinIcon from "@material-ui/icons/Room";
+import LocationIcon from "@material-ui/icons/GpsFixedRounded";
+import PinIcon from "@material-ui/icons/LocationOn";
 import Rating from "@material-ui/lab/Rating";
 import { Link } from "react-router-dom";
 import { database } from "firebase/core";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCollection } from "react-firebase-hooks/firestore";
 import TimeAgo from "timeago-react";
+import LikedIcon from "@material-ui/icons/FavoriteRounded";
+import LikeIcon from "@material-ui/icons/FavoriteBorderRounded";
 
 import TruncatedText from "react-truncate";
 
@@ -39,27 +43,14 @@ import styled from "styled-components";
 import { useNavigate, Navigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setMapLocation } from "redux/listingsSlice";
-const ViewButton = styled(Button)`
-  /* border: 1px solid rgba(0, 0, 0, 0.5); */
-  /* width: 100%; */
 
-  font-weight: 630;
-  color: white;
-  background: black;
-  font-size: 12px;
+function isNewPost(date) {
+  const DAY = 1000 * 60 * 60 * 24;
+  const DAYS = DAY * 4;
+  const aDayAgo = Date.now() - DAYS;
+  return date > aDayAgo;
+}
 
-  text-transform: none;
-  cursor: pointer;
-  &:hover {
-    color: black;
-  }
-  /* background: rgba(0, 0, 0, 0.5); */
-  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03), 0 4px 9px rgba(0, 0, 0, 0.02); */
-  transition: all 0.2s;
-  margin-bottom: 8px;
-  margin-left: 5px;
-  margin-right: 5px;
-`;
 const Thumbnail = styled.div`
   object-fit: cover;
   display: block;
@@ -110,6 +101,24 @@ const CarouselArrow = ({ icon: Icon, direction, hovered }) => {
   );
 };
 
+const StyledCardMedia = styled(CardActionArea)`
+  position: relative;
+`;
+
+const StyledLikeAction = styled.div`
+  opacity: 0;
+  display: flex;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  ${StyledCardMedia}:hover & {
+    opacity: 1;
+  }
+  transition: opacity 0.2s;
+`;
+
 const ProductCard = (props) => {
   const dispatch = useDispatch();
   const [hovered, setHovered] = React.useState(false);
@@ -125,6 +134,7 @@ const ProductCard = (props) => {
     }
     return `https://source.unsplash.com/collection/8793876/${props.index})`;
   }
+  const [liked, setLiked] = React.useState(false);
   return (
     <Card
       style={{
@@ -166,7 +176,7 @@ const ProductCard = (props) => {
           style={{ height: "100%", position: "relative", padding: "5%" }}
         >
           <Grid item md={12} xs={3} style={{ position: "relative" }}>
-            <Chip
+            {/* <Chip
               label={
                 <Typography
                   variant="caption"
@@ -195,20 +205,97 @@ const ProductCard = (props) => {
                 bottom: 11.5,
                 right: 5.5,
               }}
-            />
-            <CardMedia
+            /> */}
+            {isNewPost(props?.created?.toDate()) && (
+              <Chip
+                color="primary"
+                label="NEW"
+                size="small"
+                style={{
+                  position: "absolute",
+                  letterSpacing: "0.5px",
+                  left: 5,
+                  top: 5,
+                  zIndex: 2,
+                  fontSize: 12,
+                  fontWeight: 600,
+                }}
+              />
+            )}
+            <StyledCardMedia
               disableRipple
-              style={{
-                paddingTop: "70%",
-                marginBottom: "3%",
-                borderRadius: "4px",
+              style={{ marginBottom: "3%", zIndex: 1 }}
+              onClick={() => {
+                dispatch(
+                  setMapLocation({
+                    location: {
+                      latitude: props.address.latitude,
+                      longitude: props.address.longitude,
+                    },
+                    productId: props.id,
+                  })
+                );
               }}
-              // classes={classes}
-              // style={{ borderRadius: "7px" }}
-              // component="img"
-              image={getThumbnail()}
-              title="material image"
-            />
+            >
+              <CardMedia
+                disableRipple
+                style={{
+                  paddingTop: "70%",
+
+                  borderRadius: "4px",
+                }}
+                // classes={classes}
+                // style={{ borderRadius: "7px" }}
+                // component="img"
+                image={getThumbnail()}
+              />
+              <StyledLikeAction>
+                <IconButton
+                  size="small"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setLiked(!liked);
+                  }}
+                  style={{ borderRadius: "6px", padding: "7.5px" }}
+                >
+                  {liked ? (
+                    <LikedIcon
+                      fontSize="small"
+                      style={{
+                        color: liked ? "#ff5766" : "#b5bac1",
+                        fontSize: 14,
+                      }}
+                    />
+                  ) : (
+                    <LikedIcon
+                      fontSize="small"
+                      style={{
+                        fontSize: 14,
+                        color: liked ? "#ff5766" : "#b5bac1",
+                      }}
+                    />
+                  )}
+                </IconButton>
+
+                {/* <IconButton
+                size="small"
+                onClick={() => {
+                  dispatch(
+                    setMapLocation({
+                      location: {
+                        latitude: props.address.latitude,
+                        longitude: props.address.longitude,
+                      },
+                      productId: props.id,
+                    })
+                  );
+                }}
+                style={{ borderRadius: "6px", padding: "7.5px" }}
+              >
+                <PinIcon style={{ fontSize: 18, color: "black" }} />
+              </IconButton> */}
+              </StyledLikeAction>
+            </StyledCardMedia>
           </Grid>
           <Grid
             xs={9}
@@ -224,31 +311,46 @@ const ProductCard = (props) => {
             }}
           >
             <Grid item container justify="space-between" alignItems="center">
-              <Typography
-                display="inline"
-                align="right"
-                component="legend"
-                variant="caption"
-                style={{
-                  opacity: 0.8,
+              <div style={{ width: "100%" }}>
+                <Typography
+                  // component="legend"
 
-                  // right: -20,
-                  // position: "absolute",
-                  // top: -10,
-                  // color: "white",
-                  // padding: "3px",
-                  borderRadius: "4px",
-                }}
-              >
-                Wood
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                style={{ fontWeight: 600 }}
-                color="textSecondary"
-              >
-                <TimeAgo live={false} datetime={props?.created?.toDate()} />
-              </Typography>
+                  variant="body1"
+                  style={{ fontWeight: 650 }}
+                  color="textPrimary"
+                >
+                  <div style={{ float: "right" }}>
+                    <Typography
+                      variant="subtitle2"
+                      style={{
+                        fontWeight: 600,
+                        float: "right",
+                        color: "rgba(0,0,0,0.3)",
+                        marginLeft: "5px",
+                      }}
+                      color="textSecondary"
+                    >
+                      <TimeAgo
+                        live={false}
+                        datetime={props?.created?.toDate()}
+                      />
+                    </Typography>
+                  </div>
+                  <MuiLink
+                    component="button"
+                    color="inherit"
+                    align="left"
+                    variant="body1"
+                    style={{ fontWeight: 650 }}
+                    onClick={() => {
+                      navigate(`./materials/${props.id}`, { state: props });
+                    }}
+                  >
+                    {" "}
+                    {props.title}
+                  </MuiLink>
+                </Typography>
+              </div>
             </Grid>
             <Box
               display="flex"
@@ -256,35 +358,24 @@ const ProductCard = (props) => {
               alignItems="flex-start"
               mb="3px"
             >
-              <Chip
-                avatar={
-                  <Avatar>
-                    <PinIcon style={{ fontSize: 12 }} />
-                  </Avatar>
-                }
-                onClick={() => {
-                  dispatch(
-                    setMapLocation({
-                      location: {
-                        latitude: props.address.latitude,
-                        longitude: props.address.longitude,
-                      },
-                    })
-                  );
-                }}
-                label={props?.address?.address}
-                clickable
-                color="secondary"
-                size="small"
-              />
               <Typography
-                display="inline"
-                component="legend"
-                variant="body1"
-                style={{ fontWeight: 310 }}
-                color="textPrimary"
+                align="left"
+                style={{
+                  opacity: 0.8,
+                  fontWeight: 600,
+                  fontSize: 12,
+                  // right: -20,
+                  // position: "absolute",
+                  // top: -10,
+                  // color: "white",
+                  // padding: "3px",
+                  borderRadius: "4px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
               >
-                {props.title}
+                <PinIcon style={{ fontSize: 12, verticalAlign: "middle" }} />
+                <p> {props?.address?.complete.split(",")[0]}</p>
               </Typography>
             </Box>
             <Box>
@@ -308,7 +399,7 @@ const ProductCard = (props) => {
       >
         <div style={{ flexGrow: 1 }} />
 
-        <ViewButton
+        {/* <ViewButton
           color="default"
           variant="outlined"
           onClick={() => {
@@ -316,7 +407,7 @@ const ProductCard = (props) => {
           }}
         >
           View
-        </ViewButton>
+        </ViewButton> */}
       </CardActions>
     </Card>
   );
