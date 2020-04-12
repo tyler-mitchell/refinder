@@ -61,48 +61,33 @@ const Thumbnail = styled.div`
   height: 100px;
 `;
 const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: "5%",
+  cardRoot: {
+    flexGrow: 1,
+    flexWrap: "wrap",
   },
-  img: {
-    // maxHeight: "5%",
-    // objectFit: "cover",
-    borderRadius: "10px",
-
-    // paddingTop: "50%"
+  media: {
+    width: "100%",
+    height: "auto",
+    minWidth: 220,
+    minHeight: 170,
+  },
+  mediaItem: {
+    flex: 1,
+    display: "block",
+    maxWidth: "100%",
+    maxHeight: "100%",
+    minWidth: 220,
+    minHeight: 170,
+  },
+  contentItem: {
+    // flex: 2,
+    minWidth: 150,
   },
 }));
-const CarouselArrow = ({ icon: Icon, direction, hovered }) => {
-  const { left, right } =
-    direction === "left"
-      ? { left: -10, right: "initial" }
-      : { right: -10, left: "initial" };
-  return (
-    <Fab
-      // variant="extended"
-      style={{
-        position: "relative",
-        left,
-        right,
-
-        background: "white",
-        // paddingLeft: left,
-        // height: "25px",
-        // width: "25px"
-        // paddingRight: right
-      }}
-      size="small"
-    >
-      {/* {direction === "right" && <span>&nbsp;&nbsp;</span>} */}
-
-      {Icon}
-      {/* {direction === "left" && <span>&nbsp;&nbsp;</span>} */}
-    </Fab>
-  );
-};
 
 const StyledCardMedia = styled(CardActionArea)`
   position: relative;
+  padding: 3%;
 `;
 
 const StyledLikeAction = styled.div`
@@ -116,6 +101,7 @@ const StyledLikeAction = styled.div`
   ${StyledCardMedia}:hover & {
     opacity: 1;
   }
+
   transition: opacity 0.2s;
 `;
 
@@ -141,273 +127,223 @@ const ProductCard = (props) => {
         borderRadius: "5px",
         position: "relative",
 
-        // minWidth: "300px",
-        // maxHeight: "300px",
         zIndex: props.index,
         boxShadow:
           "0 6.7px 5.3px  rgba(0, 0, 0, 0.05), 0 22.3px 17.9px  rgba(0, 0, 0, 0.003), 0 100px 80px rgba(0, 0, 0, 0.02)",
-
-        // boxShadow:
-        //   "-80px 0px 28px 0 rgba(0, 0, 0, 0.005 ), 0 12px 28px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
-        // border: "solid 6px #fcfcfd",
         border: "none",
-        height: "100%",
-
-        // boxShadow: "0 0px 1px 0 rgba(31,45,61,.5)",
+        // height: "100%",
       }}
       elevation={0}
       variant="outlined"
     >
-      {/* <Box m="5%"> */}
-
-      {/* </Box> */}
-      <motion.div
-        style={{ height: "100%" }}
-        onHoverStart={() => setHovered(true)}
-        onHoverEnd={() => setHovered(false)}
-      >
-        <CardContent
-          component={Grid}
-          container
-          alignItems="center"
-          alignContent="center"
-          md={12}
-          xs={10}
-          style={{ height: "100%", position: "relative", padding: "5%" }}
+      <Grid container className={classes.cardRoot}>
+        <Grid
+          item
+          xs={12}
+          sm
+          className={classes.mediaItem}
+          style={{ position: "relative" }}
         >
-          <Grid item md={12} xs={3} style={{ position: "relative" }}>
-            {/* <Chip
-              label={
-                <Typography
-                  variant="caption"
-                  color="textSecondary"
-                  style={{ fontWeight: 600, color: "#09a742", opacity: 0.7 }}
-                >
-                  {props?.address?.address}
-                </Typography>
-                // <Typography
-                //   variant="caption"
-                //   color="textSecondary"
-                //   style={{ fontWeight: 600, color: "#09a742", opacity: 0.7 }}
-                // >
-                //   <span style={{ fontWeight: 600, color: "#09a742" }}>$</span>
-                //   {((props.index * props.index + 9) % 78) * 5}
-                // </Typography>
-              }
+          {isNewPost(props?.created?.toDate()) && (
+            <Chip
+              color="primary"
+              label="NEW"
               size="small"
               style={{
-                borderRadius: "4px",
-                background: "#fff",
                 position: "absolute",
-                // boxShadow:
-                //   "0 3px 5px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
-
-                bottom: 11.5,
-                right: 5.5,
+                letterSpacing: "0.4px",
+                borderRadius: "5px",
+                left: 10,
+                boxShadow: "0 0 3px 4px rgba(50,66,81,.1)",
+                top: 10,
+                zIndex: 2,
+                fontSize: 12,
+                fontWeight: 600,
               }}
-            /> */}
-            {isNewPost(props?.created?.toDate()) && (
-              <Chip
-                color="primary"
-                label="NEW"
-                size="small"
-                style={{
-                  position: "absolute",
-                  letterSpacing: "0.4px",
-                  left: 5,
-                  top: 5,
-                  zIndex: 2,
-                  fontSize: 12,
-                  fontWeight: 600,
-                }}
-              />
-            )}
-            <StyledCardMedia
+            />
+          )}
+          <StyledCardMedia
+            disableRipple
+            style={{ zIndex: 1 }}
+            onClick={() => {
+              dispatch(
+                setMapLocation({
+                  location: {
+                    latitude: props.address.latitude,
+                    longitude: props.address.longitude,
+                  },
+                  productId: props.id,
+                })
+              );
+            }}
+          >
+            <CardMedia
               disableRipple
-              style={{ marginBottom: "3%", zIndex: 1 }}
-              onClick={() => {
-                dispatch(
-                  setMapLocation({
-                    location: {
-                      latitude: props.address.latitude,
-                      longitude: props.address.longitude,
-                    },
-                    productId: props.id,
-                  })
-                );
+              style={{
+                // paddingTop: "70%",
+
+                borderRadius: "4px",
               }}
-            >
-              <CardMedia
-                disableRipple
-                style={{
-                  paddingTop: "70%",
-
-                  borderRadius: "4px",
-                }}
-                // classes={classes}
-                // style={{ borderRadius: "7px" }}
-                // component="img"
-                image={getThumbnail()}
-              />
-              <StyledLikeAction liked={liked}>
-                <IconButton
-                  size="small"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLiked(!liked);
-                  }}
-                  style={{ borderRadius: "6px", padding: "7.5px" }}
-                >
-                  {liked ? (
-                    <LikedIcon
-                      fontSize="small"
-                      style={{
-                        color: liked ? "#ff5766" : "#b5bac1",
-                        fontSize: 14,
-                      }}
-                    />
-                  ) : (
-                    <LikedIcon
-                      fontSize="small"
-                      style={{
-                        fontSize: 14,
-                        color: liked ? "#ff5766" : "#b5bac1",
-                      }}
-                    />
-                  )}
-                </IconButton>
-
-                {/* <IconButton
+              // classes={classes}
+              // style={{ borderRadius: "7px" }}
+              // component="img"
+              className={classes.media}
+              image={getThumbnail()}
+            />
+            <StyledLikeAction liked={liked}>
+              <IconButton
                 size="small"
-                onClick={() => {
-                  dispatch(
-                    setMapLocation({
-                      location: {
-                        latitude: props.address.latitude,
-                        longitude: props.address.longitude,
-                      },
-                      productId: props.id,
-                    })
-                  );
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLiked(!liked);
                 }}
                 style={{ borderRadius: "6px", padding: "7.5px" }}
               >
-                <PinIcon style={{ fontSize: 18, color: "black" }} />
-              </IconButton> */}
-              </StyledLikeAction>
-            </StyledCardMedia>
-          </Grid>
-          <Grid
-            xs={9}
-            md={12}
-            direction="column"
-            container
-            item
-            style={{
-              height: "100%",
-              display: "relative",
-              borderRadius: "4px",
-              overflow: "hidden",
-            }}
-          >
-            <Grid item container justify="space-between" alignItems="center">
-              <div style={{ width: "100%" }}>
-                <Typography
-                  // component="legend"
+                {liked ? (
+                  <LikedIcon
+                    fontSize="small"
+                    style={{
+                      color: liked ? "#ff5766" : "#b5bac1",
+                      fontSize: 14,
+                    }}
+                  />
+                ) : (
+                  <LikedIcon
+                    fontSize="small"
+                    style={{
+                      fontSize: 14,
+                      color: liked ? "#ff5766" : "#b5bac1",
+                    }}
+                  />
+                )}
+              </IconButton>
 
-                  variant="body1"
-                  style={{ fontWeight: 650 }}
-                  color="textPrimary"
+              {/* <IconButton
+                  size="small"
+                  onClick={() => {
+                    dispatch(
+                      setMapLocation({
+                        location: {
+                          latitude: props.address.latitude,
+                          longitude: props.address.longitude,
+                        },
+                        productId: props.id,
+                      })
+                    );
+                  }}
+                  style={{ borderRadius: "6px", padding: "7.5px" }}
                 >
-                  <div style={{ float: "right" }}>
-                    <Typography
-                      variant="subtitle2"
-                      style={{
-                        fontWeight: 600,
-                        float: "right",
-                        color: "rgba(0,0,0,0.3)",
-                        marginLeft: "5px",
-                      }}
-                      color="textSecondary"
-                    >
-                      <TimeAgo
-                        live={false}
-                        datetime={props?.created?.toDate()}
-                      />
-                    </Typography>
-                  </div>
+                  <PinIcon style={{ fontSize: 18, color: "black" }} />
+                </IconButton> */}
+            </StyledLikeAction>
+          </StyledCardMedia>
+        </Grid>
+        <Grid item xs={12} sm container>
+          <Grid item xs direction="column" className={classes.contentItem}>
+            <CardContent
+              // component={Grid}
+              // container
+              // alignItems="center"
+              // alignContent="center"
+              // md={12}
+              // xs={10}
+              style={{ height: "100%", position: "relative", padding: "5%" }}
+            >
+              <Grid
+                direction="column"
+                container
+                item
+                style={{
+                  height: "100%",
+                  display: "relative",
+                  borderRadius: "4px",
+                  // overflow: "hidden",
+                }}
+              >
+                <section
+                  style={{ verticalAlign: "bottom", position: "relative" }}
+                >
+                  <Typography
+                    variant="subtitle2"
+                    display="inline"
+                    style={{
+                      fontWeight: 600,
+                      float: "right",
+                      // width: "100px",
+                      lineHeight: "22px",
+                      height: "10px",
+                      verticalAlign: "bottom",
+                      color: "rgba(0,0,0,0.3)",
+                      marginLeft: "5px",
+                    }}
+                    color="textSecondary"
+                  >
+                    <TimeAgo live={false} datetime={props?.created?.toDate()} />
+                  </Typography>
                   <MuiLink
-                    component="button"
+                    // component="button"
+                    // component="p"
                     color="inherit"
                     align="left"
                     variant="body1"
-                    style={{ fontWeight: 650 }}
+                    style={{
+                      fontWeight: 650,
+                      verticalAlign: "top",
+                      cursor: "pointer",
+                    }}
                     onClick={() => {
                       navigate(`./materials/${props.id}`, { state: props });
                     }}
                   >
-                    {" "}
                     {props.title}
                   </MuiLink>
-                </Typography>
-              </div>
-            </Grid>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="flex-start"
-              mb="3px"
-            >
-              <Typography
-                align="left"
-                style={{
-                  opacity: 0.8,
-                  fontWeight: 600,
-                  fontSize: 12,
-                  // right: -20,
-                  // position: "absolute",
-                  // top: -10,
-                  // color: "white",
-                  // padding: "3px",
-                  borderRadius: "4px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <PinIcon style={{ fontSize: 12, verticalAlign: "middle" }} />
-                <p> {props?.address?.complete.split(",")[0]}</p>
-              </Typography>
-            </Box>
-            <Box>
-              <Typography color="textSecondary" display="block" variant="body1">
-                {/* <TruncatedText lines={4}>{props.description}</TruncatedText> */}
-              </Typography>
-            </Box>
-            {/* <Rating name="read-only" value={props.index + (1 % 5)} readOnly /> */}
+                </section>
+
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="flex-start"
+                  mb="3px"
+                >
+                  <Typography
+                    align="left"
+                    style={{
+                      opacity: 0.8,
+                      fontWeight: 600,
+                      fontSize: 12,
+                      // right: -20,
+                      // position: "absolute",
+                      // top: -10,
+                      // color: "white",
+                      // padding: "3px",
+                      borderRadius: "4px",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <PinIcon
+                      style={{ fontSize: 12, verticalAlign: "middle" }}
+                    />
+                    <p> {props?.address?.complete.split(",")[0]}</p>
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography
+                    color="textSecondary"
+                    display="block"
+                    variant="body1"
+                  >
+                    {/* <TruncatedText lines={4}>{props.description}</TruncatedText> */}
+                  </Typography>
+                </Box>
+                {/* <Rating name="read-only" value={props.index + (1 % 5)} readOnly /> */}
+              </Grid>
+            </CardContent>
           </Grid>
-        </CardContent>
-
-        {/* <Divider /> */}
-      </motion.div>
-
-      <CardActions
-      // style={{
-      //   display: "flex",
-      //   justifyContent: "center",
-      //   alignItems: "center",
-      // }}
-      >
+        </Grid>
+      </Grid>
+      <CardActions>
         <div style={{ flexGrow: 1 }} />
-
-        {/* <ViewButton
-          color="default"
-          variant="outlined"
-          onClick={() => {
-            navigate(`./materials/${props.id}`, { state: props });
-          }}
-        >
-          View
-        </ViewButton> */}
       </CardActions>
     </Card>
   );
