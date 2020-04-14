@@ -9,11 +9,17 @@ import {
   Paper,
   CssBaseline,
 } from "@material-ui/core";
-import { Parallax, ParallaxLayer } from "react-spring/renderprops-addons";
+import {
+  Parallax,
+  ParallaxLayer,
+  useSpring,
+  animated,
+} from "react-spring/renderprops-addons";
 import styled from "styled-components";
 import header_image from "assets/header_image.svg";
 import { Navigate, useNavigate } from "react-router-dom";
-
+import { motion, AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
 import {
   Root,
   Header as AppHeader,
@@ -169,7 +175,27 @@ const LandingContainer = ({ children }) => {
     </>
   );
 };
+const loadingContainerVariants = {
+  start: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+  end: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
 
+const loadingCircleVariants = {
+  start: {
+    y: "0%",
+  },
+  end: {
+    y: "100%",
+  },
+};
 const Landing = () => {
   let parallax = React.useRef();
   const url = (name, wrap = false) =>
@@ -179,179 +205,302 @@ const Landing = () => {
       wrap ? ")" : ""
     }`;
 
+  const loadingContainer = {
+    width: "10%",
+    height: "25%",
+    display: "flex",
+    justifyContent: "space-around",
+  };
+
+  const loadingCircle = {
+    display: "block",
+    width: "2vh",
+    height: "2vh",
+    backgroundColor: "black",
+    borderRadius: "1.5vh",
+  };
+
+  const loadingContainerVariants = {
+    start: {
+      transition: {
+        staggerChildren: 0.5,
+      },
+    },
+    end: {
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const loadingCircleVariants = {
+    start: {
+      y: "50%",
+    },
+    end: {
+      y: "150%",
+    },
+  };
+
+  const loadingCircleTransition = {
+    duration: 0.5,
+    yoyo: Infinity,
+    ease: "easeInOut",
+  };
+
+  function ThreeDotsWave() {
+    return (
+      <motion.div
+        style={loadingContainer}
+        variants={loadingContainerVariants}
+        initial="start"
+        animate="end"
+      >
+        <motion.span
+          style={loadingCircle}
+          variants={loadingCircleVariants}
+          transition={loadingCircleTransition}
+        />
+        <motion.span
+          style={loadingCircle}
+          variants={loadingCircleVariants}
+          transition={loadingCircleTransition}
+        />
+        <motion.span
+          style={loadingCircle}
+          variants={loadingCircleVariants}
+          transition={loadingCircleTransition}
+        />
+      </motion.div>
+    );
+  }
+
+  let navigate = useNavigate();
+  const { loggedIn } = useSelector((s) => s.auth);
+
+  const [loading, setLoading] = React.useState(true);
+  React.useLayoutEffect(() => {
+    if (loggedIn !== null) {
+      if (loggedIn) {
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/marketplace");
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      }
+    }
+  }, [loggedIn]);
+
   return (
     <Root omitThemeProvider>
       <NavigationBar />
-
-      <Content style={{ overflow: "hidden" }}>
-        <Parallax ref={parallax} pages={3}>
-          <ParallaxLayer
-            offset={1}
-            speed={0.2}
-            style={{ backgroundColor: "#0055ea" }}
-          />
-          <ParallaxLayer
-            offset={1.2}
-            speed={0.01}
+      <AnimatePresence>
+        {loading ? (
+          <div
             style={{
               display: "flex",
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              justifyContent: "center",
               alignItems: "center",
-              justifyContent: "flex-end",
-              pointerEvents: "none",
             }}
           >
-            <img src={url("earth")} style={{ width: "40%" }} />
-          </ParallaxLayer>
-          <ParallaxLayer
-            offset={1.2}
-            speed={0.2}
-            style={{ backgroundColor: "#0fc1fa" }}
-          />
-
-          <ParallaxLayer
-            offset={0}
-            speed={0}
-            style={{
-              backgroundImage: url("stars", true),
-              backgroundSize: "cover",
-            }}
-          />
-
-          <ParallaxLayer
-            offset={0.98}
-            speed={0.05}
-            style={{ pointerEvents: "none" }}
-          >
-            <img
-              src={url("satellite4")}
-              style={{ width: "15%", marginLeft: "70%" }}
-            />
-          </ParallaxLayer>
-
-          <ParallaxLayer offset={1} speed={0.8} style={{ opacity: 0.1 }}>
-            <img
-              src={url("cloud")}
-              style={{ display: "block", width: "20%", marginLeft: "55%" }}
-            />
-            <img
-              src={url("cloud")}
-              style={{ display: "block", width: "10%", marginLeft: "15%" }}
-            />
-          </ParallaxLayer>
-
-          <ParallaxLayer offset={1.75} speed={0.5} style={{ opacity: 0.1 }}>
-            <img
-              src={url("cloud")}
-              style={{ display: "block", width: "20%", marginLeft: "70%" }}
-            />
-            <img
-              src={url("cloud")}
-              style={{ display: "block", width: "20%", marginLeft: "40%" }}
-            />
-          </ParallaxLayer>
-
-          <ParallaxLayer offset={1} speed={0.2} style={{ opacity: 0.2 }}>
-            <img
-              src={url("cloud")}
-              style={{ display: "block", width: "10%", marginLeft: "10%" }}
-            />
-            <img
-              src={url("cloud")}
-              style={{ display: "block", width: "20%", marginLeft: "75%" }}
-            />
-          </ParallaxLayer>
-
-          <ParallaxLayer offset={1.6} speed={-0.1} style={{ opacity: 0.4 }}>
-            <img
-              src={url("cloud")}
-              style={{ display: "block", width: "20%", marginLeft: "60%" }}
-            />
-            <img
-              src={url("cloud")}
-              style={{ display: "block", width: "25%", marginLeft: "30%" }}
-            />
-            <img
-              src={url("cloud")}
-              style={{ display: "block", width: "10%", marginLeft: "80%" }}
-            />
-          </ParallaxLayer>
-
-          <ParallaxLayer offset={2.6} speed={0.4} style={{ opacity: 0.6 }}>
-            <img
-              src={url("cloud")}
-              style={{ display: "block", width: "20%", marginLeft: "5%" }}
-            />
-            <img
-              src={url("cloud")}
-              style={{ display: "block", width: "15%", marginLeft: "75%" }}
-            />
-          </ParallaxLayer>
-
-          <ParallaxLayer
-            offset={2}
-            speed={-0.3}
-            style={{
-              backgroundSize: "80%",
-              backgroundPosition: "center",
-              backgroundImage: url("clients", true),
-            }}
-          />
-          <Container
-            maxWidth="md"
-            style={{ position: "relative", height: "100%" }}
-          >
-            <ParallaxLayer
-              offset={0}
-              speed={0.1}
-              factor={0.5}
-              // onClick={() => parallax.current.scrollTo(1)}
+            <ThreeDotsWave />
+            {/* <motion.img
+              src={require("assets/refinder-logo.svg")}
+              animate={{ y: [10, 20, 100, 10] }}
+              exit={{ y: [-10, -20, -30, -10] }}
+              initial={{ y: -100 }}
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                scrollSnapAlign: "center",
+                height: "300px",
+                position: "relative",
               }}
-            >
-              <Header />
-              <img
-                src={require("assets/refinder-logo.svg")}
-                style={{ height: "80%", position: "relative", top: "-12%" }}
-                alt=""
+              alt=""
+              transition={{
+                flip: Infinity,
+                ease: "easeInOut",
+                // from: { y: 10 },
+                // to: { y: -10 },
+                duration: 1,
+              }}
+            /> */}
+          </div>
+        ) : (
+          <Content style={{ overflow: "hidden" }}>
+            <Parallax ref={parallax} pages={3}>
+              <ParallaxLayer
+                offset={1}
+                speed={0.2}
+                style={{ backgroundColor: "#0055ea" }}
               />
-            </ParallaxLayer>
-            <ParallaxLayer
-              offset={1}
-              factor={0.5}
-              speed={0.1}
-              // onClick={() => parallax.current.scrollTo(2)}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                pointerEvent: "none",
-                scrollSnapAlign: "center",
-              }}
-            >
-              <WhySection />
-              {/* <img src={url("bash")} style={{ width: "40%" }} /> */}
-              <div style={{ width: "40%" }} />
-            </ParallaxLayer>
-            <ParallaxLayer
-              offset={1}
-              speed={-0}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              // onClick={() => parallax.current.scrollTo(0)}
-            >
-              <KnowledgeSection />
-              <img src={url("clients-main")} style={{ width: "40%" }} />
-            </ParallaxLayer>
-          </Container>
-        </Parallax>
-      </Content>
+              <ParallaxLayer
+                offset={1.2}
+                speed={0.01}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                  pointerEvents: "none",
+                }}
+              >
+                <img src={url("earth")} style={{ width: "40%" }} />
+              </ParallaxLayer>
+              <ParallaxLayer
+                offset={1.2}
+                speed={0.2}
+                style={{ backgroundColor: "#0fc1fa" }}
+              />
+
+              <ParallaxLayer
+                offset={0}
+                speed={0}
+                style={{
+                  backgroundImage: url("stars", true),
+                  backgroundSize: "cover",
+                }}
+              />
+
+              <ParallaxLayer
+                offset={0.98}
+                speed={0.05}
+                style={{ pointerEvents: "none" }}
+              >
+                <img
+                  src={url("satellite4")}
+                  style={{ width: "15%", marginLeft: "70%" }}
+                />
+              </ParallaxLayer>
+
+              <ParallaxLayer offset={1} speed={0.8} style={{ opacity: 0.1 }}>
+                <img
+                  src={url("cloud")}
+                  style={{ display: "block", width: "20%", marginLeft: "55%" }}
+                />
+                <img
+                  src={url("cloud")}
+                  style={{ display: "block", width: "10%", marginLeft: "15%" }}
+                />
+              </ParallaxLayer>
+
+              <ParallaxLayer offset={1.75} speed={0.5} style={{ opacity: 0.1 }}>
+                <img
+                  src={url("cloud")}
+                  style={{ display: "block", width: "20%", marginLeft: "70%" }}
+                />
+                <img
+                  src={url("cloud")}
+                  style={{ display: "block", width: "20%", marginLeft: "40%" }}
+                />
+              </ParallaxLayer>
+
+              <ParallaxLayer offset={1} speed={0.2} style={{ opacity: 0.2 }}>
+                <img
+                  src={url("cloud")}
+                  style={{ display: "block", width: "10%", marginLeft: "10%" }}
+                />
+                <img
+                  src={url("cloud")}
+                  style={{ display: "block", width: "20%", marginLeft: "75%" }}
+                />
+              </ParallaxLayer>
+
+              <ParallaxLayer offset={1.6} speed={-0.1} style={{ opacity: 0.4 }}>
+                <img
+                  src={url("cloud")}
+                  style={{ display: "block", width: "20%", marginLeft: "60%" }}
+                />
+                <img
+                  src={url("cloud")}
+                  style={{ display: "block", width: "25%", marginLeft: "30%" }}
+                />
+                <img
+                  src={url("cloud")}
+                  style={{ display: "block", width: "10%", marginLeft: "80%" }}
+                />
+              </ParallaxLayer>
+
+              <ParallaxLayer offset={2.6} speed={0.4} style={{ opacity: 0.6 }}>
+                <img
+                  src={url("cloud")}
+                  style={{ display: "block", width: "20%", marginLeft: "5%" }}
+                />
+                <img
+                  src={url("cloud")}
+                  style={{ display: "block", width: "15%", marginLeft: "75%" }}
+                />
+              </ParallaxLayer>
+
+              <ParallaxLayer
+                offset={2}
+                speed={-0.3}
+                style={{
+                  backgroundSize: "80%",
+                  backgroundPosition: "center",
+                  backgroundImage: url("clients", true),
+                }}
+              />
+              <Container
+                maxWidth="md"
+                style={{ position: "relative", height: "100%" }}
+              >
+                <ParallaxLayer
+                  offset={0}
+                  speed={0.1}
+                  factor={0.5}
+                  // onClick={() => parallax.current.scrollTo(1)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    scrollSnapAlign: "center",
+                  }}
+                >
+                  <Header />
+                  <img
+                    src={require("assets/refinder-logo.svg")}
+                    style={{ height: "80%", position: "relative", top: "-12%" }}
+                    alt=""
+                  />
+                </ParallaxLayer>
+                <ParallaxLayer
+                  offset={1}
+                  factor={0.5}
+                  speed={0.1}
+                  // onClick={() => parallax.current.scrollTo(2)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    pointerEvent: "none",
+                    scrollSnapAlign: "center",
+                  }}
+                >
+                  <WhySection />
+                  {/* <img src={url("bash")} style={{ width: "40%" }} /> */}
+                  <div style={{ width: "40%" }} />
+                </ParallaxLayer>
+                <ParallaxLayer
+                  offset={1}
+                  speed={-0}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  // onClick={() => parallax.current.scrollTo(0)}
+                >
+                  <KnowledgeSection />
+                  <img src={url("clients-main")} style={{ width: "40%" }} />
+                </ParallaxLayer>
+              </Container>
+            </Parallax>
+          </Content>
+        )}
+      </AnimatePresence>
     </Root>
   );
 };
