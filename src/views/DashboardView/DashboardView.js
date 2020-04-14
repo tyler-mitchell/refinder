@@ -303,7 +303,8 @@ const DashboardView = () => {
         </ExplorerWrapper>
 
         <Grid
-          xs={5}
+          zeroMinWidth
+          xs={4}
           item
           style={{
             background: "red",
