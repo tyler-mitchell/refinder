@@ -104,7 +104,7 @@ const MapBoxWrap = ({ width = "100%", height = 300, x, y }) => {
           onTransitionEnd={() => {
             setTransitionEnd(true);
           }}
-          // mapStyle={"mapbox://styles/haxzie/cjxg35uth252i1cmu2r0gomx7"}
+          mapStyle={"mapbox://styles/haxzie/cjxg35uth252i1cmu2r0gomx7"}
           onViewportChange={onViewportChange}
           dragRotate={false}
         >
