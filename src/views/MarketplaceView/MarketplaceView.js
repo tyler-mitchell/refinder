@@ -211,7 +211,9 @@ const MarketplaceView = () => {
                     <Route
                       path="/materials/m/:materialID"
                       element={<ProductModalView />}
-                    />
+                    >
+                      <Route path="discussion" element={<ProductChatView />} />
+                    </Route>
                   </Route>
 
                   {/* 
@@ -232,8 +234,9 @@ const MarketplaceView = () => {
                     <Route
                       path="/materials/:materialID"
                       element={<ProductModalView />}
-                    />
-
+                    >
+                      <Route path="discussion" element={<ProductChatView />} />
+                    </Route>
                     <Route path="new" element={<CreateProductView />} />
                   </Route>
                   <Route
