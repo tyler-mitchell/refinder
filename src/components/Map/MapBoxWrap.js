@@ -14,44 +14,57 @@ import "./mapcss.css";
 import { useDispatch, useSelector } from "react-redux";
 import ProductMarker from "./ProductMarker";
 const MapBoxWrap = ({ width = "100%", height = 300, x, y }) => {
-  const { listings, loading, mapLocation, currentProductId } = useSelector(
-    (s) => s.listings
-  );
+  const {
+    listings,
+    loading,
+    mapLocation,
+    currentProductId,
+    isDefault,
+  } = useSelector((s) => s.listings);
 
   const [viewport, setViewport] = useState({
     ...mapLocation,
     width: "100%",
     height: height,
-    zoom: 12,
+    zoom: 10,
   });
-
+  const [mapInitialized, setMapInitialized] = React.useState(false);
+  React.useEffect(() => {
+    if (x && y && mapInitialized === false) {
+      setMapInitialized(true);
+    }
+  }, [x, y]);
   React.useEffect(() => {
     setTransitionEnd(false);
+    const zoom = isDefault ? 10 : 12;
+    // if (mapInitialized) {
+    //   setMapInitialized(false);
+    // }
     const wmVp = new WebMercatorViewport({
       longitude: mapLocation.longitude,
       latitude: mapLocation.latitude,
-      zoom: 12,
+      zoom: zoom,
     });
 
-    const [newLong, newLat] =
-      x && y
-        ? wmVp.getMapCenterByLngLatPosition({
-            pos: [x / 2, y / 4],
-            lngLat: [mapLocation.longitude, mapLocation.latitude],
-          })
-        : [mapLocation.longitude, mapLocation.latitude];
+    const [newLong, newLat] = mapInitialized
+      ? wmVp.getMapCenterByLngLatPosition({
+          pos: [x / 2, y / 4],
+          lngLat: [mapLocation.longitude, mapLocation.latitude],
+        })
+      : [mapLocation.longitude, mapLocation.latitude];
     const newViewport = {
       ...viewport,
       latitude: newLat,
       longitude: newLong,
-      zoom: 12,
+      zoom: zoom,
       minZoom: 10,
+      maxZoom: 18,
       // transitionDuration: 1000,
       transitionDuration: "auto",
       transitionInterpolator: new FlyToInterpolator(),
     };
     setViewport(newViewport);
-  }, [mapLocation]);
+  }, [mapLocation, mapInitialized]);
 
   function onViewportChange(viewport) {
     const bounds = {
