@@ -20,10 +20,11 @@ import {
   Link as MuiLink,
   makeStyles,
 } from "@material-ui/core";
+
 import LocationIcon from "@material-ui/icons/GpsFixedRounded";
 import PinIcon from "@material-ui/icons/LocationOn";
 import Rating from "@material-ui/lab/Rating";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { database } from "firebase/core";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -113,6 +114,8 @@ const ProductCard = (props) => {
   const lightBlurColor = "#FAFAFA";
   const navigate = useNavigate();
   const classes = useStyles();
+  const { pathname } = useLocation();
+
   function getThumbnail() {
     if (props?.productImages) {
       return props.productImages.find((img) => img.isPrimary === true)
@@ -301,7 +304,16 @@ const ProductCard = (props) => {
                       cursor: "pointer",
                     }}
                     onClick={() => {
-                      navigate(`./materials/${props.id}`, { state: props });
+                      navigate(
+                        pathname === "/marketplace"
+                          ? `./materials/m/${props.id}`
+                          : pathname === "/marketplace/materials"
+                          ? `${props.id}`
+                          : `./materials/${props.id}`,
+                        {
+                          state: props,
+                        }
+                      );
                     }}
                   >
                     {props.title}

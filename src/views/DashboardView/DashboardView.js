@@ -158,7 +158,7 @@ const CategoryListItem = ({ title, subtitle, icon: Icon, type }) => {
   );
 };
 
-export const ProductModalView = ({ children }) => {
+export const ProductModalView = ({ children, from }) => {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = React.useState(true);
   return (
