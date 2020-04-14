@@ -205,20 +205,20 @@ const MarketplaceView = () => {
 
               <Content>
                 <Routes>
-                  {/* <Route path="/" element={<DashboardView />} /> */}
+                  <Route path="/" element={<DashboardView />} />
                   <Route path="/materials" element={<ProductsListView />} />
-                  <Route path="/" element={<DashboardView />}>
+                  {/* <Route path="/" element={<DashboardView />}>
                     <Route
                       path="/materials/:materialID"
                       element={<ProductModalView />}
                     />
-                  </Route>
-                  {/* <Route
+                  </Route> */}
+                  <Route
                     path="/materials/:materialID"
                     element={<ProductView />}
                   >
                     <Route path="discussion" element={<ProductChatView />} />
-                  </Route> */}
+                  </Route>
 
                   {/* 
                   <Route

@@ -61,10 +61,10 @@ const Thumbnail = styled.div`
   height: 100px;
 `;
 const useStyles = makeStyles((theme) => ({
-  cardRoot: {
-    flexGrow: 1,
-    flexWrap: "wrap",
-  },
+  // cardRoot: {
+  //   flexGrow: 1,
+  //   flexWrap: "wrap",
+  // },
   media: {
     width: "100%",
     height: "auto",
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 170,
   },
   mediaItem: {
-    flex: 1,
+    // flex: 1,
     display: "block",
     maxWidth: "100%",
     maxHeight: "100%",
@@ -136,11 +136,15 @@ const ProductCard = (props) => {
       elevation={0}
       variant="outlined"
     >
-      <Grid container className={classes.cardRoot}>
+      <Grid
+        container
+        justify="space-between"
+        spacing={props.variant === "list" ? 1 : 0}
+        className={classes.cardRoot}
+      >
         <Grid
           item
-          xs={12}
-          sm
+          xs={props?.variant === "list" ? 2 : 12}
           className={classes.mediaItem}
           style={{ position: "relative" }}
         >
@@ -238,7 +242,7 @@ const ProductCard = (props) => {
             </StyledLikeAction>
           </StyledCardMedia>
         </Grid>
-        <Grid item xs={12} sm container>
+        <Grid item xs={props?.variant === "list" ? 9 : 12} container>
           <Grid item xs direction="column" className={classes.contentItem}>
             <CardContent
               // component={Grid}
@@ -247,7 +251,12 @@ const ProductCard = (props) => {
               // alignContent="center"
               // md={12}
               // xs={10}
-              style={{ height: "100%", position: "relative", padding: "5%" }}
+              style={{
+                height: "100%",
+                position: "relative",
+                padding: "5%",
+                paddingTop: "8px",
+              }}
             >
               <Grid
                 direction="column"

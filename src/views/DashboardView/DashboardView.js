@@ -80,7 +80,23 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ProductViewContainer = styled(Container)`
-  background: rgba(255, 255, 255, 0.3);
+  /* background: rgba(0, 0, 0, 0.2); */
+  background: rgb(226, 232, 238);
+  /* background-image: radial-gradient(
+    circle farthest-corner at 0% 0.5%,
+    rgba(241, 241, 242, 1) 0.1%,
+    rgba(224, 226, 228, 1) 100.2%
+  ); */
+
+  /* background-image: radial-gradient(73% 147%, #eadfdf 59%, #ece2df 100%),
+    radial-gradient(
+      91% 146%,
+      rgba(255, 255, 255, 0.5) 47%,
+      rgba(0, 0, 0, 0.5) 100%
+    ); */
+  background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+  background-blend-mode: screen;
+  background-image: linear-gradient(-225deg, #fffeff 0%, #d7fffe 100%);
   overflow-y: scroll;
   backdrop-filter: blur(2px);
 
@@ -106,17 +122,17 @@ const ProductViewContainer = styled(Container)`
     border-radius: 10px;
     /* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.05);
   }
 `;
-const ExplorerWrapper = styled(Paper)`
-  border-radius: 15px 15px 15px 15px;
+const ExplorerWrapper = styled(Grid)`
+  border-radius: 0px 15px 15px 15px;
   box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.06), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
     inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-  height: 700px;
-  width: 860px;
+  height: calc(100vh - 65px);
+  /* width: 860px; */
   position: relative;
-  background: rgba(0, 0, 0, 0);
+  background: rgba(255, 255, 255, 1);
   z-index: 300;
 `;
 
@@ -154,7 +170,7 @@ export const ProductModalView = ({ children }) => {
       closeAfterTransition
       // transitionDuration={{ appear: 3000, exit: 3000, enter: 3000 }}
       onExited={() => {
-        navigate("/marketplace");
+        navigate(-1);
       }}
       style={{ overflow: "visible" }}
       PaperProps={{ style: { overflow: "visible" } }}
@@ -186,9 +202,14 @@ const DashboardView = () => {
   const [modalOpen, setModalOpen] = React.useState(true);
   const [ref, { x, y, width }] = useDimensions();
   return (
-    <Container
+    <div
       maxWidth="xl"
-      style={{ paddingTop: "1%", paddingBottom: "28px" }}
+      style={{
+        // paddingTop: "1%",
+        // paddingBottom: "28px",
+        // maxHeight: "90vh",
+        overflow: "hidden",
+      }}
     >
       <Grid
         container
@@ -196,95 +217,91 @@ const DashboardView = () => {
         wrap="nowrap"
         style={{ width: "100%", height: "100%", position: "relative" }}
       >
-        <Grid item>
-          <ExplorerWrapper>
-            <div style={{ background: "white", borderRadius: "15px 15px 0 0" }}>
-              <Controller
-                as={InputBase}
-                className={styles.input}
-                defaultValue=""
-                control={control}
-                placeholder={"Find materials near you..."}
-                fullWidth
-                autoComplete="off"
-                name="message"
-                startAdornment={
-                  <InputAdornment position={"end"}>
-                    <SearchIcon fontSize="small" className={styles.icon} />
-                  </InputAdornment>
-                }
-              />
-            </div>
-            <Divider />
-            <div
+        <ExplorerWrapper component={Paper} xs={8}>
+          <div style={{ background: "white", borderRadius: "15px 15px 0 0" }}>
+            <Controller
+              as={InputBase}
+              className={styles.input}
+              defaultValue=""
+              control={control}
+              placeholder={"Find materials near you..."}
+              fullWidth
+              autoComplete="off"
+              name="message"
+              startAdornment={
+                <InputAdornment position={"end"}>
+                  <SearchIcon fontSize="small" className={styles.icon} />
+                </InputAdornment>
+              }
+            />
+          </div>
+          <Divider />
+          <div
+            style={{
+              display: "flex",
+              height: "calc(100% - 45px)",
+              overflow: "hidden",
+            }}
+          >
+            <List
               style={{
-                display: "flex",
-                height: "calc(100% - 45px)",
-                overflow: "hidden",
+                maxWidth: "300px",
+                borderRadius: "0 0 2px 15px",
+                width: "100%",
+                background: "white",
+                padding: 0,
+                margin: 0,
               }}
+              subheader={
+                <ListSubheader component="div" id="explore-list-subheader">
+                  Explore
+                </ListSubheader>
+              }
             >
-              <List
-                style={{
-                  maxWidth: "300px",
-                  borderRadius: "0 0 2px 15px",
-                  width: "100%",
-                  background: "white",
-                  padding: 0,
-                  margin: 0,
-                }}
-                subheader={
-                  <ListSubheader component="div" id="explore-list-subheader">
-                    Explore
-                  </ListSubheader>
-                }
-              >
-                <CategoryListItem
-                  type="wood"
-                  title="Wood"
-                  subtitle="Find wood near you"
-                  icon={WoodIcon}
-                />
-                <CategoryListItem
-                  type="metal"
-                  title="Metal"
-                  subtitle="Find wood near you"
-                  icon={WoodIcon}
-                />
-                <CategoryListItem
-                  type="concrete"
-                  title="Concrete"
-                  subtitle="Find wood near you"
-                  icon={WoodIcon}
-                />
-                <CategoryListItem
-                  type="tile"
-                  title="Tile"
-                  subtitle="Find wood near you"
-                  icon={WoodIcon}
-                />
-                <CategoryListItem
-                  type="glass"
-                  title="Glass"
-                  subtitle="Find wood near you"
-                  icon={WoodIcon}
-                />
-                <CategoryListItem
-                  type="glass"
-                  title="Antique"
-                  subtitle="Find wood near you"
-                  icon={WoodIcon}
-                />
-              </List>
-              <Divider orientation="vertical" flexItem />
-              <ProductViewContainer>
-                <ProductList
-                  modalOpen={modalOpen}
-                  setModalOpen={setModalOpen}
-                />
-              </ProductViewContainer>
-            </div>
-          </ExplorerWrapper>
-        </Grid>
+              <CategoryListItem
+                type="wood"
+                title="Wood"
+                subtitle="Find wood near you"
+                icon={WoodIcon}
+              />
+              <CategoryListItem
+                type="metal"
+                title="Metal"
+                subtitle="Find wood near you"
+                icon={WoodIcon}
+              />
+              <CategoryListItem
+                type="concrete"
+                title="Concrete"
+                subtitle="Find wood near you"
+                icon={WoodIcon}
+              />
+              <CategoryListItem
+                type="tile"
+                title="Tile"
+                subtitle="Find wood near you"
+                icon={WoodIcon}
+              />
+              <CategoryListItem
+                type="glass"
+                title="Glass"
+                subtitle="Find wood near you"
+                icon={WoodIcon}
+              />
+              <CategoryListItem
+                type="glass"
+                title="Antique"
+                subtitle="Find wood near you"
+                icon={WoodIcon}
+              />
+            </List>
+            <Divider orientation="vertical" flexItem />
+            <ProductViewContainer>
+              <ProductList modalOpen={modalOpen} setModalOpen={setModalOpen} />
+            </ProductViewContainer>
+          </div>
+        </ExplorerWrapper>
+
         <Grid
           xs={5}
           item
@@ -324,7 +341,7 @@ const DashboardView = () => {
       </div>
 
       <Outlet />
-    </Container>
+    </div>
   );
 };
 
