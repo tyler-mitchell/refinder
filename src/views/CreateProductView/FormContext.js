@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import useFirebaseUpload from "firebase/firebaseStorage";
 import { useSelector, useDispatch } from "react-redux";
 import {} from "redux/createProductSlice";
 import {

@@ -14,25 +14,36 @@ export const sendMessage = createAsyncThunk(
     } = thunkAPI.getState().product;
     console.log(`⭐: productId`, productId);
 
-    const { message } = data;
-    const discussionId = ownerId === uid ? currentChatId : uid;
+    const { message, pricePoint } = data;
+
+    const { discussionId, ...discussionData } =
+      ownerId === uid
+        ? {
+            ownerId: uid,
+            ownerName: displayName,
+            ownerAvatar: avatar,
+            discussionId: currentChatId,
+            productId,
+            pricePoint: pricePoint || 0,
+          }
+        : {
+            customerId: uid,
+            customerName: displayName,
+            customerAvatar: avatar,
+            discussionId: uid,
+            productId,
+          };
     console.log(`⭐: uid`, uid);
     console.log(`⭐: currentChatId`, currentChatId);
     console.log(`⭐: message`, message);
-    const discussionData = {
-      ownerId,
-      ownerName,
-      productId,
-      pricePoint: 0,
-      participants: fieldValue.arrayUnion(uid),
-    };
+
     const messageData = {
       senderId: uid,
       senderName: displayName,
       senderAvatar: avatar,
       messageType: "basic",
       message: message,
-      createdAt: Date.now(),
+      created: Date.now(),
     };
 
     try {
@@ -44,7 +55,11 @@ export const sendMessage = createAsyncThunk(
         .doc(discussionId)
         // .set(messageData);
         .set(
-          { ...discussionData, messages: fieldValue.arrayUnion(messageData) },
+          {
+            ownerId,
+            ...discussionData,
+            messages: fieldValue.arrayUnion(messageData),
+          },
           { merge: true }
         );
 

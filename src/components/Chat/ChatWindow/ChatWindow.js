@@ -47,62 +47,16 @@ const ChatWindow = () => {
   const frameRef = React.createRef();
   return (
     <>
-      <ChatContextProvider>
-        <Dialog
-          open={true}
-          // onClose={handleClose}
-          onClose={() => {
-            navigate(-1);
-          }}
-          maxWidth="xl"
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          PaperProps={{
-            style: {
-              borderRadius: "10px",
-            },
-          }}
-        >
-          <DialogContent style={{ width: "100%" }}>
-            <InsetContainer
-              className={styles.contentContainer}
-              style={{ background: "#f8f8f7" }}
-            >
-              {/* <Box width="30%" /> */}
-              {/* <div
-                ref={dialogRef}
-                style={{
-                  overflowY: "auto",
-                  height: dialogHeight,
-                  width: "100%"
-                }}
-              > */}
-              {/* <Content className={styles.content}> */}
-              {/* <Suspense fallback={<div>loading</div>}> */}
-              <ChatDialog />
-              <div className={styles.footer}></div>
-
-              {/* </Suspense> */}
-              {/* </Content> */}
-              {/* </div> */}
-
-              {/* <SecondaryInsetSidebar
-                className={styles.insetSidebar}
-                BodyProps={{ className: styles.insetBody }}
-                PaperProps={{ classes: { root: styles.insetDrawerPaper } }}
-              >
-                <ChatSettings />
-              </SecondaryInsetSidebar> */}
-            </InsetContainer>
-
-            {/* <InsetContainer></InsetContainer> */}
-            <Footer className={styles.footer}>
-              {" "}
-              <ChatBar />
-            </Footer>
-          </DialogContent>
-        </Dialog>
-      </ChatContextProvider>
+      <InsetContainer
+        className={styles.contentContainer}
+        style={{ background: "#f8f8f7" }}
+      >
+        <ChatDialog />
+        <div className={styles.footer}></div>
+      </InsetContainer>
+      <Footer className={styles.footer}>
+        <ChatBar />
+      </Footer>
     </>
   );
 };

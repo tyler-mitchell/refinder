@@ -1,1 +1,1 @@
-export { default } from "./MessengerSearch";
+export { default } from "./ChatsHeader";

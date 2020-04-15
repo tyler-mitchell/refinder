@@ -13,23 +13,21 @@ import { useParams } from "react-router-dom";
 const AVATAR = "https://i.pravatar.cc/300?img=13";
 
 const ChatDialog = ({ isAdmin }) => {
-  let { materialID } = useParams();
+  let { discussionID } = useParams();
+  let params = useParams();
+  console.log(`⭐: ChatDialog -> params`, params);
+  console.log(`⭐: ChatDialog -> discussionID`, discussionID);
   const uid = useSelector(selectUserID);
 
-  const productInfo = useSelector((s) => s.product);
+  const { productId, currentChatId } = useSelector((s) => s.product);
+  console.log(`⭐: ChatDialog -> productId`, productId);
   // const discussionRef = database.doc(
-  //   `materials/${productInfo.productId}/product_discussion/${uid}`
+  //   `materials/${productId}/product_discussion/${uid}`
   // );
-  const discussionRef =
-    productInfo.currentChatId &&
-    database.doc(
-      `materials/${productInfo.productId}/product_discussion/${productInfo.currentChatId}`
-    );
-
-  console.log(
-    `⭐: ChatDialog ->  productInfo.currentChatId`,
-    productInfo.currentChatId
+  const discussionRef = database.doc(
+    `materials/${productId}/product_discussion/${currentChatId || discussionID}`
   );
+
   // status: [approved, 8uou0980098]
 
   const [discussion, loading, error] = useDocumentData(discussionRef);
@@ -162,11 +160,7 @@ const ChatDialog = ({ isAdmin }) => {
         /> */}
 
           <Typography style={{ color: "red" }} className={styles.date}>
-            {console.log(
-              `⭐: ChatDialog -> productInfo.uid `,
-              productInfo.ownerId
-            )}
-            {/* {uid === productInfo.ownerId ? "You are OWNER" : "You are CUSTOMER"} */}
+            {/* {uid === ownerId ? "You are OWNER" : "You are CUSTOMER"} */}
             {/* {": " + uid} */}
           </Typography>
         </Box>

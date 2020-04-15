@@ -23,7 +23,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { storeImages, deleteImage, setPrimaryImage } from "redux/imageSlice";
 import { setProductDocId, addProductImage } from "redux/createProductSlice";
 import useLocalStorageState from "hooks/useLocalStorage";
-import useFirebaseUpload from "firebase/firebaseStorage";
 import { FormContext } from "views/CreateProductView/FormContext";
 // import { connect } from 'react-redux';
 

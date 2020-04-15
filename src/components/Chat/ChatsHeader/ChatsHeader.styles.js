@@ -7,8 +7,8 @@ const useStyles = makeStyles(() => ({
     height: 44,
     padding: 6,
     "&:not(:first-child)": {
-      marginLeft: 4
-    }
+      marginLeft: 4,
+    },
   },
   input: {
     flex: "auto",
@@ -17,6 +17,8 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "rgba(0,0,0,0.04)",
     margin: "0 8px",
     height: 36,
-    fontSize: 13
-  }
+    fontSize: 13,
+  },
 }));
+
+export default useStyles;

@@ -1,6 +1,30 @@
 import { createAsyncThunk, createSlice, unwrapResult } from "@reduxjs/toolkit";
 import { database, fieldValue } from "firebase/core";
 import fbMultiImageUpload from "firebase/fbMultiUpload";
+function deleteOldData() {
+  database
+    .collection("materials")
+    .get()
+    .then(function (querySnapshot) {
+      // Once we get the results, begin a batch
+      let batch = database.batch();
+
+      querySnapshot.forEach(function (doc) {
+        // For each doc, add a delete operation to the batch
+        // if ((doc.data()?.description?.length ?? 0) < 30) {
+        console.log(`⭐: deleteOldData -> DELETING`, doc.data());
+        batch.delete(doc.ref);
+        // }
+      });
+
+      // Commit the batch
+      return batch.commit();
+    })
+    .then(function () {
+      // Delete completed!
+      // ...
+    });
+}
 
 function getDummyData({
   productId,
@@ -109,11 +133,11 @@ export const addToFirebase = createAsyncThunk(
       displayName,
       avatar,
       email,
+      num: 2,
     });
     console.log(`⭐: product`, product);
     console.log(`⭐: discussion`, discussion);
 
-    // Not sure if product_discussions should be initialized on creation
     try {
       const res = await database
         .collection("materials")

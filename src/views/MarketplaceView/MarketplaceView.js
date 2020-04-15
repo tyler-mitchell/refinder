@@ -8,6 +8,7 @@ import ProductView from "views/ProductView";
 import SellerDashboardView from "views/SellerDashboardView";
 import MessagesView from "views/MessagesView";
 import ProductChatView from "views/ProductChatView";
+import ChatWindow from "components/Chat/ChatWindow";
 
 import not_found_png from "assets/NotFound.png";
 
@@ -231,7 +232,9 @@ const MarketplaceView = () => {
                   </Route>
 
                   <Route path="/services" element={<ProductsListView />} />
-                  <Route path="/messages" element={<MessagesView />} />
+                  <Route path="/messages" element={<MessagesView />}>
+                    <Route path=":discussionID" element={<ChatWindow />} />
+                  </Route>
 
                   <Route path="/selling" element={<SellerDashboardView />}>
                     <Route

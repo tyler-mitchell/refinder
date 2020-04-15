@@ -9,22 +9,25 @@ import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import useStyles from "./ChatListItem.styles";
 import { setActiveChatId } from "redux/productSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 const ChatListItem = ({
   bold,
   active,
   avatar,
   name,
   info,
-  id,
+  discussionId,
+  productId,
   responded,
   concise,
 }) => {
   const styles = useStyles({ bold, active });
   let dispatch = useDispatch();
-
+  let navigate = useNavigate();
+  console.log(`⭐: discussionId`, discussionId);
   function handleChatClick() {
-    dispatch(setActiveChatId({ id: id }));
+    dispatch(setActiveChatId({ chatId: discussionId }));
+    navigate(`${discussionId}/${productId}`);
   }
   return (
     <Box px={1}>

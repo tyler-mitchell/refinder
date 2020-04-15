@@ -71,7 +71,7 @@ const data = [
   },
 ];
 
-const ChatList = ({ concise, id }) => {
+const ChatList = ({ concise, id, inboxData = [] }) => {
   return (
     <Drawer
       open={true}
@@ -82,6 +82,7 @@ const ChatList = ({ concise, id }) => {
           position: "relative",
           userSelect: "none",
           borderTopLeftRadius: "15px",
+          height: "100%",
         },
       }}
       BackdropProps={{ style: { position: "relative" } }}
@@ -90,11 +91,25 @@ const ChatList = ({ concise, id }) => {
         style: { position: "relative" },
       }}
     >
-      <Grid item style={{ height: "100%" }}>
-        <List style={{ height: "100%" }}>
-          {data.map((item) => (
-            <ChatListItem key={item.name} {...item} concise={concise} />
-          ))}
+      <Grid item>
+        <List>
+          {(inboxData || []).map((discussion) => {
+            const data = {
+              name: discussion.customerName,
+              avatar: discussion.customerAvatar,
+              info: discussion.messages[discussion.messages.length - 1].message,
+            };
+            return (
+              <ChatListItem
+                discussionId={discussion.id}
+                key={discussion.productId}
+                productId={discussion.productId}
+                {...discussion}
+                {...data}
+                concise={concise}
+              />
+            );
+          })}
           <div style={{ flexGrow: 1 }} />
         </List>
       </Grid>

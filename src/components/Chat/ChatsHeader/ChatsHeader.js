@@ -10,18 +10,18 @@ import Edit from "@material-ui/icons/Edit";
 const useStyles = makeStyles(() => ({
   middle: {
     flex: "auto",
-    marginLeft: 16
+    marginLeft: 16,
   },
   iconBtn: {
     padding: 8,
     backgroundColor: "rgba(0, 0, 0, .04)",
     "&:not(:last-child)": {
-      marginRight: 16
-    }
-  }
+      marginRight: 16,
+    },
+  },
 }));
 
-const ChatsHeader = () => {
+const ChatsHeader = ({ productData }) => {
   const styles = useStyles();
   return (
     <Box py={"10px"} px={2} display={"flex"} alignItems={"center"}>
