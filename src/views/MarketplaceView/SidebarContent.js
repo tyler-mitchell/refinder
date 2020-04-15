@@ -6,6 +6,7 @@ import MaterialIcon from "@material-ui/icons/Terrain";
 import SettingsIcon from "@material-ui/icons/SettingsOutlined";
 import ServicesIcon from "@material-ui/icons/Build";
 import SellIcon from "@material-ui/icons/LocalAtm";
+import MessagesIcon from "@material-ui/icons/Textsms";
 import {
   List,
   ListItem,
@@ -19,6 +20,7 @@ const navigationLinks = [
   { label: "Dashboard", icon: <DashboardIcon />, path: "" },
   { label: "Materials", icon: <MaterialIcon />, path: "materials" },
   { label: "Sell", icon: <SellIcon />, path: "selling" },
+  { label: "Messages", icon: <MessagesIcon />, path: "messages" },
 ];
 const SidebarContent = () => {
   const navigate = useNavigate();

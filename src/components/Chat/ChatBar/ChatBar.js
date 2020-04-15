@@ -17,7 +17,7 @@ import { sendMessage } from "redux/productSlice";
 
 const ChatBar = ({ concise }) => {
   const dispatch = useDispatch();
-  const success = useSelector(s => s.product);
+  const success = useSelector((s) => s.product);
   const styles = useStyles();
   const { reference, handleSubmit, reset, control } = useForm();
   function onSubmit(data, e) {

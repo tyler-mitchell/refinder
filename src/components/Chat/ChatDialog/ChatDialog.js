@@ -8,20 +8,28 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import { database } from "firebase/core";
 import { useSelector } from "react-redux";
 import { selectUserID } from "redux/authSlice";
+// import {  } from "redux/productSlice";
 import { useParams } from "react-router-dom";
 const AVATAR = "https://i.pravatar.cc/300?img=13";
 
 const ChatDialog = ({ isAdmin }) => {
   let { materialID } = useParams();
   const uid = useSelector(selectUserID);
-  const productInfo = useSelector(s => s.product);
+
+  const productInfo = useSelector((s) => s.product);
   // const discussionRef = database.doc(
   //   `materials/${productInfo.productId}/product_discussion/${uid}`
   // );
-  const discussionRef = database.doc(
-    `materials/${productInfo.productId}/product_discussion/FadDLgDk0VVuBtv0CXeIjUnIWgP2`
-  );
+  const discussionRef =
+    productInfo.currentChatId &&
+    database.doc(
+      `materials/${productInfo.productId}/product_discussion/${productInfo.currentChatId}`
+    );
 
+  console.log(
+    `⭐: ChatDialog ->  productInfo.currentChatId`,
+    productInfo.currentChatId
+  );
   // status: [approved, 8uou0980098]
 
   const [discussion, loading, error] = useDocumentData(discussionRef);
@@ -52,7 +60,7 @@ const ChatDialog = ({ isAdmin }) => {
           if (index === arr.length - 1) {
             acc.groupArr.push({
               sender: cur?.senderId,
-              contents: acc.group
+              contents: acc.group,
             });
           }
         } else {
@@ -60,7 +68,7 @@ const ChatDialog = ({ isAdmin }) => {
           if (index === arr.length - 1) {
             acc.groupArr.push({
               sender: cur.senderId,
-              contents: [cur.message]
+              contents: [cur.message],
             });
 
             return acc;

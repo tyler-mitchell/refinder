@@ -6,6 +6,7 @@ import DashboardView from "views/DashboardView";
 import { ProductModalView } from "views/DashboardView/DashboardView";
 import ProductView from "views/ProductView";
 import SellerDashboardView from "views/SellerDashboardView";
+import MessagesView from "views/MessagesView";
 import ProductChatView from "views/ProductChatView";
 
 import not_found_png from "assets/NotFound.png";
@@ -228,7 +229,9 @@ const MarketplaceView = () => {
                   >
                     <Route path="discussion" element={<ProductChatView />} />
                   </Route>
+
                   <Route path="/services" element={<ProductsListView />} />
+                  <Route path="/messages" element={<MessagesView />} />
 
                   <Route path="/selling" element={<SellerDashboardView />}>
                     <Route

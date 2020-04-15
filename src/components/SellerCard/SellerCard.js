@@ -15,6 +15,8 @@ import ThumbUp from "@material-ui/icons/ThumbUp";
 import FormatPaint from "@material-ui/icons/FormatPaint";
 import useStyles from "./SellerCard.styles";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { setActiveProductChatId } from "redux/productSlice";
 const SettingHeader = ({ children, opened }) => {
   const styles = useStyles();
   return (
@@ -51,9 +53,11 @@ const Setting = ({ label, icon, blue }) => {
   );
 };
 
-const SellerCard = ({ name }) => {
+const SellerCard = ({ name, avatar, isOwner }) => {
   const styles = useStyles();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   return (
     <div>
       <Box
@@ -65,7 +69,7 @@ const SellerCard = ({ name }) => {
       >
         <Avatar
           className={styles.avatar}
-          src={"https://i.pravatar.cc/300?img=13"}
+          src={avatar || "https://i.pravatar.cc/300?img=13"}
         />
         <Typography
           className={styles.name}
@@ -111,29 +115,56 @@ const SellerCard = ({ name }) => {
             (6)
           </Typography>
         </Box>
-        <Button
-          color="primary"
-          variant="contained"
-          style={{ textTransform: "none", marginBottom: "10px" }}
-          onClick={() => {
-            navigate("discussion");
-          }}
-        >
-          Make Offer
-        </Button>
-        <Button
-          // color="primary"
-          variant="outlined"
-          style={{ textTransform: "none", opacity: 0.7 }}
-          onClick={() => {
-            navigate("discussion");
-          }}
-        >
-          <Typography color="textSecondary" style={{ fontWeight: 550 }}>
-            {" "}
-            Contact Seller
-          </Typography>
-        </Button>
+        {isOwner ? (
+          <Button
+            color="primary"
+            variant="contained"
+            style={{ textTransform: "none", marginBottom: "10px" }}
+            onClick={() => {
+              navigate("/marketplace/selling");
+            }}
+          >
+            View Offers
+          </Button>
+        ) : (
+          <Button
+            color="primary"
+            variant="contained"
+            style={{ textTransform: "none", marginBottom: "10px" }}
+            onClick={() => {
+              navigate("discussion");
+            }}
+          >
+            Make Offer
+          </Button>
+        )}
+        {isOwner ? (
+          <Button
+            // color="primary"
+            variant="outlined"
+            style={{ textTransform: "none", opacity: 0.7 }}
+            onClick={() => {
+              // navigate("");
+            }}
+          >
+            <Typography color="textSecondary" style={{ fontWeight: 550 }}>
+              Mark as Sold
+            </Typography>
+          </Button>
+        ) : (
+          <Button
+            // color="primary"
+            variant="outlined"
+            style={{ textTransform: "none", opacity: 0.7 }}
+            onClick={() => {
+              navigate("discussion");
+            }}
+          >
+            <Typography color="textSecondary" style={{ fontWeight: 550 }}>
+              Contact Seller
+            </Typography>
+          </Button>
+        )}
       </Box>
       {/* <Divider /> */}
       {/* <SettingHeader opened>Options</SettingHeader>

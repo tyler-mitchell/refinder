@@ -52,7 +52,7 @@ const ChatWindow = () => {
           open={true}
           // onClose={handleClose}
           onClose={() => {
-            navigate("../");
+            navigate(-1);
           }}
           maxWidth="xl"
           aria-labelledby="alert-dialog-title"

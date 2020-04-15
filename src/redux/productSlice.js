@@ -8,17 +8,23 @@ export const sendMessage = createAsyncThunk(
     const {
       ownerId,
       productId,
-      displayName: ownerName
+
+      displayName: ownerName,
+      currentChatId,
     } = thunkAPI.getState().product;
     console.log(`⭐: productId`, productId);
 
-    const discussionId = ownerId === uid ? "FadDLgDk0VVuBtv0CXeIjUnIWgP2" : uid;
     const { message } = data;
+    const discussionId = ownerId === uid ? currentChatId : uid;
+    console.log(`⭐: uid`, uid);
+    console.log(`⭐: currentChatId`, currentChatId);
     console.log(`⭐: message`, message);
     const discussionData = {
       ownerId,
       ownerName,
-      productId
+      productId,
+      pricePoint: 0,
+      participants: fieldValue.arrayUnion(uid),
     };
     const messageData = {
       senderId: uid,
@@ -26,13 +32,12 @@ export const sendMessage = createAsyncThunk(
       senderAvatar: avatar,
       messageType: "basic",
       message: message,
-      createdAt: Date.now()
+      createdAt: Date.now(),
     };
 
     try {
       const productDocRef = database.doc(`materials/${productId}`);
 
-      console.log(`⭐: productDocRef`, productDocRef);
       // await productDocRef.doc(uid).update(messageData);
       await productDocRef
         .collection("product_discussion")
@@ -42,6 +47,8 @@ export const sendMessage = createAsyncThunk(
           { ...discussionData, messages: fieldValue.arrayUnion(messageData) },
           { merge: true }
         );
+
+      console.log(`⭐: MESSAGE SUCCESS`);
     } catch (error) {
       console.log(`⭐: error`, error);
       return error;
@@ -53,7 +60,8 @@ export const productSlice = createSlice({
   name: "product",
   initialState: {
     loading: false,
-    error: null
+    error: null,
+    currentChatId: null,
   },
   reducers: {
     initializeProduct: (state, action) => {
@@ -64,7 +72,8 @@ export const productSlice = createSlice({
         description,
         avatar,
         productId,
-        uid
+
+        uid,
       } = action.payload;
 
       // state.created = created;
@@ -76,8 +85,13 @@ export const productSlice = createSlice({
       state.ownerId = uid;
 
       console.log(`⭐: state`, state);
-    }
+    },
+    setActiveChatId: (state, action) => {
+      const { chatId } = action.payload;
+      state.currentChatId = chatId;
+    },
   },
+
   extraReducers: {
     // Add reducers for additional action types here, and handle loading state as needed
     [sendMessage.loading]: (state, action) => {
@@ -85,11 +99,11 @@ export const productSlice = createSlice({
 
       // Add user to the state array
       state.loading = false;
-    }
-  }
+    },
+  },
 });
 
-export const selectFormData = state => state.counter.value;
-export const { initializeProduct } = productSlice.actions;
+export const selectFormData = (state) => state.counter.value;
+export const { initializeProduct, setActiveChatId } = productSlice.actions;
 
 export default productSlice.reducer;

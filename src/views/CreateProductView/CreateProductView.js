@@ -234,7 +234,6 @@ const CreateProductView = () => {
                   setActiveStep(activeStep - 1);
                 }
               }}
-              variant="outlined"
               variantColor="blue"
             >
               Back
@@ -243,6 +242,8 @@ const CreateProductView = () => {
               endIcon={
                 uploading ? (
                   <CircularProgress size={20} thickness={5} />
+                ) : activeStep === 4 ? (
+                  <></>
                 ) : (
                   <NextIcon />
                 )
@@ -250,10 +251,11 @@ const CreateProductView = () => {
               type="submit"
               onClick={() => {}}
               disabled={uploading}
-              variant="outlined"
+              variant="contained"
+              disableElevation
               variantColor="blue"
             >
-              Next
+              {activeStep === 4 ? "Submit" : "Next"}
             </MuiButton>
           </DialogActions>
         </form>

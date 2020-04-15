@@ -7,6 +7,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import useStyles from "./ChatListItem.styles";
+import { setActiveChatId } from "redux/productSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const ChatListItem = ({
   bold,
@@ -14,13 +16,23 @@ const ChatListItem = ({
   avatar,
   name,
   info,
+  id,
   responded,
-  concise
+  concise,
 }) => {
   const styles = useStyles({ bold, active });
+  let dispatch = useDispatch();
+
+  function handleChatClick() {
+    dispatch(setActiveChatId({ id: id }));
+  }
   return (
     <Box px={1}>
-      <ListItem className={cx(styles.root, styles.rootHover)}>
+      <ListItem
+        button
+        onClick={handleChatClick}
+        className={cx(styles.root, styles.rootHover)}
+      >
         <Avatar src={avatar} className={styles.avatar} />
         {!concise && (
           <>

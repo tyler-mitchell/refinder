@@ -142,7 +142,8 @@ const ProductCard = (props) => {
       <Grid
         container
         justify="space-between"
-        spacing={props.variant === "list" ? 1 : 0}
+        // spacing={props.variant === "list" ? 1 : 0}
+        wrap={props.variant === "list" && "nowrap"}
         className={classes.cardRoot}
       >
         <Grid
@@ -173,15 +174,17 @@ const ProductCard = (props) => {
             disableRipple
             style={{ zIndex: 1 }}
             onClick={() => {
-              dispatch(
-                setMapLocation({
-                  location: {
-                    latitude: props.address.latitude,
-                    longitude: props.address.longitude,
-                  },
-                  productId: props.id,
-                })
-              );
+              if (props?.address?.latitude) {
+                dispatch(
+                  setMapLocation({
+                    location: {
+                      latitude: props.address.latitude,
+                      longitude: props.address.longitude,
+                    },
+                    productId: props.id,
+                  })
+                );
+              }
             }}
           >
             <CardMedia
@@ -245,7 +248,7 @@ const ProductCard = (props) => {
             </StyledLikeAction>
           </StyledCardMedia>
         </Grid>
-        <Grid item xs={props?.variant === "list" ? 9 : 12} container>
+        <Grid item xs={props?.variant === "list" ? 10 : 12} container>
           <Grid item xs direction="column" className={classes.contentItem}>
             <CardContent
               // component={Grid}

@@ -38,6 +38,7 @@ import FavoriteIconFilled from "@material-ui/icons/FavoriteRounded";
 import MoreOptionsIcon from "@material-ui/icons/MoreHorizRounded";
 import ShareIcon from "@material-ui/icons/ShareRounded";
 import TimeAgo from "timeago-react";
+import { setActiveChatId } from "redux/productSlice";
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -48,7 +49,8 @@ const ProductView = () => {
   let { materialID } = useParams();
   let navigate = useNavigate();
   const location = useLocation();
-  const productInfo = useSelector((state) => state.message);
+  const { uid } = useSelector((state) => state.auth.userData);
+  console.log(`⭐: ProductView -> uid`, uid);
 
   const productRef = database.doc(`materials/${materialID}`);
   const dispatch = useDispatch();
@@ -60,6 +62,7 @@ const ProductView = () => {
   React.useEffect(() => {
     if (!loading) {
       dispatch(initializeProduct({ ...product }));
+      dispatch(setActiveChatId({ chatId: uid }));
     }
     console.log(`⭐: ProductView -> product`, product);
     // console.log(`⭐: ProductView -> productInfo`, productInfo);
@@ -200,7 +203,11 @@ const ProductView = () => {
                       "-6px 8px 28px 0 rgba(0, 0, 0, 0.06), -2px 0 4px 0 rgba(0, 0, 0, 0.01), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
                   }}
                 >
-                  <SellerCard name={product?.displayName} />
+                  <SellerCard
+                    name={product?.displayName}
+                    avatar={product?.avatar}
+                    isOwner={product?.uid === uid}
+                  />
                 </Paper>
               </Grid>
               <Grid item style={{ width: "100%" }}>
