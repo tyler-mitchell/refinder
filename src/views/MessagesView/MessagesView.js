@@ -150,6 +150,7 @@ const MessagesView = () => {
           display: "flex",
           height: "100%",
           width: "100%",
+
           position: "relative",
         }}
       >
@@ -157,19 +158,23 @@ const MessagesView = () => {
           <ChatHeader />
           <ChatList id="drawer-ss" inboxData={userDiscussions} />
         </div>
-        <div style={{ minHeight: "100%", width: "100%" }}>
-          <Paper square>
+        <div
+          style={{
+            minHeight: "100%",
+            width: "100%",
+            overflowY: "scroll",
+            position: "relative",
+          }}
+        >
+          {/* <Paper square>
             <Toolbar disableGutters>
               <ConversationHead />
             </Toolbar>
-          </Paper>
+          </Paper> */}
 
-          {/* <ChatDialog />
-            <div className={windowStyles.footer}></div> */}
           <Outlet />
         </div>
       </div>
-      <Outlet />
     </Container>
   );
 };

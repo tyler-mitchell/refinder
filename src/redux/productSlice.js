@@ -14,6 +14,7 @@ export const sendMessage = createAsyncThunk(
     } = thunkAPI.getState().product;
     console.log(`⭐: productId`, productId);
 
+    console.log(`⭐: ownerId`, ownerId);
     const { message, pricePoint } = data;
 
     const { discussionId, ...discussionData } =
@@ -87,7 +88,6 @@ export const productSlice = createSlice({
         description,
         avatar,
         productId,
-
         uid,
       } = action.payload;
 
@@ -98,6 +98,7 @@ export const productSlice = createSlice({
       state.avatar = avatar;
       state.productId = productId;
       state.ownerId = uid;
+      state.currentChatId = uid;
 
       console.log(`⭐: state`, state);
     },

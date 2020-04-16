@@ -13,7 +13,22 @@ import SendIcon from "@material-ui/icons/SendRounded";
 import { useForm, Controller } from "react-hook-form";
 import useStyles from "./ChatBar.styles";
 import { useDispatch, useSelector } from "react-redux";
+import { animateScroll } from "react-scroll";
 import { sendMessage } from "redux/productSlice";
+function scrollToBottom() {
+  setTimeout(
+    () =>
+      animateScroll.scrollToBottom({
+        containerId: "rcw-messages-container",
+        duration: 100,
+        delay: 0,
+        offset: 50,
+        smooth: false,
+        isDynamic: true,
+      }),
+    50
+  );
+}
 
 const ChatBar = ({ concise }) => {
   const dispatch = useDispatch();
@@ -22,6 +37,7 @@ const ChatBar = ({ concise }) => {
   const { reference, handleSubmit, reset, control } = useForm();
   function onSubmit(data, e) {
     console.log(`⭐: onSubmit -> d`, data);
+    scrollToBottom();
     dispatch(sendMessage(data));
     reset();
   }
@@ -38,6 +54,14 @@ const ChatBar = ({ concise }) => {
       )} */}
       <form
         onSubmit={handleSubmit(onSubmit)}
+        sx={{
+          alignItems: "center",
+          display: "flex",
+          backgroundColor: "white",
+          py: 3,
+          px: 4,
+          borderRadius: "0 0 10px 10px",
+        }}
         style={{ width: "100%", position: "relative" }}
       >
         <Controller

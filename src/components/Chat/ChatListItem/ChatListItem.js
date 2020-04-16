@@ -9,7 +9,7 @@ import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import useStyles from "./ChatListItem.styles";
 import { setActiveChatId } from "redux/productSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 const ChatListItem = ({
   bold,
   active,
@@ -24,10 +24,19 @@ const ChatListItem = ({
   const styles = useStyles({ bold, active });
   let dispatch = useDispatch();
   let navigate = useNavigate();
+  let searchParams = useSearchParams();
+  function addParam(name, value) {
+    let newParams = new URLSearchParams(searchParams);
+    newParams.set(name, value);
+    return newParams;
+  }
+
   console.log(`⭐: discussionId`, discussionId);
   function handleChatClick() {
     dispatch(setActiveChatId({ chatId: discussionId }));
-    navigate(`${discussionId}/${productId}`);
+    navigate(`${discussionId}?${addParam("product", productId)}`, {
+      replace: true,
+    });
   }
   return (
     <Box px={1}>
