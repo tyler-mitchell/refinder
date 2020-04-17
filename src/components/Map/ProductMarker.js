@@ -148,6 +148,7 @@ const Carousel = ({ images }) => {
           key={page}
           style={{
             position: "absolute",
+            zIndex: 1000,
             objectFit: "cover",
             boxShadow:
               "0 12px 28px 0 rgba(0, 0, 0, 0.06), 0 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
@@ -228,6 +229,7 @@ const ProductMarker = ({
         longitude={address.longitude}
         markerColor={"red"}
         draggable={false}
+        style={{ zIndex: 0, position: "absolute" }}
         // captureClick={true}
         offsetLeft={-15}
         offsetTop={-10}
@@ -247,6 +249,7 @@ const ProductMarker = ({
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            style={{ zIndex: 1000, position: "relative" }}
             exit={{ opacity: 0 }}
           >
             <ProductPopup

@@ -127,10 +127,12 @@ const MapBoxWrap = ({ width = "100%", height = 300, x, y }) => {
             trackUserLocation={false}
           /> */}
 
-          {listings.map((product) => {
+          {listings.map((product, index) => {
             if (product?.address) {
               return (
                 <ProductMarker
+                  index={index}
+                  key={index}
                   showPopup={currentProductId === product.id && transitionEnd}
                   {...product}
                 />
