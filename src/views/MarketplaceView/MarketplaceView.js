@@ -152,7 +152,11 @@ const MarketplaceView = () => {
                   <Link
                     underline="none"
                     color="textPrimary"
-                    style={{ cursor: "pointer" }}
+                    style={{
+                      cursor: "pointer",
+                      position: "relative",
+                      zIndex: 1,
+                    }}
                     onClick={() => {
                       navigate("/");
                     }}
@@ -160,6 +164,25 @@ const MarketplaceView = () => {
                   >
                     Refinder
                   </Link>
+
+                  <div
+                    size="small"
+                    style={{
+                      padding: "2px 3px",
+                      borderRadius: "3px",
+                      fontSize: 8,
+                      fontWeight: 800,
+                      color: "white",
+                      backgroundColor: "red",
+                      verticalAlign: "top",
+                      position: "relative",
+                      top: -5,
+                      right: -2,
+                      zIndex: 0,
+                    }}
+                  >
+                    ALPHA
+                  </div>
 
                   {/* <div style={{ flexGrow: 1 }} /> */}
 
