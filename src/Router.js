@@ -25,7 +25,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<LoginView />} />
-        <Route path="/signup" element={<SignupView />} />
+        <Route path="/signup" element={<LoginView />} />
         <Route path="marketplace/*" element={<MarketplaceView />} />
         <Route path="/productview" exact element={<ProductView />} />
 
