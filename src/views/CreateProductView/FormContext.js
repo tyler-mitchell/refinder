@@ -13,12 +13,7 @@ import fbMultiImageUpload from "firebase/fbMultiUpload";
 import { useNavigate } from "react-router-dom";
 export const FormContext = React.createContext();
 
-const formSteps = [
-  "General Details",
-  "Upload Photos",
-  "Location",
-  "Price and Payment",
-];
+const formSteps = ["General Details", "Upload Photos", "Location"];
 
 const TOTAL_STEPS = formSteps.length;
 

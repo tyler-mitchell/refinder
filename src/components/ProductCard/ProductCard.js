@@ -119,7 +119,7 @@ const ProductCard = (props) => {
   function getThumbnail() {
     if (props?.productImages) {
       return props.productImages.find((img) => img.isPrimary === true)
-        .downloadUrl;
+        ?.downloadUrl;
     }
     return `https://source.unsplash.com/collection/8793876/${props.index})`;
   }

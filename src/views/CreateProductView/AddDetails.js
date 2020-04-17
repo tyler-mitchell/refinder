@@ -11,12 +11,19 @@ import {
   Input,
   FormErrorMessage,
   Textarea,
+  InputGroup,
   Flex,
   Button,
   FormHelperText,
+  InputLeftElement,
+  InputRightElement,
+  Stack,
+  Icon,
   Heading,
   Checkbox,
   CheckboxGroup,
+  RadioGroup,
+  Radio,
 } from "@chakra-ui/core";
 import {
   addToForm,
@@ -29,6 +36,21 @@ import { useParams, useLocation } from "react-router-dom";
 import ImageInput from "components/ImageAttachment";
 import DropZone from "components/ImageAttachment/DropZone";
 import { FormContext } from "./FormContext";
+
+const CustomRadio = React.forwardRef((props, ref) => {
+  const { isChecked, isDisabled, value, ...rest } = props;
+  return (
+    <Button
+      ref={ref}
+      variantColor={isChecked ? "red" : "gray"}
+      aria-checked={isChecked}
+      role="radio"
+      isDisabled={isDisabled}
+      {...rest}
+    />
+  );
+});
+
 const AddDetail = () => {
   const dispatch = useDispatch();
   const formData = useSelector((s) => s.auth.uid);
@@ -76,22 +98,114 @@ const AddDetail = () => {
             </FormErrorMessage>
           </FormControl>
 
-          <Controller
-            name="type"
-            control={control}
-            as={
-              <CheckboxGroup variantColor="green">
-                <SimpleGrid columns={2} spacingX={1} spacingY={1}>
-                  <Checkbox value="tile">Tile</Checkbox>
-                  <Checkbox value="brick">Brick</Checkbox>
-                  <Checkbox value="glass">Glass</Checkbox>
-                  <Checkbox value="wood">Wood</Checkbox>
-                  <Checkbox value="concrete">Concrete</Checkbox>
-                  <Checkbox value="metal">Metal</Checkbox>
-                </SimpleGrid>
-              </CheckboxGroup>
-            }
-          />
+          <FormControl>
+            <FormLabel htmlFor="price">What is the price?</FormLabel>
+            <InputGroup ref={register({ required: true })}>
+              <InputLeftElement
+                color="gray.300"
+                fontSize="1.2em"
+                children="$"
+              />
+              <Input name="price" placeholder="Enter amount" />
+            </InputGroup>
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="description">
+              What type of material is it?
+            </FormLabel>
+            <Controller
+              name="type"
+              control={control}
+              ref={register({ required: true })}
+              as={
+                <RadioGroup
+                  ref={register({ required: true })}
+                  value=""
+                  isInline
+                  style={{ justifyContent: "center" }}
+                >
+                  <Radio
+                    style={{
+                      padding: 10,
+                      borderRadius: "5px",
+                      fontWeight: 600,
+                    }}
+                    bg="yellow.600"
+                    color="white"
+                    size="lg"
+                    value="wood"
+                  >
+                    Wood
+                  </Radio>
+                  <Radio
+                    style={{
+                      padding: 10,
+                      borderRadius: "5px",
+                      fontWeight: 600,
+                    }}
+                    bg="blue.600"
+                    color="white"
+                    size="lg"
+                    value="tile"
+                  >
+                    Tile
+                  </Radio>
+                  <Radio
+                    style={{
+                      padding: 10,
+                      borderRadius: "5px",
+                      fontWeight: 600,
+                    }}
+                    bg="red.600"
+                    size="lg"
+                    color="white"
+                    value="brick"
+                  >
+                    Brick
+                  </Radio>
+                  <Radio
+                    style={{
+                      padding: 10,
+                      borderRadius: "5px",
+                      fontWeight: 600,
+                    }}
+                    bg="cyan.400"
+                    size="lg"
+                    color="white"
+                    value="glass"
+                  >
+                    Glass
+                  </Radio>
+                  <Radio
+                    style={{
+                      padding: 10,
+                      borderRadius: "5px",
+                      fontWeight: 600,
+                    }}
+                    bg="gray.400"
+                    size="lg"
+                    color="white"
+                    value="concrete"
+                  >
+                    Concrete
+                  </Radio>
+                  <Radio
+                    style={{
+                      padding: 10,
+                      borderRadius: "5px",
+                      fontWeight: 600,
+                    }}
+                    bg="gray.600"
+                    color="white"
+                    size="lg"
+                    value="metal"
+                  >
+                    Metal
+                  </Radio>
+                </RadioGroup>
+              }
+            />
+          </FormControl>
         </SimpleGrid>
       </ThemeProvider>
     </div>

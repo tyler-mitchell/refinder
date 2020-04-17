@@ -109,32 +109,32 @@ export const addToFirebase = createAsyncThunk(
     const { uid, displayName, avatar, email } = getState().auth.userData;
     const { data: formData, productDocId } = getState().createProduct;
 
-    // const product = {
-    //   uid,
-    //   displayName,
-    //   avatar,
-    //   free: false,
-    //   productImages,
-    //   ...formData,
-    //   created: fieldValue.serverTimestamp(),
-    // };
-
-    // const discussion = {
-    //   ownerId: uid,
-    //   productId: productDocId,
-    //   ownerName: displayName,
-    //   ownerAvatar: avatar,
-    //   ownerEmail: email,
-    // };
-
-    const { product, discussion } = getDummyData({
-      productId: productDocId,
+    const product = {
       uid,
       displayName,
       avatar,
-      email,
-      num: 2,
-    });
+      free: false,
+      productImages,
+      ...formData,
+      created: fieldValue.serverTimestamp(),
+    };
+
+    const discussion = {
+      ownerId: uid,
+      productId: productDocId,
+      ownerName: displayName,
+      ownerAvatar: avatar,
+      ownerEmail: email,
+    };
+
+    // const { product, discussion } = getDummyData({
+    //   productId: productDocId,
+    //   uid,
+    //   displayName,
+    //   avatar,
+    //   email,
+    //   num: 2,
+    // });
     console.log(`⭐: product`, product);
     console.log(`⭐: discussion`, discussion);
 
