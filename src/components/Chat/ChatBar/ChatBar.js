@@ -15,6 +15,7 @@ import useStyles from "./ChatBar.styles";
 import { useDispatch, useSelector } from "react-redux";
 import { animateScroll } from "react-scroll";
 import { sendMessage } from "redux/productSlice";
+import { Toolbar } from "@material-ui/core";
 function scrollToBottom() {
   setTimeout(
     () =>
@@ -46,22 +47,14 @@ const ChatBar = ({ concise }) => {
     <>
       <AddCircle className={styles.icon} />
       {/* {!concise && (
-        <>
-          <Gif className={styles.icon} />
-          <Note className={styles.icon} />
-          <Image className={styles.icon} />
-        </>
-      )} */}
+          <>
+            <Gif className={styles.icon} />
+            <Note className={styles.icon} />
+            <Image className={styles.icon} />
+          </>
+        )} */}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        sx={{
-          alignItems: "center",
-          display: "flex",
-          backgroundColor: "white",
-          py: 3,
-          px: 4,
-          borderRadius: "0 0 10px 10px",
-        }}
         style={{ width: "100%", position: "relative" }}
       >
         <Controller
@@ -80,6 +73,7 @@ const ChatBar = ({ concise }) => {
           }
         />
       </form>
+
       {/* <ThumbUp className={styles.icon} /> */}
     </>
   );

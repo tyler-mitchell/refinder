@@ -10,7 +10,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Outlet
+  Outlet,
 } from "react-router-dom";
 
 ReactDOM.render(

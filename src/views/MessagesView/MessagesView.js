@@ -27,6 +27,7 @@ import {
   Drawer,
   Toolbar,
   Paper,
+  Grid,
 } from "@material-ui/core";
 import { addToFirebase, setProductDocId } from "redux/createProductSlice";
 import {
@@ -134,47 +135,24 @@ const MessagesView = () => {
   }
   return (
     <Container
+      maxWidth="md"
       style={{
         padding: "30px",
-        height: "80vh",
-        minHeight: "50vh",
+        height: "90vh",
+        minHeight: "90vh",
         position: "relative",
       }}
     >
-      <Box mt={"10px"} display="flex">
-        <Box flexGrow={1} />
-      </Box>
-      <div
-        id="drawer-ss"
-        style={{
-          display: "flex",
-          height: "100%",
-          width: "100%",
-
-          position: "relative",
-        }}
-      >
-        <div style={{ background: "white" }}>
+      <Grid container>
+        <Grid item xs={3} style={{ background: "white", borderRadius: "8px" }}>
           <ChatHeader />
-          <ChatList id="drawer-ss" inboxData={userDiscussions} />
-        </div>
-        <div
-          style={{
-            minHeight: "100%",
-            width: "100%",
-            overflowY: "scroll",
-            position: "relative",
-          }}
-        >
-          {/* <Paper square>
-            <Toolbar disableGutters>
-              <ConversationHead />
-            </Toolbar>
-          </Paper> */}
+          <ChatList inboxData={userDiscussions} />
+        </Grid>
 
+        <Grid item xs={8}>
           <Outlet />
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     </Container>
   );
 };

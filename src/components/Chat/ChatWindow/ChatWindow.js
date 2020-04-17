@@ -13,6 +13,8 @@ import {
   Dialog,
   AppBar,
   DialogContent,
+  Paper,
+  Toolbar,
 } from "@material-ui/core";
 import ChatContextProvider from "../ChatContext";
 import {
@@ -34,7 +36,17 @@ import { database } from "firebase/core";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { motion } from "framer-motion";
 import { animateScroll } from "react-scroll";
+import styled from "styled-components";
 
+const Wrap = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #ffffff;
+  height: 100%;
+  width: 100%;
+  position: relative;
+`;
 const conversationAnimationConfig = {
   open: {
     opacity: 1,
@@ -63,17 +75,6 @@ const ChatWindow = (chatType = "offer") => {
   const searchParams = useSearchParams();
   const productSearchIDParam = searchParams.get("product");
   console.log(`⭐: ChatWindow -> productSearchIDParam`, productSearchIDParam);
-
-  React.useEffect(() => {
-    animateScroll.scrollToBottom({
-      containerId: "rcw-messages-container",
-      duration: 0,
-      delay: 0,
-      offset: 50,
-      smooth: false,
-      isDynamic: true,
-    });
-  }, []);
 
   let discussionRef = null;
   if (materialIDParam && uid) {
@@ -123,40 +124,22 @@ const ChatWindow = (chatType = "offer") => {
     }
   }, [loadingP]);
   return (
-    <motion.div
-      id="rcw-container"
-      sx={{
-        bottom: 0,
-        display: "flex",
-        flexDirection: "column",
-        margin: "0 20px 20px 0",
-        maxWidth: "370px",
-        position: "fixed",
-        right: 0,
-        zIndex: 999,
-        width: "100%",
-      }}
-    >
-      <motion.div
-        variants={conversationAnimationConfig}
-        initial={{
-          opacity: 0,
-        }}
-        animate={"open"}
-        sx={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          background: "none",
-          boxShadow: "0px 2px 10px 1px #b5b5b5",
-          borderRadius: "10px",
-        }}
-      >
-        <ConversationHead />
+    <Container maxWidth="lg">
+      <Wrap>
+        <Paper square variant="outlined" style={{ width: "100%" }}>
+          <Toolbar disableGutters>
+            <ConversationHead />
+          </Toolbar>
+        </Paper>
+
         <ChatDialog messages={discussion?.messages} uid={uid} />
-        <ChatBar />
-      </motion.div>
-    </motion.div>
+
+        <Toolbar>
+          {" "}
+          <ChatBar />
+        </Toolbar>
+      </Wrap>
+    </Container>
   );
 };
 

@@ -87,6 +87,7 @@ export const productSlice = createSlice({
         title,
         description,
         avatar,
+
         productId,
         uid,
       } = action.payload;

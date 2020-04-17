@@ -25,13 +25,12 @@ const ChatListItem = ({
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let searchParams = useSearchParams();
+
   function addParam(name, value) {
     let newParams = new URLSearchParams(searchParams);
     newParams.set(name, value);
     return newParams;
   }
-
-  console.log(`⭐: discussionId`, discussionId);
   function handleChatClick() {
     dispatch(setActiveChatId({ chatId: discussionId }));
     navigate(`${discussionId}?${addParam("product", productId)}`, {

@@ -4,9 +4,17 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import ChatMsg from "../ChatMsg/ChatMsg";
 import useStyles from "./ChatDialog.styles";
-
+import ScrollToBottom from "react-scroll-to-bottom";
 import { AnimatePresence, motion } from "framer-motion";
+import styled from "styled-components";
 
+const MessageBox = styled.div`
+  border-radius: 20px;
+  padding: 5px 20px;
+
+  width: 100%;
+  height: 60vh;
+`;
 const AVATAR = "https://i.pravatar.cc/300?img=13";
 
 const ChatDialog = ({ messages, isOwner, isRecipient, fromAvatar, uid }) => {
@@ -51,49 +59,38 @@ const ChatDialog = ({ messages, isOwner, isRecipient, fromAvatar, uid }) => {
     return groupArr;
   }
   return (
-    <div
-      sx={{
-        backgroundColor: "white",
-        // height: "50vh",
-        maxHeight: "100%",
-
-        p: 1,
-      }}
-      id="rcw-messages-container"
+    <ScrollToBottom
+      style={{ padding: " 5% 0", flex: "auto", overflow: "auto" }}
     >
-      {!messages && <div></div>}
-      <AnimatePresence initial={false}>
-        {groupMessages(messages)?.map((messageGroup, index) => {
-          console.log(`⭐: ChatDialog -> messageGroup[0]`, messageGroup[0]);
-          return (
-            <motion.div
-              positionTransition
-              initial={{ opacity: 0, y: 15 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              exit={{
-                opacity: 0,
-                transition: { duration: 0.2, stiffness: 500 },
-              }}
-              sx={{
-                margin: "5px",
-                wordWrap: "break-word",
-                display: "flex",
-              }}
-            >
-              <ChatMsg
-                avatar={AVATAR}
-                side={messageGroup.sender === uid ? "right" : "left"}
-                messages={messageGroup.contents}
-              />
-              {/* {messageGroup.sender} */}
-            </motion.div>
-          );
-        })}
-      </AnimatePresence>
-    </div>
+      <MessageBox>
+        <AnimatePresence initial={true}>
+          {groupMessages(messages)?.map((messageGroup, index) => {
+            console.log(`⭐: ChatDialog -> messageGroup[0]`, messageGroup[0]);
+            return (
+              <motion.div
+                positionTransition
+                initial={{ opacity: 0, y: 15 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                  transition: { duration: 0.2, stiffness: 500 },
+                }}
+              >
+                <ChatMsg
+                  avatar={AVATAR}
+                  side={messageGroup.sender === uid ? "right" : "left"}
+                  messages={messageGroup.contents}
+                />
+                {/* {messageGroup.sender} */}
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+      </MessageBox>
+    </ScrollToBottom>
   );
 };
 
