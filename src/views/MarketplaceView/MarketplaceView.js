@@ -184,9 +184,9 @@ const MarketplaceView = () => {
                     ALPHA
                   </div>
 
-                  {/* <div style={{ flexGrow: 1 }} /> */}
+                  <div style={{ flexGrow: 1 }} />
 
-                  <SearchBar />
+                  {/* <SearchBar /> */}
                   {/* <div style={{ flexGrow: 1 }} /> */}
                   <Divider orientation="vertical" flexItem variant="middle" />
                   {userData ? (

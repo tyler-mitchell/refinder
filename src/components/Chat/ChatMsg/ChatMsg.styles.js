@@ -24,7 +24,7 @@ export default makeStyles(({ palette, spacing }) => {
     },
     leftMsgBox: {
       textAlign: "left",
-      paddingLeft: "20px",
+      paddingLeft: "0px",
     },
     rightMsgBox: {
       textAlign: "right",
@@ -32,7 +32,7 @@ export default makeStyles(({ palette, spacing }) => {
     },
     msg: {
       maxWidth: "70%",
-      padding: spacing(1.3, 2),
+      padding: spacing(1.3, 1),
       borderRadius: 2.5,
       display: "inline-block",
       wordBreak: "break-word",

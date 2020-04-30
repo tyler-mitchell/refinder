@@ -11,7 +11,7 @@ import Reply from "@material-ui/icons/Reply";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import useStyles from "./ChatMsg.styles";
 import Offer from "components/Chat/Offer";
-const ChatMsg = ({ avatar, messages, side }) => {
+const ChatMsg = ({ avatar, messages, side, price }) => {
   const styles = useStyles();
   const attachClass = (index) => {
     if (index === 0) {
@@ -56,7 +56,7 @@ const ChatMsg = ({ avatar, messages, side }) => {
                 {typeof msg === "object" && msg.type === "offer" && (
                   <Offer
                     classes={styles[`${side}Row`]}
-                    price="$32"
+                    price={"$35"}
                     overline="Seller's price"
                   />
                   // <img className={styles.image} alt={msg.alt} {...msg} />

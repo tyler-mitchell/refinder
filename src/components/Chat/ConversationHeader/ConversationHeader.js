@@ -11,7 +11,7 @@ import Videocam from "@material-ui/icons/Videocam";
 import Info from "@material-ui/icons/Info";
 import useStyles from "./ConversationHeader.styles";
 
-const ConversationHead = () => {
+const ConversationHead = ({ name, avatar }) => {
   const styles = useStyles();
   return (
     <ListItem
@@ -20,20 +20,20 @@ const ConversationHead = () => {
       className={styles.root}
     >
       <ListItemAvatar>
-        <Avatar src={"https://i.pravatar.cc/300?img=13"} />
+        <Avatar src={avatar} />
       </ListItemAvatar>
       <ListItemText
-        primary={"Imaad Casey"}
+        primary={name}
         secondary={"active 17m ago"}
         classes={{ primary: styles.primary, secondary: styles.secondary }}
       />
       <ListItemSecondaryAction>
-        <IconButton className={styles.iconBtn}>
+        {/* <IconButton className={styles.iconBtn}>
           <Phone />
         </IconButton>
         <IconButton className={styles.iconBtn}>
           <Videocam />
-        </IconButton>
+        </IconButton> */}
         <IconButton className={styles.iconBtn}>
           <Info />
         </IconButton>

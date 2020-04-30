@@ -42,9 +42,9 @@ const Wrap = styled(motion.div)`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: #ffffff;
   height: 100%;
   width: 100%;
+  border-radius: 10px;
   position: relative;
 `;
 const conversationAnimationConfig = {
@@ -61,7 +61,9 @@ const ChatWindow = (chatType = "offer") => {
   const styles = useStyles();
   const uid = useSelector(selectUserID);
   let dispatch = useDispatch();
-  const { currentChatId, productId } = useSelector((s) => s.product);
+  const { currentChatId, productId, avatar, displayName, price } = useSelector(
+    (s) => s.product
+  );
 
   const {
     discussionID: discussionIDParam,
@@ -92,6 +94,7 @@ const ChatWindow = (chatType = "offer") => {
     database.collection("materials").doc(productSearchIDParam);
 
   const [discussion, loading, error] = useDocumentData(discussionRef);
+  console.log(`⭐: ChatWindow -> discussion`, discussion);
   const [productDoc, loadingP, errorP] = useDocumentData(productRef);
   console.log(`⭐: ChatWindow -> product`, productDoc);
 
@@ -105,6 +108,7 @@ const ChatWindow = (chatType = "offer") => {
         avatar,
         productId,
         uid,
+        price,
         address,
       } = productDoc;
       console.log(`⭐: ChatWindow -> productId`, productId);
@@ -117,6 +121,7 @@ const ChatWindow = (chatType = "offer") => {
           description,
           address,
           avatar,
+          price,
           productId: productSearchIDParam,
           uid: discussionIDParam,
         })
@@ -126,16 +131,21 @@ const ChatWindow = (chatType = "offer") => {
   return (
     <Container maxWidth="lg">
       <Wrap>
-        <Paper square variant="outlined" style={{ width: "100%" }}>
+        {/* <Paper square variant="outlined" style={{ width: "100%" }}>
           <Toolbar disableGutters>
-            <ConversationHead />
+            <ConversationHead avatar={avatar} name={displayName} />
           </Toolbar>
-        </Paper>
+        </Paper> */}
 
-        <ChatDialog messages={discussion?.messages} uid={uid} />
+        <ChatDialog
+          fromAvatar={avatar}
+          name={displayName}
+          messages={discussion?.messages}
+          originalPrice={price}
+          uid={uid}
+        />
 
         <Toolbar>
-          {" "}
           <ChatBar />
         </Toolbar>
       </Wrap>

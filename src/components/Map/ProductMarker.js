@@ -105,7 +105,7 @@ const CarouselButton = styled(IconButton)`
 
 const ProductPopup = styled(Popup)`
   .mapboxgl-popup-content {
-    border-radius: 15px;
+    border-radius: 8px;
     padding: 0;
     box-shadow: 0px 20px 28px 5px rgba(0, 0, 0, 0.05),
       0px 3px 8px 5px rgba(0, 0, 0, 0.05);
@@ -152,7 +152,7 @@ const Carousel = ({ images }) => {
             objectFit: "cover",
             boxShadow:
               "0 12px 28px 0 rgba(0, 0, 0, 0.06), 0 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5)",
-            borderRadius: "10px",
+            borderRadius: "8px",
             width: "100%",
             height: "100%",
           }}
@@ -276,7 +276,7 @@ const ProductMarker = ({
                     top: "-20px",
                     height: "140px",
                     position: "relative",
-                    borderRadius: "12px",
+                    borderRadius: "8px",
                     justifyContent: "center",
                   }}
                 >
@@ -284,7 +284,7 @@ const ProductMarker = ({
                     style={{
                       width: "250px",
                       height: "140px",
-                      borderRadius: "12px",
+                      borderRadius: "8px",
 
                       position: "relative",
                     }}
@@ -302,15 +302,20 @@ const ProductMarker = ({
                 >
                   <Typography
                     align="left"
+                    style={{ fontWeight: 600, fontSize: 16 }}
+                  >
+                    {title}
+                  </Typography>
+                  <Typography
+                    align="left"
                     style={{
                       fontSize: 14,
                       fontWeight: 550,
                       color: "rgba(0,0,0,0.3)",
                     }}
                   >
-                    {title}
+                    {address?.complete?.split(",")[0]}
                   </Typography>
-                  <Typography align="left">{title}</Typography>
                 </div>
               </div>
             </ProductPopup>

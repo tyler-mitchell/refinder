@@ -11,13 +11,21 @@ import styled from "styled-components";
 const MessageBox = styled.div`
   border-radius: 20px;
   padding: 5px 20px;
-
+  background: #f4f7fb;
+  padding-top: 20px;
   width: 100%;
   height: 60vh;
 `;
 const AVATAR = "https://i.pravatar.cc/300?img=13";
 
-const ChatDialog = ({ messages, isOwner, isRecipient, fromAvatar, uid }) => {
+const ChatDialog = ({
+  messages,
+  isOwner,
+  originalPrice,
+  isRecipient,
+  fromAvatar,
+  uid,
+}) => {
   const styles = useStyles();
   function groupMessages(messages) {
     if (!messages) {
@@ -60,9 +68,19 @@ const ChatDialog = ({ messages, isOwner, isRecipient, fromAvatar, uid }) => {
   }
   return (
     <ScrollToBottom
-      style={{ padding: " 5% 0", flex: "auto", overflow: "auto" }}
+      style={{
+        padding: " 5% 0",
+        flex: "auto",
+        overflow: "auto",
+      }}
     >
       <MessageBox>
+        <ChatMsg
+          avatar={fromAvatar}
+          side={"left"}
+          price={originalPrice}
+          messages={[{ type: "offer" }]}
+        />
         <AnimatePresence initial={true}>
           {groupMessages(messages)?.map((messageGroup, index) => {
             console.log(`⭐: ChatDialog -> messageGroup[0]`, messageGroup[0]);
@@ -80,7 +98,7 @@ const ChatDialog = ({ messages, isOwner, isRecipient, fromAvatar, uid }) => {
                 }}
               >
                 <ChatMsg
-                  avatar={AVATAR}
+                  avatar={fromAvatar}
                   side={messageGroup.sender === uid ? "right" : "left"}
                   messages={messageGroup.contents}
                 />
