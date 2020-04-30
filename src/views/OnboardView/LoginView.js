@@ -1,40 +1,21 @@
-import React from "react";
-
-import { auth, uiConfig } from "firebase/core";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import EmailIcon from "@material-ui/icons/Email";
-
-import SignupForm from "./SignupForm";
-import LoginForm from "./LoginForm";
-
 import {
-  Paper,
-  Card,
-  Typography,
-  TextField,
-  Link,
-  Button,
-  Grid,
-  useTheme,
   Box,
-  makeStyles,
-  LinearProgress,
-  Chip,
+  Button,
+  Container,
   Divider,
   Snackbar,
-  InputBase,
-  Container,
-  InputLabel,
+  Typography,
 } from "@material-ui/core";
+import EmailIcon from "@material-ui/icons/Email";
 import MuiAlert from "@material-ui/lab/Alert";
-import styled from "styled-components";
-import useForm from "react-hook-form";
-import OnboardLayout from "./OnboardLayout";
+import React from "react";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { useNavigate } from "react-router-dom";
-import {
-  ExpandMore as DownIcon,
-  ArrowBack as BackIcon,
-} from "@material-ui/icons";
+
+import { auth, uiConfig } from "firebase/core";
+
+import LoginForm from "./LoginForm";
+import OnboardLayout from "./OnboardLayout";
 
 const LoginPage = () => {
   const [authError, setAuthError] = React.useState(null);

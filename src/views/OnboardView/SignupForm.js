@@ -1,79 +1,60 @@
-import React from "react";
-
-import CreateAccountIcon from "@material-ui/icons/PersonAdd";
-
-import Autocomplete from "@material-ui/lab/Autocomplete";
-
 import {
-  Paper,
-  Card,
-  Typography,
-  Snackbar,
-  Alert,
-  TextField,
-  Link,
   Button,
   Grid,
-  useTheme,
-  Box,
-  makeStyles,
   LinearProgress,
-  Chip,
-  Divider,
-  InputBase,
-  InputLabel
+  makeStyles,
+  Paper,
+  TextField,
+  Typography,
 } from "@material-ui/core";
-import styled from "styled-components";
+import CreateAccountIcon from "@material-ui/icons/PersonAdd";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import {
-  ExpandMore as DownIcon,
-  ArrowBack as BackIcon
-} from "@material-ui/icons";
+
 const StrengthLevels = {
   WEAK: { text: "weak", color: "#b3201c", num: 25 },
   AVERAGE: { text: "average", color: "#ffc512", num: 50 },
-  STRONG: { text: "strong", color: "#25a75d", num: 100 }
+  STRONG: { text: "strong", color: "#25a75d", num: 100 },
 };
 
 const useProgressBarStyles = makeStyles({
   root: {
     marginTop: "8px",
     borderRadius: "5px",
-    background: "transparent"
+    background: "transparent",
   },
   weak: {
-    backgroundColor: StrengthLevels.WEAK.color
+    backgroundColor: StrengthLevels.WEAK.color,
   },
   average: {
-    backgroundColor: StrengthLevels.AVERAGE.color
+    backgroundColor: StrengthLevels.AVERAGE.color,
   },
   strong: {
-    backgroundColor: StrengthLevels.STRONG.color
-  }
+    backgroundColor: StrengthLevels.STRONG.color,
+  },
 });
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   container: {
     display: "flex",
     flexWrap: "wrap",
-    justiyContent: "center"
+    justiyContent: "center",
   },
   fieldsContainer: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   paper: {
-    padding: theme.spacing(1.5)
+    padding: theme.spacing(1.5),
   },
   textField: {
-    margin: theme.spacing(1)
-  }
+    margin: theme.spacing(1),
+  },
 }));
-
 
 const SignupForm = ({ setAuthError }) => {
   let history = useNavigate();
@@ -85,10 +66,10 @@ const SignupForm = ({ setAuthError }) => {
 
   const { register, handleSubmit, errors, watch, setError } = useForm({
     defaultValues: {
-      password: ""
-    }
+      password: "",
+    },
   });
-  const hasError = inputName => {
+  const hasError = (inputName) => {
     return !!(errors && errors[inputName]);
   };
   const password = watch("password");
@@ -111,7 +92,7 @@ const SignupForm = ({ setAuthError }) => {
     return StrengthLevels.WEAK;
   }
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     const { password, ...userInfo } = data;
 
     // signupUser(userInfo, password, setAuthError, history);
@@ -124,7 +105,7 @@ const SignupForm = ({ setAuthError }) => {
         display: "flex",
         justifyItems: "center",
         alignItems: "center",
-        flexDirection: "column"
+        flexDirection: "column",
       }}
     >
       <Grid
@@ -145,8 +126,8 @@ const SignupForm = ({ setAuthError }) => {
                 required: "First Name is required",
                 minLength: {
                   value: 2,
-                  message: "Minimum of 2 characters in length"
-                }
+                  message: "Minimum of 2 characters in length",
+                },
               })}
               error={hasError("first_name")}
               helperText={
@@ -164,8 +145,8 @@ const SignupForm = ({ setAuthError }) => {
                 required: "Last Name is required",
                 minLength: {
                   value: 2,
-                  message: "Minimum of 2 characters in length"
-                }
+                  message: "Minimum of 2 characters in length",
+                },
               })}
               error={hasError("last_name")}
               helperText={hasError("last_name") && errors["last_name"].message}
@@ -186,8 +167,8 @@ const SignupForm = ({ setAuthError }) => {
 
               pattern: {
                 value: /^\S+@\S+$/i,
-                message: "Invalid email format"
-              }
+                message: "Invalid email format",
+              },
             })}
             error={hasError("email") || signupError}
             helperText={hasError("email") && errors["email"].message}
@@ -207,7 +188,7 @@ const SignupForm = ({ setAuthError }) => {
                   passwordStrength.text !== StrengthLevels.WEAK.text ||
                   "Too weak"
                 );
-              }
+              },
             })}
             error={hasError("password")}
             helperText={
@@ -223,7 +204,7 @@ const SignupForm = ({ setAuthError }) => {
                     <span
                       style={{
                         color: `${passwordStrength.color}`,
-                        fontWeight: "bold"
+                        fontWeight: "bold",
                       }}
                     >
                       {passwordStrength.text}
@@ -232,7 +213,7 @@ const SignupForm = ({ setAuthError }) => {
                   <LinearProgress
                     classes={{
                       root: progressStyles.root,
-                      barColorPrimary: progressStyles[passwordStrength.text]
+                      barColorPrimary: progressStyles[passwordStrength.text],
                     }}
                     variant="determinate"
                     value={passwordStrength.num}
@@ -252,8 +233,8 @@ const SignupForm = ({ setAuthError }) => {
             fullWidth
             inputRef={register({
               required: true,
-              validate: value =>
-                value === watch("password") || "passwords do not match"
+              validate: (value) =>
+                value === watch("password") || "passwords do not match",
             })}
             error={hasError("confirm_password")}
             helperText={
@@ -273,7 +254,7 @@ const SignupForm = ({ setAuthError }) => {
           textTransform: "none",
           width: "100%",
           margin: "0px 24px",
-          padding: "8px"
+          padding: "8px",
         }}
       >
         Create Account
