@@ -17,6 +17,7 @@ export const sendMessage = createAsyncThunk(
     console.log(`⭐: ownerId`, ownerId);
     const { message, pricePoint } = data;
 
+    console.log(`⭐: ownerId === uid`, ownerId === uid);
     const { discussionId, ...discussionData } =
       ownerId === uid
         ? {

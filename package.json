@@ -17,7 +17,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "emotion-theming": "^10.0.27",
-    "firebase": "^7.9.1",
+    "firebase": "^7.14.2",
     "framer-motion": "^1.8.4",
     "google-map-react": "^1.1.6",
     "masonic": "^2.1.7",

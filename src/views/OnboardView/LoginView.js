@@ -24,20 +24,17 @@ import {
   Snackbar,
   InputBase,
   Container,
-  InputLabel
+  InputLabel,
 } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import styled from "styled-components";
 import useForm from "react-hook-form";
-import OnboardLayout from './OnboardLayout';
-import { useNavigate } from 'react-router-dom';
+import OnboardLayout from "./OnboardLayout";
+import { useNavigate } from "react-router-dom";
 import {
   ExpandMore as DownIcon,
-  ArrowBack as BackIcon
+  ArrowBack as BackIcon,
 } from "@material-ui/icons";
-
-
-
 
 const LoginPage = () => {
   const [authError, setAuthError] = React.useState(null);
@@ -47,19 +44,20 @@ const LoginPage = () => {
     }
     setAuthError(false);
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Container
-      style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}
+      style={{
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
+      }}
     >
-
       <OnboardLayout
         header="Welcome Back"
         subtitle="Please login to your account"
-        form={
-          <LoginForm setAuthError={setAuthError} authError={authError} />
-        }
+        form={<LoginForm setAuthError={setAuthError} authError={authError} />}
         actions={
           <>
             <Box
@@ -75,7 +73,7 @@ const LoginPage = () => {
                 style={{ margin: "0px 5px" }}
               >
                 OR
-                  </Typography>
+              </Typography>
               <Divider style={{ width: "45%" }} />
             </Box>
             <Button
@@ -83,27 +81,22 @@ const LoginPage = () => {
               variant="contained"
               color="primary"
               label="Login"
-              primary={true}
               onClick={() => navigate("/signup")}
               style={{
                 textTransform: "none",
                 width: "187.54px",
                 margin: "0px 24px",
-                padding: "8px"
+                padding: "8px",
               }}
             >
               Sign up with Email
-                </Button>
+            </Button>
             <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
           </>
         }
       />
 
-      <Snackbar
-        open={authError}
-        autoHideDuration={4000}
-        onClose={handleClose}
-      >
+      <Snackbar open={authError} autoHideDuration={4000} onClose={handleClose}>
         <MuiAlert
           elevation={6}
           variant="filled"
@@ -113,7 +106,6 @@ const LoginPage = () => {
           {authError}
         </MuiAlert>
       </Snackbar>
-
     </Container>
   );
 };
