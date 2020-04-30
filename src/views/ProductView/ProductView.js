@@ -1,44 +1,29 @@
-import React from "react";
 import {
-  Toolbar,
-  CssBaseline,
-  Typography,
-  Button,
-  Tabs,
-  Tab,
-  Paper,
-  makeStyles,
-  GridList,
-  Divider,
   Box,
-  Grid,
-  GridListTile,
-  IconButton,
   Container,
+  Divider,
+  Grid,
+  IconButton,
+  makeStyles,
+  Paper,
+  Typography,
 } from "@material-ui/core";
-import MaterialMap from "components/Map";
-import ChatWindow from "components/Chat";
-import {
-  useParams,
-  useLocation,
-  useNavigate,
-  Outlet,
-  useOutlet,
-} from "react-router-dom";
+import FavoriteIcon from "@material-ui/icons/FavoriteBorderRounded";
+import MoreOptionsIcon from "@material-ui/icons/MoreHorizRounded";
+import React from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import { database } from "firebase/core";
-import { initializeProduct } from "redux/productSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import TimeAgo from "timeago-react";
+
+import Map from "components/Map";
 import ProductImages from "components/ProductImages";
 import SellerCard from "components/SellerCard";
-import Map from "components/Map";
+import { database } from "firebase/core";
+import { initializeProduct } from "redux/productSlice";
+
 import ProductDetails from "./ProductDetails";
-import FavoriteIcon from "@material-ui/icons/FavoriteBorderRounded";
-import FavoriteIconFilled from "@material-ui/icons/FavoriteRounded";
-import MoreOptionsIcon from "@material-ui/icons/MoreHorizRounded";
-import ShareIcon from "@material-ui/icons/ShareRounded";
-import TimeAgo from "timeago-react";
-import { setActiveChatId } from "redux/productSlice";
+
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -61,8 +46,7 @@ const ProductView = () => {
 
   React.useEffect(() => {
     if (!loading) {
-      dispatch(initializeProduct({ ...product }));
-      dispatch(setActiveChatId({ chatId: uid }));
+      dispatch(initializeProduct({ currentUserId: uid, ...product }));
     }
     console.log(`⭐: ProductView -> product`, product);
     // console.log(`⭐: ProductView -> productInfo`, productInfo);
@@ -81,27 +65,12 @@ const ProductView = () => {
   return (
     !loading && (
       <>
-        {/* <Paper className={classes.root}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
-            <Tab value="" label="Product Detail" />
-            <Tab value="discussion" label="Offer" />
-          </Tabs>
-        </Paper> */}
         <Container maxWidth="lg" style={{ padding: "30px" }}>
           <Grid
             container
-            // spacing={3}
             style={{ background: "white" }}
             item
             justify="space-between"
-            // alignContent="stretch"
-            // xs={5}
           >
             <Grid item container xs={9} spacing={2}>
               <Grid item xs={6}>
