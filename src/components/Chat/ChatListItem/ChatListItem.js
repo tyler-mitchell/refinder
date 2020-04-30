@@ -42,12 +42,12 @@ const ChatListItem = (props) => {
   let { name, avatar } =
     userType === "seller"
       ? {
-          name: ownerName,
-          avatar: ownerAvatar,
-        }
-      : {
           name: customerName,
           avatar: customerAvatar,
+        }
+      : {
+          name: ownerName,
+          avatar: ownerAvatar,
         };
   const info = messages[messages.length - 1]?.message;
   function addParam(name, value) {

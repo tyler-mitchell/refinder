@@ -17,7 +17,7 @@ const ChatSideBar = ({ discussions, userType }) => {
       }}
     >
       <ChatHeader />
-      <ChatList discussions={discussions} userType />
+      <ChatList discussions={discussions} userType={userType} />
       <div style={{ flexGrow: 1 }} />
     </Paper>
   );

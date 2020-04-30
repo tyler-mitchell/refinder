@@ -10,6 +10,7 @@ export const sendMessage = createAsyncThunk(
     const {
       ownerId,
       productId,
+      title,
       userType,
       displayName: ownerName,
       currentDiscussionId,
