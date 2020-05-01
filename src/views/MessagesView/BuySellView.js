@@ -3,8 +3,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import {
+  Outlet,
+  useNavigate,
+  useParams,
+  useResolvedLocation,
+} from "react-router-dom";
 import styled from "styled-components";
+import { setCurrentDiscussion } from "redux/productSlice";
 
 import ChatList from "components/Chat/ChatList";
 import ChatHeader from "components/Chat/ChatsHeader";
@@ -123,7 +129,20 @@ export const SellView = () => {
 const MessagesLayout = ({ discussions, userType }) => {
   const windowStyles = useStyles();
 
-  let dipatch = useDispatch();
+  let dispatch = useDispatch();
+  const pathSegments = useParams()["*"].split("/");
+
+  React.useEffect(() => {
+    if (pathSegments.length === 3) {
+      const discussionIdParam = pathSegments[pathSegments.length - 1];
+      dispatch(
+        setCurrentDiscussion({
+          currentDiscussionId: discussionIdParam,
+          userType,
+        })
+      );
+    }
+  }, []);
 
   return (
     <>

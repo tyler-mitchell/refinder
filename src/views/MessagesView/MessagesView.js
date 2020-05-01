@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 
 import ChatList from "components/Chat/ChatList";
 import ChatHeader from "components/Chat/ChatsHeader";
@@ -58,11 +58,11 @@ const useStyles = makeStyles(() => ({
 const MessagesView = () => {
   const windowStyles = useStyles();
   const dispatch = useDispatch();
+  let initialTab = useParams()["*"]?.split("/")[1];
 
   const { uid } = useSelector((s) => s.auth.userData);
 
   const { loggedIn } = useSelector((s) => s.auth);
-  console.log(`⭐: MessagesView -> uid`, uid);
 
   if (loggedIn === false) {
     return (
@@ -92,7 +92,7 @@ const MessagesView = () => {
         flexDirection: "column",
       }}
     >
-      <MessagesTabs />
+      <MessagesTabs initialTab={initialTab} />
       <Box mb="10px" />
 
       <Outlet />
@@ -100,8 +100,8 @@ const MessagesView = () => {
   );
 };
 
-const MessagesTabs = () => {
-  const [tabIndex, setTabIndex] = React.useState("buying");
+const MessagesTabs = ({ initialTab }) => {
+  const [tabIndex, setTabIndex] = React.useState(initialTab);
   const tabsStyles = useTabsStyles();
   const tabItemStyles = useTabItemStyles();
   const navigate = useNavigate();

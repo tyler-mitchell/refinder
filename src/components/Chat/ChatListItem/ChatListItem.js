@@ -6,11 +6,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import cx from "clsx";
+import queryString from "query-string";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+  useLocation,
+  useMatch,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
-import { setCurrentDiscussion } from "redux/productSlice";
+import { initializeProduct, setCurrentDiscussion } from "redux/productSlice";
 
 import useStyles from "./ChatListItem.styles";
 
@@ -30,15 +37,12 @@ const ChatListItem = (props) => {
     userType,
   } = props;
 
-  const styles = useStyles({ bold, active });
   console.log(`⭐: discussion`, props);
+  const styles = useStyles({ bold, active });
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let searchParams = useSearchParams();
-  const { currentDiscussionId, productId: currentProductId } = useSelector(
-    (s) => s.product
-  );
-
+  const info = messages[messages.length - 1]?.message;
   let { name, avatar } =
     userType === "seller"
       ? {
@@ -49,7 +53,11 @@ const ChatListItem = (props) => {
           name: ownerName,
           avatar: ownerAvatar,
         };
-  const info = messages[messages.length - 1]?.message;
+
+  const { currentDiscussionId, productId: currentProductId } = useSelector(
+    (s) => s.product
+  );
+
   function addParam(name, value) {
     let newParams = new URLSearchParams(searchParams);
     newParams.set(name, value);
@@ -59,10 +67,7 @@ const ChatListItem = (props) => {
     dispatch(
       setCurrentDiscussion({ currentDiscussionId: discussionId, userType })
     );
-    console.log(
-      `⭐: handleChatClick -> ${currentDiscussionId} === ${discussionId}`,
-      currentDiscussionId === discussionId
-    );
+    // dispatch(initializeProduct({ ...product }));
 
     navigate(`${discussionId}?${addParam("product", productId)}`, {
       replace: true,

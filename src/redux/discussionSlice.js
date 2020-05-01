@@ -10,14 +10,12 @@ export const sendMessage = createAsyncThunk(
     const {
       ownerId,
       productId,
-
       title,
       userType,
       displayName: ownerName,
       currentDiscussionId,
     } = thunkAPI.getState().product;
     console.log(`⭐: productId`, productId);
-    console.log(`⭐: currentDiscussionId`, currentDiscussionId);
 
     console.log(`⭐: ownerId`, ownerId);
     const { message, pricePoint } = data;
