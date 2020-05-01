@@ -33,6 +33,7 @@ import {
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { initializeListings, setLoading } from "redux/listingsSlice";
+
 const ProductContainer = styled.div`
   /* padding-bottom: "50px"; */
 `;
