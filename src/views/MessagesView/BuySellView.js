@@ -10,7 +10,6 @@ import {
   useResolvedLocation,
 } from "react-router-dom";
 import styled from "styled-components";
-import { setCurrentDiscussion } from "redux/productSlice";
 
 import ChatList from "components/Chat/ChatList";
 import ChatHeader from "components/Chat/ChatsHeader";
@@ -19,6 +18,7 @@ import { ChatWindowContainer } from "components/Chat/ChatWindow/ChatWindow";
 import ProductCard from "components/ProductCard";
 import { database } from "firebase/core";
 import { fieldPath } from "firebase/core";
+import { setCurrentDiscussion } from "redux/productSlice";
 import { useTabItemStyles, useTabsStyles } from "theme/tabStyles";
 
 import PleaseLogin from "./PleaseLoginMessage";
@@ -67,7 +67,7 @@ const ChatWrapper = styled.div`
   border-radius: 0px 20px 20px 0px;
   padding: 5px 20px;
   background: #ffffff;
-  padding-top: 20px;
+
   width: 100%;
   position: relative;
   left: -10px;

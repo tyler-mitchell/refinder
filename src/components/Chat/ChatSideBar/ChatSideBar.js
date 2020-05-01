@@ -1,5 +1,6 @@
 import { Grid, Paper } from "@material-ui/core";
 import React from "react";
+import { useSelector } from "react-redux";
 
 import ChatList from "../ChatList";
 import ChatHeader from "../ChatsHeader";

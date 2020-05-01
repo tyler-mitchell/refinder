@@ -34,7 +34,7 @@ import ChatSettings from "components/Chat/ChatSettings";
 import ConversationHead from "components/Chat/ConversationHeader";
 import { database } from "firebase/core";
 import { selectUserID } from "redux/authSlice";
-import { initializeProduct } from "redux/productSlice";
+import { initializeProduct, setUserType } from "redux/productSlice";
 
 import ChatContextProvider from "../ChatContext";
 import useStyles from "./ChatWindow.styles";
@@ -61,15 +61,17 @@ const conversationAnimationConfig = {
 const ChatWindow = (chatType = "offer") => {
   const uid = useSelector(selectUserID);
   let dispatch = useDispatch();
-  const { productId, avatar, displayName, price } = useSelector(
+  const { productId, avatar, displayName, price, userType } = useSelector(
     (s) => s.product
   );
+  const { recipientAvatar, recipientName } = useSelector((s) => s.discussion);
+  console.log(`⭐: ChatWindow -> recipientAvatar`, recipientAvatar);
 
   const {
     discussionID: discussionIDParam,
     materialID: materialIDParam,
   } = useParams();
-  const p = useParams();
+
   // for /messages route
   const searchParams = useSearchParams();
   const productSearchIDParam = searchParams.get("product");
@@ -112,15 +114,19 @@ const ChatWindow = (chatType = "offer") => {
   }, [loadingP]);
   return (
     <ChatWindowContainer maxWidth="lg">
-      {/* <Paper square variant="outlined" style={{ width: "100%" }}>
-          <Toolbar disableGutters>
-            <ConversationHead avatar={avatar} name={displayName} />
-          </Toolbar>
-        </Paper> */}
+      <Paper variant="outlined" style={{ width: "100%", borderRadius: "10px" }}>
+        <Toolbar disableGutters>
+          <ConversationHead
+            avatar={recipientAvatar}
+            productTitle={product?.title}
+            name={recipientName}
+          />
+        </Toolbar>
+      </Paper>
 
       <ChatDialog
-        fromAvatar={avatar}
-        name={displayName}
+        fromAvatar={recipientAvatar || avatar}
+        name={recipientName || displayName}
         messages={discussion?.messages}
         originalPrice={price}
         uid={uid}

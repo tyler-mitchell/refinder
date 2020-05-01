@@ -17,7 +17,8 @@ import {
   useSearchParams,
 } from "react-router-dom";
 
-import { initializeProduct, setCurrentDiscussion } from "redux/productSlice";
+import { initializeDiscussion } from "redux/discussionSlice";
+import { setCurrentDiscussion } from "redux/productSlice";
 
 import useStyles from "./ChatListItem.styles";
 
@@ -29,7 +30,10 @@ const ChatListItem = (props) => {
     customerName,
     ownerName,
     ownerAvatar,
+    ownerId,
+    customerId,
     messages,
+    title,
     discussionId,
     productId,
     responded,
@@ -57,6 +61,24 @@ const ChatListItem = (props) => {
   const { currentDiscussionId, productId: currentProductId } = useSelector(
     (s) => s.product
   );
+  const uid = useSelector((s) => s.auth.userData.uid);
+
+  React.useEffect(() => {
+    if (currentDiscussionId === discussionId) {
+      dispatch(
+        initializeDiscussion({
+          customerAvatar,
+          customerName,
+          customerId,
+          ownerId,
+          ownerName,
+          ownerAvatar,
+          userType,
+          uid,
+        })
+      );
+    }
+  }, []);
 
   function addParam(name, value) {
     let newParams = new URLSearchParams(searchParams);
@@ -66,6 +88,18 @@ const ChatListItem = (props) => {
   function handleChatClick() {
     dispatch(
       setCurrentDiscussion({ currentDiscussionId: discussionId, userType })
+    );
+    dispatch(
+      initializeDiscussion({
+        customerAvatar,
+        customerName,
+        customerId,
+        ownerId,
+        ownerName,
+        ownerAvatar,
+        userType,
+        uid,
+      })
     );
     // dispatch(initializeProduct({ ...product }));
 
@@ -93,7 +127,7 @@ const ChatListItem = (props) => {
               primary={
                 <>
                   <Typography variant="subtitle2">{name}</Typography>
-                  <Typography varaint="body2">{productId}</Typography>
+                  <Typography varaint="body2">{title}</Typography>
                 </>
               }
               secondary={info}
