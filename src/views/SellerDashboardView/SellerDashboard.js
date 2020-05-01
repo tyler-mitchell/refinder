@@ -1,19 +1,22 @@
+import { CssBaseline, List, ListItem } from "@material-ui/core";
+import { Box, Button, Container, Drawer } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { List as MasonList, Masonry } from "masonic";
 import React from "react";
 import {
-  useCollectionData,
   useCollection,
+  useCollectionData,
 } from "react-firebase-hooks/firestore";
-import { useNavigate, Outlet } from "react-router-dom";
-import { List, ListItem, CssBaseline } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Outlet, useNavigate } from "react-router-dom";
+
+import ChatList from "components/Chat/ChatList";
 import ProductCard from "components/ProductCard";
 import { database, fieldPath } from "firebase/core";
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { Masonry, List as MasonList } from "masonic";
-import PleaseLogin from "./PleaseLoginMessage";
-import ChatList from "components/Chat/ChatList";
-import { Button, Box, Container, Drawer } from "@material-ui/core";
 import { addToFirebase, setProductDocId } from "redux/createProductSlice";
+
+import PleaseLogin from "./PleaseLoginMessage";
+
 const Product = ({ index, data }) => {
   return <ProductCard variant="list" index={index} key={index} {...data} />;
 };
@@ -54,7 +57,7 @@ const SellerDashboard = () => {
   }
   return (
     <Container style={{ padding: "30px", height: "100%" }}>
-      <Box mt={"10px"} display="flex">
+      <Box mt={"10px"} mb="10px" display="flex">
         <Box flexGrow={1} />
         <Button
           variant="contained"
@@ -63,9 +66,9 @@ const SellerDashboard = () => {
             navigate("new");
           }}
         >
-          New Product
+          Create Product
         </Button>
-        <Button
+        {/* <Button
           variant="contained"
           color="secondary"
           onClick={() => {
@@ -74,7 +77,7 @@ const SellerDashboard = () => {
           }}
         >
           TEST New Product
-        </Button>
+        </Button> */}
       </Box>
       <div id="drawer-s" style={{ display: "flex" }}>
         {!loading && (
