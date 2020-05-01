@@ -114,15 +114,20 @@ const ChatWindow = (chatType = "offer") => {
   }, [loadingP]);
   return (
     <ChatWindowContainer maxWidth="lg">
-      <Paper variant="outlined" style={{ width: "100%", borderRadius: "10px" }}>
-        <Toolbar disableGutters>
-          <ConversationHead
-            avatar={recipientAvatar}
-            productTitle={product?.title}
-            name={recipientName}
-          />
-        </Toolbar>
-      </Paper>
+      {recipientName && (
+        <Paper
+          variant="outlined"
+          style={{ width: "100%", borderRadius: "10px" }}
+        >
+          <Toolbar disableGutters>
+            <ConversationHead
+              avatar={recipientAvatar}
+              productTitle={product?.title}
+              name={recipientName}
+            />
+          </Toolbar>
+        </Paper>
+      )}
 
       <ChatDialog
         fromAvatar={recipientAvatar || avatar}
