@@ -20,7 +20,7 @@ const navigationLinks = [
   { label: "Dashboard", icon: <DashboardIcon />, path: "" },
   { label: "Materials", icon: <MaterialIcon />, path: "materials" },
   { label: "Sell", icon: <SellIcon />, path: "selling" },
-  { label: "Messages", icon: <MessagesIcon />, path: "messages" },
+  { label: "Messages", icon: <MessagesIcon />, path: "messages/selling" },
 ];
 const SidebarContent = () => {
   const navigate = useNavigate();
