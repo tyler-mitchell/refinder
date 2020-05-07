@@ -57,6 +57,7 @@ const FormContextProvider = ({ children }) => {
   const [completedSteps, setCompletedSteps] = React.useState(0);
 
   function onSubmit(values) {
+    console.log(`⭐: onSubmit -> values`, values);
     if (activeStep < TOTAL_STEPS) {
       setActiveStep(activeStep + 1);
       setCompletedSteps(activeStep);
