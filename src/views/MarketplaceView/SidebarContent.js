@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 const navigationLinks = [
   { label: "Dashboard", icon: <DashboardIcon />, path: "" },
-  { label: "Materials", icon: <MaterialIcon />, path: "materials" },
+  // { label: "Materials", icon: <MaterialIcon />, path: "materials" },
   { label: "Sell", icon: <SellIcon />, path: "selling" },
   { label: "Messages", icon: <MessagesIcon />, path: "messages/selling" },
 ];
