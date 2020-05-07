@@ -1,44 +1,47 @@
-import React from "react";
 import {
-  Toolbar,
-  CssBaseline,
-  Typography,
-  Button,
-  Tabs,
-  Tab,
-  Paper,
-  makeStyles,
-  GridList,
-  Divider,
   Box,
+  Button,
+  Container,
+  CssBaseline,
+  Divider,
   Grid,
+  GridList,
   GridListTile,
   IconButton,
-  Container,
+  makeStyles,
+  Paper,
+  Tab,
+  Tabs,
+  Toolbar,
+  Typography,
 } from "@material-ui/core";
-import MaterialMap from "components/Map";
-import ChatWindow from "components/Chat";
-import {
-  useParams,
-  useLocation,
-  useNavigate,
-  Outlet,
-  useOutlet,
-} from "react-router-dom";
-import { useDocumentData } from "react-firebase-hooks/firestore";
-import { database } from "firebase/core";
-import { initializeProduct } from "redux/productSlice";
-import { useDispatch, useSelector } from "react-redux";
-import ProductImages from "components/ProductImages";
-import SellerCard from "components/SellerCard";
-import Map from "components/Map";
-import ProductDetails from "./ProductDetails";
 import FavoriteIcon from "@material-ui/icons/FavoriteBorderRounded";
 import FavoriteIconFilled from "@material-ui/icons/FavoriteRounded";
 import MoreOptionsIcon from "@material-ui/icons/MoreHorizRounded";
 import ShareIcon from "@material-ui/icons/ShareRounded";
+import React from "react";
+import { useDocumentData } from "react-firebase-hooks/firestore";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+  useOutlet,
+  useParams,
+} from "react-router-dom";
 import TimeAgo from "timeago-react";
+
+import ChatWindow from "components/Chat";
+import MaterialMap from "components/Map";
+import Map from "components/Map";
+import ProductImages from "components/ProductImages";
+import SellerCard from "components/SellerCard";
+import { database } from "firebase/core";
+import { initializeProduct } from "redux/productSlice";
 import { setActiveChatId } from "redux/productSlice";
+
+import ProductDetails from "./ProductDetails";
+
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -211,7 +214,7 @@ const ProductView = () => {
                 </Paper>
               </Grid>
               <Grid item style={{ width: "100%" }}>
-                <Map />
+                <Map height="30vh" />
               </Grid>
             </Grid>
             {/* <Button

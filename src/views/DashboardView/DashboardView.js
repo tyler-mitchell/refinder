@@ -1,36 +1,37 @@
-import React from "react";
 import {
-  Typography,
-  Container,
-  Link,
-  Grid,
-  Paper,
-  InputBase,
-  InputAdornment,
-  makeStyles,
-  Divider,
-  ListItemIcon,
-  ListItemAvatar,
-  ListItemSecondaryAction,
-  IconButton,
-  Dialog,
-  ListSubheader,
-  ListItemText,
   Avatar,
+  Container,
+  Dialog,
   DialogContent,
+  Divider,
+  Grid,
+  IconButton,
+  InputAdornment,
+  InputBase,
+  Link,
   List,
   ListItem,
+  ListItemAvatar,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+  ListSubheader,
+  makeStyles,
+  Paper,
+  Typography,
 } from "@material-ui/core";
+import ChevronRightIcon from "@material-ui/icons/ChevronRightRounded";
+import CloseIcon from "@material-ui/icons/Close";
+import WoodIcon from "@material-ui/icons/FilterHdr";
+import SearchIcon from "@material-ui/icons/Search";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import { Outlet, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
 import Map from "components/Map/MapBoxWrap";
 import ProductList from "components/ProductsList";
-import styled from "styled-components";
-import { Controller, useForm } from "react-hook-form";
-import SearchIcon from "@material-ui/icons/Search";
-import WoodIcon from "@material-ui/icons/FilterHdr";
-import ChevronRightIcon from "@material-ui/icons/ChevronRightRounded";
 import useDimensions from "hooks/useDimensions";
-import { Outlet, useNavigate } from "react-router-dom";
-import CloseIcon from "@material-ui/icons/Close";
 import ProductView from "views/ProductView";
 
 function getMaterialColor(material) {
@@ -188,7 +189,7 @@ export const ProductModalView = ({ children, from }) => {
         <CloseIcon />
       </IconButton>
 
-      <DialogContent style={{ minHeight: "723px" }}>
+      <DialogContent style={{ minHeight: "90vh" }}>
         <ProductView />
       </DialogContent>
     </Dialog>
