@@ -118,10 +118,10 @@ const AddDetail = () => {
                 fontWeight="medium"
                 // children="$"
               />
-              <NumberInput defaultValue={0} clampValueOnBlur={false}>
+              <NumberInput clampValueOnBlur={false}>
                 <NumberInputField
                   roundedLeft={0}
-                  type="number"
+                  min={0}
                   ref={register({ required: true })}
                   name="price"
                 />
