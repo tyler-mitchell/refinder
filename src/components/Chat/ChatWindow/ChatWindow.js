@@ -146,9 +146,9 @@ const ChatWindow = (chatType = "offer") => {
 
 export const ChatWindowContainer = ({ children }) => {
   return (
-    <Container maxWidth="lg" style={{ height: "100%" }}>
+    <div maxWidth="lg" style={{ height: "100%" }}>
       <Wrap>{children}</Wrap>
-    </Container>
+    </div>
   );
 };
 

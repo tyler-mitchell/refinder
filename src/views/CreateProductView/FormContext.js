@@ -1,16 +1,18 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import fbMultiImageUpload from "firebase/fbMultiUpload";
 import {} from "redux/createProductSlice";
 import {
+  addToFirebase,
   addToForm,
   formDataSelector,
-  addToFirebase,
-  setProductDocId,
   resetCreateProductState,
+  setProductDocId,
 } from "redux/createProductSlice";
-import fbMultiImageUpload from "firebase/fbMultiUpload";
-import { useNavigate } from "react-router-dom";
+
 export const FormContext = React.createContext();
 
 const formSteps = ["General Details", "Upload Photos", "Location"];

@@ -1,4 +1,12 @@
-import { Box, Container, Grid, Tab, Tabs, Typography } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  Grid,
+  Paper,
+  Tab,
+  Tabs,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -70,7 +78,7 @@ const ChatWrapper = styled.div`
 
   width: 100%;
   position: relative;
-  left: -10px;
+
   z-index: 0;
   height: 100%;
 `;
@@ -145,8 +153,12 @@ const MessagesLayout = ({ discussions, userType }) => {
   }, []);
 
   return (
-    <>
-      <Grid container style={{ height: "80vh", position: "relative" }}>
+    <Paper style={{ height: "100%", borderRadius: "10px" }} variant="outlined">
+      <Grid
+        container
+        style={{ position: "relative", height: "100%" }}
+        alignItems="stretch"
+      >
         <Grid
           item
           xs={4}
@@ -159,11 +171,9 @@ const MessagesLayout = ({ discussions, userType }) => {
           xs={8}
           style={{ position: "relative", zIndex: 0, height: "100%" }}
         >
-          <ChatWrapper>
-            <Outlet />
-          </ChatWrapper>
+          <Outlet />
         </Grid>
       </Grid>
-    </>
+    </Paper>
   );
 };

@@ -33,7 +33,7 @@ export default makeStyles(({ palette, spacing }) => {
     msg: {
       maxWidth: "70%",
       padding: spacing(1.3, 1),
-      borderRadius: 2.5,
+      borderRadius: spacing(0.7),
       display: "inline-block",
       wordBreak: "break-word",
       // fontFamily:

@@ -15,6 +15,7 @@ const MessageBox = styled.div`
   background: #ffffff;
   padding-top: 20px;
   width: 100%;
+
   height: 62vh;
 `;
 const AVATAR = "https://i.pravatar.cc/300?img=13";

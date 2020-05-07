@@ -51,7 +51,6 @@ const ChatSideBar = ({ discussions, userType }) => {
               ? "You haven't made any offers yet..."
               : "You have no offers right now..."}
           </Typography>
-          <NoMail width="100%" />
         </div>
       )}
 
