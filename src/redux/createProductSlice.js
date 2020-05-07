@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice, unwrapResult } from "@reduxjs/toolkit";
+
 import { database, fieldValue } from "firebase/core";
 import fbMultiImageUpload from "firebase/fbMultiUpload";
+
 function deleteOldData() {
   database
     .collection("materials")
@@ -107,14 +109,18 @@ export const addToFirebase = createAsyncThunk(
     // const { currentRequestId, loading } = getState().users;
 
     const { uid, displayName, avatar, email } = getState().auth.userData;
-    const { data: formData, productDocId } = getState().createProduct;
+    const { data, productDocId } = getState().createProduct;
 
+    const { price, ...formData } = data;
+
+    const productPrice = parseInt(price) ?? 0;
     const product = {
       uid,
       displayName,
       avatar,
       free: false,
       productImages,
+      price: productPrice,
       ...formData,
       created: fieldValue.serverTimestamp(),
     };
