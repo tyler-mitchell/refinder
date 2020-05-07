@@ -21,6 +21,7 @@
     "framer-motion": "^1.8.4",
     "google-map-react": "^1.1.6",
     "masonic": "^2.1.7",
+    "query-string": "^6.12.1",
     "react": "^16.13.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.13.0",
@@ -47,9 +48,9 @@
     "timeago-react": "^3.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -66,5 +67,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "customize-cra": "^0.9.1",
+    "customize-cra-react-refresh": "^1.0.1",
+    "react-app-rewired": "^2.1.5"
   }
 }

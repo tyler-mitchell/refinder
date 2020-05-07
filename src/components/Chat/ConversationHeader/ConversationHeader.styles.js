@@ -6,6 +6,7 @@ export default makeStyles(() => ({
   },
   root: {
     padding: "8px 8px 8px 16px",
+    borderRadius: "8px",
   },
   primary: {
     fontWeight: "bold",

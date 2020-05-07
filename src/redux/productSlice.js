@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice, unwrapResult } from "@reduxjs/toolkit";
+import { useLocation, useParams } from "react-router-dom";
+
 import { database, fieldValue } from "firebase/core";
-import { useParams, useLocation } from "react-router-dom";
+
 export const sendMessage = createAsyncThunk(
   "product/sendMessage",
   async (data, thunkAPI) => {
@@ -9,34 +11,40 @@ export const sendMessage = createAsyncThunk(
       ownerId,
       productId,
 
+      title,
+      userType,
       displayName: ownerName,
-      currentChatId,
+      currentDiscussionId,
     } = thunkAPI.getState().product;
+    console.log(`⭐: currentDiscussionId`, currentDiscussionId);
     console.log(`⭐: productId`, productId);
 
     console.log(`⭐: ownerId`, ownerId);
     const { message, pricePoint } = data;
 
     console.log(`⭐: ownerId === uid`, ownerId === uid);
+
     const { discussionId, ...discussionData } =
-      ownerId === uid
+      userType === "seller"
         ? {
             ownerId: uid,
             ownerName: displayName,
             ownerAvatar: avatar,
-            discussionId: currentChatId,
+            discussionId: currentDiscussionId,
+            title,
             productId,
             pricePoint: pricePoint || 0,
           }
         : {
             customerId: uid,
+            title,
             customerName: displayName,
             customerAvatar: avatar,
             discussionId: uid,
             productId,
           };
     console.log(`⭐: uid`, uid);
-    console.log(`⭐: currentChatId`, currentChatId);
+    console.log(`⭐: currentDiscussionId`, currentDiscussionId);
     console.log(`⭐: message`, message);
 
     const messageData = {
@@ -78,7 +86,8 @@ export const productSlice = createSlice({
   initialState: {
     loading: false,
     error: null,
-    currentChatId: null,
+    currentDiscussionId: null,
+    userType: "buyer",
   },
   reducers: {
     initializeProduct: (state, action) => {
@@ -88,25 +97,34 @@ export const productSlice = createSlice({
         title,
         description,
         avatar,
-
         productId,
-        uid,
+        uid: ownerId,
+        currentUserId,
       } = action.payload;
 
-      // state.created = created;
       state.displayName = displayName;
       state.title = title;
       state.description = description;
       state.avatar = avatar;
-      state.productId = productId;
-      state.ownerId = uid;
-      state.currentChatId = uid;
 
-      console.log(`⭐: state`, state);
+      state.productId = productId;
+      state.ownerId = ownerId;
+
+      if (state.ownerId === currentUserId) {
+        state.userType = "seller";
+      } else {
+        state.userType = "buyer";
+        state.currentDiscussionId = currentUserId;
+      }
     },
-    setActiveChatId: (state, action) => {
-      const { chatId } = action.payload;
-      state.currentChatId = chatId;
+    setCurrentDiscussion: (state, action) => {
+      const { currentDiscussionId, userType } = action.payload;
+      state.currentDiscussionId = currentDiscussionId;
+      state.userType = userType;
+    },
+    setUserType: (state, action) => {
+      const userType = action.payload;
+      state.userType = userType;
     },
   },
 
@@ -122,6 +140,10 @@ export const productSlice = createSlice({
 });
 
 export const selectFormData = (state) => state.counter.value;
-export const { initializeProduct, setActiveChatId } = productSlice.actions;
+export const {
+  initializeProduct,
+  setCurrentDiscussion,
+  setUserType,
+} = productSlice.actions;
 
 export default productSlice.reducer;

@@ -1,11 +1,11 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
 import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
-import SettingsApplications from "@material-ui/icons/SettingsApplications";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import Edit from "@material-ui/icons/Edit";
+import SettingsApplications from "@material-ui/icons/SettingsApplications";
+import React from "react";
 
 const useStyles = makeStyles(() => ({
   middle: {
@@ -21,11 +21,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ChatsHeader = ({ productData }) => {
+const ChatsHeader = () => {
   const styles = useStyles();
   return (
     <Box py={"10px"} px={2} display={"flex"} alignItems={"center"}>
-      <Avatar alt={"me"} src={"https://i.pravatar.cc/300?img=10"} />
       <Typography variant={"h5"} className={styles.middle}>
         <b>Chats</b>
       </Typography>

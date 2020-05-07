@@ -1,44 +1,26 @@
 import {
   Box,
-  Button,
   Container,
-  CssBaseline,
   Divider,
   Grid,
-  GridList,
-  GridListTile,
   IconButton,
   makeStyles,
   Paper,
-  Tab,
-  Tabs,
-  Toolbar,
   Typography,
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/FavoriteBorderRounded";
-import FavoriteIconFilled from "@material-ui/icons/FavoriteRounded";
 import MoreOptionsIcon from "@material-ui/icons/MoreHorizRounded";
-import ShareIcon from "@material-ui/icons/ShareRounded";
 import React from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Outlet,
-  useLocation,
-  useNavigate,
-  useOutlet,
-  useParams,
-} from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import TimeAgo from "timeago-react";
 
-import ChatWindow from "components/Chat";
-import MaterialMap from "components/Map";
 import Map from "components/Map";
 import ProductImages from "components/ProductImages";
 import SellerCard from "components/SellerCard";
 import { database } from "firebase/core";
 import { initializeProduct } from "redux/productSlice";
-import { setActiveChatId } from "redux/productSlice";
 
 import ProductDetails from "./ProductDetails";
 
@@ -64,8 +46,7 @@ const ProductView = () => {
 
   React.useEffect(() => {
     if (!loading) {
-      dispatch(initializeProduct({ ...product }));
-      dispatch(setActiveChatId({ chatId: uid }));
+      dispatch(initializeProduct({ currentUserId: uid, ...product }));
     }
     console.log(`⭐: ProductView -> product`, product);
     // console.log(`⭐: ProductView -> productInfo`, productInfo);
@@ -84,27 +65,12 @@ const ProductView = () => {
   return (
     !loading && (
       <>
-        {/* <Paper className={classes.root}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
-            <Tab value="" label="Product Detail" />
-            <Tab value="discussion" label="Offer" />
-          </Tabs>
-        </Paper> */}
         <Container maxWidth="lg" style={{ padding: "30px" }}>
           <Grid
             container
-            // spacing={3}
             style={{ background: "white" }}
             item
             justify="space-between"
-            // alignContent="stretch"
-            // xs={5}
           >
             <Grid item container xs={9} spacing={2}>
               <Grid item xs={6}>

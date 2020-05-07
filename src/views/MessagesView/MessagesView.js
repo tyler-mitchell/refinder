@@ -1,45 +1,18 @@
+import { Box, Container, Grid, Tab, Tabs, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import {
-  useCollectionData,
-  useCollection,
-} from "react-firebase-hooks/firestore";
-import { useNavigate, Outlet } from "react-router-dom";
-import { List, ListItem, CssBaseline } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { useDispatch, useSelector } from "react-redux";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
+
+import ChatList from "components/Chat/ChatList";
+import ChatHeader from "components/Chat/ChatsHeader";
 import ProductCard from "components/ProductCard";
 import { database } from "firebase/core";
-import {
-  ThemeProvider,
-  createMuiTheme,
-  makeStyles,
-} from "@material-ui/core/styles";
-import { Masonry, List as MasonList } from "masonic";
+import { fieldPath } from "firebase/core";
+import { useTabItemStyles, useTabsStyles } from "theme/tabStyles";
+
 import PleaseLogin from "./PleaseLoginMessage";
-import ChatList from "components/Chat/ChatList";
-import ChatBar from "components/Chat/ChatBar";
-import ChatHeader from "components/Chat/ChatsHeader";
-import ConversationHead from "components/Chat/ConversationHeader";
-import ChatDialog from "components/Chat/ChatDialog";
-import {
-  Button,
-  Box,
-  Container,
-  Drawer,
-  Toolbar,
-  Paper,
-  Grid,
-} from "@material-ui/core";
-import { addToFirebase, setProductDocId } from "redux/createProductSlice";
-import {
-  Root,
-  Header,
-  Content,
-  Sidebar,
-  SecondaryInsetSidebar,
-  InsetContainer,
-  Footer,
-  ConfigGenerator,
-} from "@mui-treasury/layout";
 
 const Product = ({ index, data }) => {
   return <ProductCard variant="list" index={index} key={index} {...data} />;
@@ -85,38 +58,11 @@ const useStyles = makeStyles(() => ({
 const MessagesView = () => {
   const windowStyles = useStyles();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  let initialTab = useParams()["*"]?.split("/")[1];
+
   const { uid } = useSelector((s) => s.auth.userData);
-  const { currentChatId } = useSelector((s) => s.product);
+
   const { loggedIn } = useSelector((s) => s.auth);
-  console.log(`⭐: MessagesView -> uid`, uid);
-
-  const productRef =
-    uid &&
-    database
-      .collection("materials")
-      .orderBy("created", "desc")
-      .where("uid", "==", uid);
-  const discussions =
-    uid &&
-    database
-      .collectionGroup("product_discussion")
-      .where("ownerId", "==", uid)
-      .orderBy("messages");
-  const productDiscussionsRef =
-    uid &&
-    database
-      .collectionGroup("product_discussion")
-      .where("ownerId", "==", uid)
-      .orderBy("messages");
-
-  const [userDiscussions, loadingD, errD] = useCollectionData(
-    productDiscussionsRef,
-    {
-      idField: "id",
-    }
-  );
-  console.log(`⭐: MessagesView -> userDiscussions`, userDiscussions);
 
   if (loggedIn === false) {
     return (
@@ -135,25 +81,44 @@ const MessagesView = () => {
   }
   return (
     <Container
-      maxWidth="md"
+      maxWidth="lg"
       style={{
         padding: "30px",
-        height: "90vh",
+        height: "80vh",
         minHeight: "90vh",
+        marginBottom: "10px",
         position: "relative",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      <Grid container>
-        <Grid item xs={3} style={{ background: "white", borderRadius: "8px" }}>
-          <ChatHeader />
-          <ChatList inboxData={userDiscussions} />
-        </Grid>
+      <MessagesTabs initialTab={initialTab} />
+      <Box mb="10px" />
 
-        <Grid item xs={8}>
-          <Outlet />
-        </Grid>
-      </Grid>
+      <Outlet />
     </Container>
+  );
+};
+
+const MessagesTabs = ({ initialTab }) => {
+  const [tabIndex, setTabIndex] = React.useState(initialTab);
+  const tabsStyles = useTabsStyles();
+  const tabItemStyles = useTabItemStyles();
+  const navigate = useNavigate();
+
+  return (
+    <Tabs
+      // variant={"fullWidth"}
+      classes={tabsStyles}
+      value={tabIndex}
+      onChange={(e, path) => {
+        setTabIndex(path);
+        navigate(path);
+      }}
+    >
+      <Tab value="buying" classes={tabItemStyles} label={"Buying"} />
+      <Tab value="selling" classes={tabItemStyles} label={"Selling"} />
+    </Tabs>
   );
 };
 

@@ -1,72 +1,52 @@
+import { Button, Grid, makeStyles, Paper, TextField } from "@material-ui/core";
 import React from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 import firebase from "firebase";
 
-import {
-  Paper,
-  Card,
-  Typography,
-  TextField,
-  Link,
-  Button,
-  Grid,
-  useTheme,
-  Box,
-  makeStyles,
-  LinearProgress,
-  Chip,
-  Divider,
-  InputBase,
-  InputLabel
-} from "@material-ui/core";
-import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import {
-  ExpandMore as DownIcon,
-  ArrowBack as BackIcon
-} from "@material-ui/icons";
-import { useNavigate } from "react-router-dom";
 const StrengthLevels = {
   WEAK: { text: "weak", color: "#b3201c", num: 25 },
   AVERAGE: { text: "average", color: "#ffc512", num: 50 },
-  STRONG: { text: "strong", color: "#25a75d", num: 100 }
+  STRONG: { text: "strong", color: "#25a75d", num: 100 },
 };
 
 const useProgressBarStyles = makeStyles({
   root: {
     marginTop: "8px",
     borderRadius: "5px",
-    background: "transparent"
+    background: "transparent",
   },
   weak: {
-    backgroundColor: StrengthLevels.WEAK.color
+    backgroundColor: StrengthLevels.WEAK.color,
   },
   average: {
-    backgroundColor: StrengthLevels.AVERAGE.color
+    backgroundColor: StrengthLevels.AVERAGE.color,
   },
   strong: {
-    backgroundColor: StrengthLevels.STRONG.color
-  }
+    backgroundColor: StrengthLevels.STRONG.color,
+  },
 });
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   container: {
     display: "flex",
     flexWrap: "wrap",
-    justiyContent: "center"
+    justiyContent: "center",
   },
   fieldsContainer: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   paper: {
-    padding: theme.spacing(1.5)
+    padding: theme.spacing(1.5),
   },
   textField: {
-    margin: theme.spacing(1)
-  }
+    margin: theme.spacing(1),
+  },
 }));
 
 const LoginContainer = styled(Paper)`
@@ -81,7 +61,7 @@ const LoginContainer = styled(Paper)`
 const textFields = [
   { name: "first_name", label: "First Name", default: "" },
   { name: "last_name", label: "Last Name", default: "" },
-  { name: "city", label: "City", default: "" }
+  { name: "city", label: "City", default: "" },
 ];
 const LoginForm = ({ setAuthError, authError }) => {
   const classes = useStyles();
@@ -97,10 +77,10 @@ const LoginForm = ({ setAuthError, authError }) => {
   // }, [userData])
   const { register, handleSubmit, errors, watch, setError } = useForm({
     defaultValues: {
-      password: ""
-    }
+      password: "",
+    },
   });
-  const hasError = inputName => {
+  const hasError = (inputName) => {
     return !!(errors && errors[inputName]);
   };
   const password = watch("password");
@@ -123,7 +103,7 @@ const LoginForm = ({ setAuthError, authError }) => {
     return StrengthLevels.WEAK;
   }
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     // loginUser(data.email, data.password, redirect);
     firebase
       .auth()
@@ -132,13 +112,13 @@ const LoginForm = ({ setAuthError, authError }) => {
         firebase
           .auth()
           .signInWithEmailAndPassword(data.email, data.password)
-          .then(res => {
+          .then((res) => {
             // if (res.user) Auth.setLoggedIn(true);
             // history.push('/reports')
 
             history.push("/feed");
           })
-          .catch(e => {
+          .catch((e) => {
             setAuthError(e.message);
           });
       });
@@ -150,7 +130,7 @@ const LoginForm = ({ setAuthError, authError }) => {
         display: "flex",
         justifyItems: "center",
         alignItems: "center",
-        flexDirection: "column"
+        flexDirection: "column",
       }}
     >
       <Grid
@@ -171,8 +151,8 @@ const LoginForm = ({ setAuthError, authError }) => {
 
               pattern: {
                 value: /^\S+@\S+$/i,
-                message: "Invalid email format"
-              }
+                message: "Invalid email format",
+              },
             })}
             error={hasError("email") || authError}
             helperText={hasError("email") && errors["email"].message}
@@ -185,7 +165,7 @@ const LoginForm = ({ setAuthError, authError }) => {
             fullWidth
             type="password"
             inputRef={register({
-              required: true
+              required: true,
             })}
             error={hasError("password") || authError}
             helperText={hasError("password") && errors["password"].message}
@@ -201,7 +181,7 @@ const LoginForm = ({ setAuthError, authError }) => {
         style={{
           textTransform: "none",
           width: "100%",
-          padding: "8px"
+          padding: "8px",
         }}
       >
         Login

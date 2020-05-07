@@ -1,58 +1,58 @@
-import React from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import SidebarContent from "./SidebarContent";
-import ProductsListView from "views/ProductLogView";
-import DashboardView from "views/DashboardView";
-import { ProductModalView } from "views/DashboardView/DashboardView";
-import ProductView from "views/ProductView";
-import SellerDashboardView from "views/SellerDashboardView";
-import MessagesView from "views/MessagesView";
-import ProductChatView from "views/ProductChatView";
-import ChatWindow from "components/Chat/ChatWindow";
-
-import not_found_png from "assets/NotFound.png";
-
 import {
-  Toolbar,
-  CssBaseline,
-  Typography,
-  Chip,
   Avatar,
-  ListItem,
-  List,
-  Link,
-  Container,
-  ListItemAvatar,
   Box,
-  makeStyles,
   Button,
-  Tooltip,
+  Chip,
+  Container,
+  CssBaseline,
   Divider,
+  Link,
+  List,
+  ListItem,
+  ListItemAvatar,
+  makeStyles,
+  Toolbar,
+  Tooltip,
+  Typography,
 } from "@material-ui/core";
-import CreateProductView from "views/CreateProductView";
 import {
-  Root,
-  Header,
-  Sidebar,
-  Content,
-  Footer,
-  CollapseBtn,
-  CollapseIcon,
-  SidebarTrigger,
-  cozyLayoutPreset,
-  SidebarTriggerIcon,
-  InsetContainer,
-} from "@mui-treasury/layout";
-
-import rootconfig from "./rootconfig";
-import {
-  ThemeProvider,
   createMuiTheme,
   responsiveFontSizes,
+  ThemeProvider,
 } from "@material-ui/core/styles";
-import theme from "theme";
-import { AuthContext } from "../../firebase/Auth";
+import {
+  CollapseBtn,
+  CollapseIcon,
+  Content,
+  cozyLayoutPreset,
+  Footer,
+  Header,
+  InsetContainer,
+  Root,
+  Sidebar,
+  SidebarTrigger,
+  SidebarTriggerIcon,
+} from "@mui-treasury/layout";
+import React from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+
+import not_found_png from "assets/NotFound.png";
+import ChatWindow from "components/Chat/ChatWindow";
 import SearchBar from "components/SearchBar";
+import theme from "theme";
+import CreateProductView from "views/CreateProductView";
+import DashboardView from "views/DashboardView";
+import { ProductModalView } from "views/DashboardView/DashboardView";
+import MessagesView from "views/MessagesView";
+import { BuyView, SellView } from "views/MessagesView/BuySellView";
+import ProductChatView from "views/ProductChatView";
+import ProductsListView from "views/ProductLogView";
+import ProductView from "views/ProductView";
+import SellerDashboardView from "views/SellerDashboardView";
+
+import { AuthContext } from "../../firebase/Auth";
+import rootconfig from "./rootconfig";
+import SidebarContent from "./SidebarContent";
 
 const theme2 = responsiveFontSizes(
   createMuiTheme({
@@ -256,7 +256,12 @@ const MarketplaceView = () => {
 
                   <Route path="/services" element={<ProductsListView />} />
                   <Route path="/messages" element={<MessagesView />}>
-                    <Route path=":discussionID" element={<ChatWindow />} />
+                    <Route path="/buying" element={<BuyView />}>
+                      <Route path=":discussionID" element={<ChatWindow />} />
+                    </Route>
+                    <Route path="/selling" element={<SellView />}>
+                      <Route path=":discussionID" element={<ChatWindow />} />
+                    </Route>
                   </Route>
 
                   <Route path="/selling" element={<SellerDashboardView />}>

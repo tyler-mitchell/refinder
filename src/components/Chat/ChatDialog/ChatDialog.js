@@ -1,20 +1,21 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
+import ScrollToBottom from "react-scroll-to-bottom";
+import styled from "styled-components";
+
 import ChatMsg from "../ChatMsg/ChatMsg";
 import useStyles from "./ChatDialog.styles";
-import ScrollToBottom from "react-scroll-to-bottom";
-import { AnimatePresence, motion } from "framer-motion";
-import styled from "styled-components";
 
 const MessageBox = styled.div`
   border-radius: 20px;
   padding: 5px 20px;
-  background: #f4f7fb;
+  background: #ffffff;
   padding-top: 20px;
   width: 100%;
-  height: 60vh;
+  height: 62vh;
 `;
 const AVATAR = "https://i.pravatar.cc/300?img=13";
 

@@ -1,42 +1,43 @@
-import React, { Suspense } from "react";
-import ChatSettings from "components/Chat/ChatSettings";
-import ChatBar from "components/Chat/ChatBar";
-import ChatDialog from "components/Chat/ChatDialog";
-import ConversationHead from "components/Chat/ConversationHeader";
-
-import { useNavigate } from "react-router";
 import {
+  AppBar,
+  Box,
   Container,
+  Dialog,
+  DialogContent,
   Grid,
   makeStyles,
-  Box,
-  Dialog,
-  AppBar,
-  DialogContent,
   Paper,
   Toolbar,
 } from "@material-ui/core";
-import ChatContextProvider from "../ChatContext";
 import {
-  Root,
-  Header,
-  Content,
-  Sidebar,
-  SecondaryInsetSidebar,
-  InsetContainer,
-  Footer,
   ConfigGenerator,
+  Content,
+  Footer,
+  Header,
+  InsetContainer,
+  Root,
+  SecondaryInsetSidebar,
+  Sidebar,
 } from "@mui-treasury/layout";
-import useStyles from "./ChatWindow.styles";
-import { useSelector, useDispatch } from "react-redux";
-import { selectUserID } from "redux/authSlice";
-import { initializeProduct } from "redux/productSlice";
-import { useParams, useSearchParams } from "react-router-dom";
-import { database } from "firebase/core";
-import { useDocumentData } from "react-firebase-hooks/firestore";
 import { motion } from "framer-motion";
+import React, { Suspense } from "react";
+import { useDocumentData } from "react-firebase-hooks/firestore";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { useParams, useSearchParams } from "react-router-dom";
 import { animateScroll } from "react-scroll";
 import styled from "styled-components";
+
+import ChatBar from "components/Chat/ChatBar";
+import ChatDialog from "components/Chat/ChatDialog";
+import ChatSettings from "components/Chat/ChatSettings";
+import ConversationHead from "components/Chat/ConversationHeader";
+import { database } from "firebase/core";
+import { selectUserID } from "redux/authSlice";
+import { initializeProduct, setUserType } from "redux/productSlice";
+
+import ChatContextProvider from "../ChatContext";
+import useStyles from "./ChatWindow.styles";
 
 const Wrap = styled(motion.div)`
   display: flex;
@@ -58,25 +59,22 @@ const conversationAnimationConfig = {
   },
 };
 const ChatWindow = (chatType = "offer") => {
-  const styles = useStyles();
   const uid = useSelector(selectUserID);
   let dispatch = useDispatch();
-  const { currentChatId, productId, avatar, displayName, price } = useSelector(
+  const { productId, avatar, displayName, price, userType } = useSelector(
     (s) => s.product
   );
+  const { recipientAvatar, recipientName } = useSelector((s) => s.discussion);
+  console.log(`⭐: ChatWindow -> recipientAvatar`, recipientAvatar);
 
   const {
     discussionID: discussionIDParam,
     materialID: materialIDParam,
   } = useParams();
-  const p = useParams();
-  console.log(`⭐: ChatWindow -> materialIDParam`, materialIDParam);
-  console.log(`✅: useParams()`, p);
-  console.log(`✅: discussionIDParam`, discussionIDParam);
+
   // for /messages route
   const searchParams = useSearchParams();
   const productSearchIDParam = searchParams.get("product");
-  console.log(`⭐: ChatWindow -> productSearchIDParam`, productSearchIDParam);
 
   let discussionRef = null;
   if (materialIDParam && uid) {
@@ -95,60 +93,61 @@ const ChatWindow = (chatType = "offer") => {
 
   const [discussion, loading, error] = useDocumentData(discussionRef);
   console.log(`⭐: ChatWindow -> discussion`, discussion);
-  const [productDoc, loadingP, errorP] = useDocumentData(productRef);
-  console.log(`⭐: ChatWindow -> product`, productDoc);
+  const [product, loadingP, errorP] = useDocumentData(productRef, {
+    idField: "productId",
+  });
+  console.log(`⭐: ChatWindow -> product`, product);
 
   React.useEffect(() => {
     // if(!currentChatId && productId)
-    if (!loadingP && productDoc) {
-      const {
-        displayName,
-        title,
-        description,
-        avatar,
-        productId,
-        uid,
-        price,
-        address,
-      } = productDoc;
+    if (!loadingP && product) {
       console.log(`⭐: ChatWindow -> productId`, productId);
       // dispatch();
 
       dispatch(
         initializeProduct({
-          displayName,
-          title,
-          description,
-          address,
-          avatar,
-          price,
-          productId: productSearchIDParam,
-          uid: discussionIDParam,
+          ...product,
+          currentUserId: uid,
         })
       );
     }
   }, [loadingP]);
   return (
-    <Container maxWidth="lg">
-      <Wrap>
-        {/* <Paper square variant="outlined" style={{ width: "100%" }}>
+    <ChatWindowContainer maxWidth="lg">
+      {recipientName && (
+        <Paper
+          variant="outlined"
+          style={{ width: "100%", borderRadius: "10px" }}
+        >
           <Toolbar disableGutters>
-            <ConversationHead avatar={avatar} name={displayName} />
+            <ConversationHead
+              avatar={recipientAvatar}
+              productTitle={product?.title}
+              name={recipientName}
+            />
           </Toolbar>
-        </Paper> */}
+        </Paper>
+      )}
 
-        <ChatDialog
-          fromAvatar={avatar}
-          name={displayName}
-          messages={discussion?.messages}
-          originalPrice={price}
-          uid={uid}
-        />
+      <ChatDialog
+        fromAvatar={recipientAvatar || avatar}
+        name={recipientName || displayName}
+        messages={discussion?.messages}
+        originalPrice={price}
+        uid={uid}
+      />
 
-        <Toolbar>
-          <ChatBar />
-        </Toolbar>
-      </Wrap>
+      <Toolbar>
+        <ChatBar />
+      </Toolbar>
+    </ChatWindowContainer>
+  );
+};
+
+export const ChatWindowContainer = ({ children }) => {
+  return (
+    <Container maxWidth="lg" style={{ height: "100%" }}>
+      <Wrap>{children}</Wrap>
     </Container>
   );
 };
