@@ -1,12 +1,13 @@
-import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import MobileStepper from "@material-ui/core/MobileStepper";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import MobileStepper from "@material-ui/core/MobileStepper";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import React from "react";
+
 import useStyles from "./ProductImages.styles.js";
 
 export default function TextMobileStepper({ productImages }) {
@@ -27,6 +28,13 @@ export default function TextMobileStepper({ productImages }) {
     <div className={classes.root}>
       <img
         className={classes.img}
+        style={{
+          // maxWidth: "auto",
+
+          maxHeight: "auto",
+          width: "100%",
+          objectFit: "cover",
+        }}
         src={productImages[activeStep].downloadUrl}
         alt={activeStep}
       />

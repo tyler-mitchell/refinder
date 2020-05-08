@@ -7,6 +7,8 @@ import {
   makeStyles,
   Paper,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/FavoriteBorderRounded";
 import MoreOptionsIcon from "@material-ui/icons/MoreHorizRounded";
@@ -31,6 +33,9 @@ const useStyles = makeStyles({
 });
 
 const ProductView = () => {
+  const theme = useTheme();
+  const matchesMdDown = useMediaQuery(theme.breakpoints.down("sm"));
+  console.log(`⭐: ProductView -> matchesMdDown`, matchesMdDown);
   let { materialID } = useParams();
   let navigate = useNavigate();
   const location = useLocation();
@@ -72,15 +77,24 @@ const ProductView = () => {
             item
             justify="space-between"
           >
-            <Grid item container xs={9} spacing={2}>
-              <Grid item xs={6}>
+            <Grid
+              item
+              container
+              md={9}
+              sm={6}
+              xs={12}
+              spacing={1}
+              justify="space-around"
+              direction={matchesMdDown ? "column-reverse" : "row"}
+            >
+              <Grid item lg={6} md={4}>
                 <ProductImages
                   productImages={
                     product?.productImages ?? [{ downloadUrl: "" }]
                   }
                 />
               </Grid>
-              <Grid container item direction="column" xs={6}>
+              <Grid container item direction="column" lg={6} md={7} xs="auto">
                 <Grid item style={{ width: "100%" }}>
                   <Box
                     display="flex"
@@ -161,7 +175,15 @@ const ProductView = () => {
               </Grid>
             </Grid>
 
-            <Grid item container direction="column" spacing={3} xs={3}>
+            <Grid
+              item
+              container
+              direction="column"
+              spacing={3}
+              md={3}
+              sm={5}
+              xs={12}
+            >
               <Grid item>
                 <Paper
                   variant="outlined"
