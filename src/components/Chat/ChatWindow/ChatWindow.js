@@ -117,10 +117,11 @@ const ChatWindow = (chatType = "offer") => {
       {recipientName && (
         <Paper
           variant="outlined"
-          style={{ width: "100%", borderRadius: "10px" }}
+          style={{ width: "100%", borderRadius: "0 10px 0 0" }}
         >
           <Toolbar disableGutters>
             <ConversationHead
+              materialID={productId}
               avatar={recipientAvatar}
               productTitle={product?.title}
               name={recipientName}
