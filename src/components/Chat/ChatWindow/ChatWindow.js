@@ -114,7 +114,7 @@ const ChatWindow = (chatType = "offer") => {
   }, [loadingP]);
   return (
     <ChatWindowContainer maxWidth="lg">
-      {recipientName && (
+      {userType && (
         <Paper
           variant="outlined"
           style={{ width: "100%", borderRadius: "0 10px 0 0" }}

@@ -14,6 +14,7 @@ export const sendMessage = createAsyncThunk(
       title,
       userType,
       displayName: ownerName,
+      avatar: ownerAvatar,
       currentDiscussionId,
     } = thunkAPI.getState().product;
     console.log(`⭐: currentDiscussionId`, currentDiscussionId);
@@ -40,6 +41,9 @@ export const sendMessage = createAsyncThunk(
             title,
             customerName: displayName,
             customerAvatar: avatar,
+            ownerAvatar: ownerAvatar,
+            ownerId: ownerId,
+            ownerName: displayName,
             discussionId: uid,
             productId,
           };
