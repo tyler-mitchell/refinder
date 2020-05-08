@@ -77,12 +77,12 @@ const ChatDialog = ({
       }}
     >
       <MessageBox>
-        <ChatMsg
+        {/* <ChatMsg
           avatar={fromAvatar}
           side={"left"}
           price={originalPrice}
           messages={[{ type: "offer" }]}
-        />
+        /> */}
         <AnimatePresence initial={true}>
           {groupMessages(messages)?.map((messageGroup, index) => {
             console.log(`⭐: ChatDialog -> messageGroup[0]`, messageGroup[0]);

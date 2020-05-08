@@ -53,14 +53,14 @@ const ChatMsg = ({ avatar, messages, side, price }) => {
                 {typeof msg === "object" && msg.type === "image" && (
                   <img className={styles.image} alt={msg.alt} {...msg} />
                 )}
-                {typeof msg === "object" && msg.type === "offer" && (
+                {/* {typeof msg === "object" && msg.type === "offer" && (
                   <Offer
                     classes={styles[`${side}Row`]}
                     price={"$35"}
                     overline="Seller's price"
                   />
                   // <img className={styles.image} alt={msg.alt} {...msg} />
-                )}
+                )} */}
                 <IconButton className={styles.iconBtn}>
                   <TagFaces />
                 </IconButton>
