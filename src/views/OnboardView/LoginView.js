@@ -57,7 +57,7 @@ const LoginPage = () => {
               </Typography>
               <Divider style={{ width: "45%" }} />
             </Box>
-            <Button
+            {/* <Button
               startIcon={<EmailIcon style={{ marginRight: "8px" }} />}
               variant="contained"
               color="primary"
@@ -71,7 +71,7 @@ const LoginPage = () => {
               }}
             >
               Sign up with Email
-            </Button>
+            </Button> */}
             <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
           </>
         }
