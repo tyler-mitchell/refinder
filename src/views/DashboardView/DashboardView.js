@@ -152,6 +152,7 @@ const CategoryListItem = ({ title, subtitle, icon: Icon, type }) => {
           primaryTypographyProps={{ style: { fontWeight: 650 } }}
           primary={title}
           secondary={subtitle}
+          secondaryTypographyProps={{ noWrap: true }}
         />
         <ChevronRightIcon style={{ color: "rgba(0,0,0,0.2)" }} />
       </ListItem>
@@ -262,37 +263,44 @@ const DashboardView = () => {
               <CategoryListItem
                 type="wood"
                 title="Wood"
-                subtitle="Find wood near you"
+                subtitle="Find pallets, planks, fences, and more"
                 icon={WoodIcon}
               />
-              <CategoryListItem
-                type="metal"
-                title="Metal"
-                subtitle="Find wood near you"
-                icon={WoodIcon}
-              />
+
               <CategoryListItem
                 type="concrete"
-                title="Concrete"
-                subtitle="Find wood near you"
+                title="Bricks & Concrete"
+                subtitle="Find bricks and concrete"
                 icon={WoodIcon}
               />
               <CategoryListItem
                 type="tile"
-                title="Tile"
-                subtitle="Find wood near you"
+                title="Slates & Tiles"
+                subtitle="Find slates, tiles, mason"
                 icon={WoodIcon}
               />
               <CategoryListItem
                 type="glass"
                 title="Glass"
-                subtitle="Find wood near you"
+                subtitle="Find mirrors, structural glasses, ... "
+                icon={WoodIcon}
+              />
+              <CategoryListItem
+                type="fixture"
+                title="Fixtures"
+                subtitle="Find doors, windows, cabinets, ..."
+                icon={WoodIcon}
+              />
+              <CategoryListItem
+                type="metal"
+                title="Flooring"
+                subtitle="Find wood floors, natural stones, carpet... "
                 icon={WoodIcon}
               />
               <CategoryListItem
                 type="glass"
                 title="Antique"
-                subtitle="Find wood near you"
+                subtitle="Find historic items"
                 icon={WoodIcon}
               />
             </List>

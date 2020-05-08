@@ -1,38 +1,40 @@
-import React from "react";
 import {
-  Grid,
-  Typography,
-  Toolbar,
+  AppBar,
+  Box,
   Button,
   Container,
-  Box,
-  Paper,
   CssBaseline,
+  Grid,
+  Paper,
+  Toolbar,
+  Typography,
 } from "@material-ui/core";
 import {
+  Header as AppHeader,
+  CollapseBtn,
+  CollapseIcon,
+  Content,
+  contentBasedLayoutPreset,
+  cozyLayoutPreset,
+  Footer,
+  Root,
+  Sidebar,
+  SidebarTrigger,
+  SidebarTriggerIcon,
+} from "@mui-treasury/layout";
+import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
+import {
+  animated,
   Parallax,
   ParallaxLayer,
   useSpring,
-  animated,
 } from "react-spring/renderprops-addons";
 import styled from "styled-components";
+
 import header_image from "assets/header_image.svg";
-import { Navigate, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { useSelector } from "react-redux";
-import {
-  Root,
-  Header as AppHeader,
-  Sidebar,
-  Content,
-  Footer,
-  CollapseBtn,
-  CollapseIcon,
-  SidebarTrigger,
-  cozyLayoutPreset,
-  contentBasedLayoutPreset,
-  SidebarTriggerIcon,
-} from "@mui-treasury/layout";
 
 const StyledContent = styled(Content)`
   scroll-snap-type: y mandatory;
@@ -53,14 +55,14 @@ const Header = () => {
       </Grid>
       <Grid item xs={10}>
         <Typography
-          variant="subtitle1"
+          variant="h5"
           gutterBottom
-          style={{ marginBottom: "1.5vh" }}
+          style={{ marginBottom: "1.5vh", color: "rgba(0,0,0,0.7)" }}
         >
-          {/* A community-driven marketplace for finding nearby building materials */}
           Rediscover value in building materials
         </Typography>
       </Grid>
+
       <Grid item>
         <Button
           variant="contained"
@@ -75,10 +77,50 @@ const Header = () => {
           Go to Marketplace
         </Button>
       </Grid>
+      <div style={{ marginTop: "8vh" }} />
     </Grid>
   );
 };
 
+const Features = () => {
+  return (
+    <Grid container spacing={3}>
+      <Grid item xs={6}>
+        <Typography variant="h4" style={{ fontWeight: 600 }}>
+          Find Nearby Materials
+        </Typography>
+        <Typography variant="subtitle1">
+          An interactive map that shows nearby materials
+        </Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <Typography variant="h4" style={{ fontWeight: 600 }}>
+          Built-in Chat
+        </Typography>
+        <Typography variant="subtitle1">
+          {" "}
+          Communicate with buyers and sellers in-app
+        </Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <Typography variant="h4" style={{ fontWeight: 600 }}>
+          Recovered value
+        </Typography>
+        <Typography variant="subtitle1">
+          Buy or sell surplus building materials
+        </Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <Typography variant="h4" style={{ fontWeight: 600 }}>
+          Match-making
+        </Typography>
+        <Typography variant="subtitle1">
+          Get connected with suppliers
+        </Typography>
+      </Grid>
+    </Grid>
+  );
+};
 const WhySection = () => {
   return (
     <Grid
@@ -135,8 +177,8 @@ const KnowledgeSection = () => {
 const NavigationBar = () => {
   let navigate = useNavigate();
   return (
-    <AppHeader>
-      <Toolbar>
+    <AppBar elevation={0} style={{ background: "rgba(255,255,255,0.2)" }}>
+      <Toolbar style={{ background: "transparent" }}>
         {/* <SidebarTrigger>
           <SidebarTriggerIcon />
         </SidebarTrigger> */}
@@ -164,7 +206,7 @@ const NavigationBar = () => {
           Get Started
         </Button>
       </Toolbar>
-    </AppHeader>
+    </AppBar>
   );
 };
 
@@ -295,7 +337,7 @@ const Landing = () => {
   }, [loggedIn]);
 
   return (
-    <Root omitThemeProvider>
+    <Root omitThemeProvider style={{ background: "white" }}>
       <NavigationBar />
       <AnimatePresence>
         {loading ? (
@@ -331,170 +373,95 @@ const Landing = () => {
           </div>
         ) : (
           <Content style={{ overflow: "hidden" }}>
-            <Parallax ref={parallax} pages={3}>
-              <ParallaxLayer
-                offset={1}
-                speed={0.2}
-                style={{ backgroundColor: "#0055ea" }}
-              />
-              <ParallaxLayer
-                offset={1.2}
-                speed={0.01}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "flex-end",
-                  pointerEvents: "none",
-                }}
-              >
-                <img src={url("earth")} style={{ width: "40%" }} />
-              </ParallaxLayer>
-              <ParallaxLayer
-                offset={1.2}
-                speed={0.2}
-                style={{ backgroundColor: "#0fc1fa" }}
-              />
-
+            <Parallax ref={parallax} pages={1.2}>
               <ParallaxLayer
                 offset={0}
-                speed={0}
-                style={{
-                  backgroundImage: url("stars", true),
-                  backgroundSize: "cover",
-                }}
+                speed={0.1}
+                factor={1}
+                style={{ background: "white" }}
+              />
+              <ParallaxLayer
+                offset={0.5}
+                speed={-0.5}
+                factor={1}
+                style={{ backgroundColor: "#0055ea" }}
               />
 
-              <ParallaxLayer
-                offset={0.98}
-                speed={0.05}
-                style={{ pointerEvents: "none" }}
-              >
-                <img
-                  src={url("satellite4")}
-                  style={{ width: "15%", marginLeft: "70%" }}
-                />
-              </ParallaxLayer>
-
-              <ParallaxLayer offset={1} speed={0.8} style={{ opacity: 0.1 }}>
-                <img
-                  src={url("cloud")}
-                  style={{ display: "block", width: "20%", marginLeft: "55%" }}
-                />
-                <img
-                  src={url("cloud")}
-                  style={{ display: "block", width: "10%", marginLeft: "15%" }}
-                />
-              </ParallaxLayer>
-
-              <ParallaxLayer offset={1.75} speed={0.5} style={{ opacity: 0.1 }}>
-                <img
-                  src={url("cloud")}
-                  style={{ display: "block", width: "20%", marginLeft: "70%" }}
-                />
-                <img
-                  src={url("cloud")}
-                  style={{ display: "block", width: "20%", marginLeft: "40%" }}
-                />
-              </ParallaxLayer>
-
-              <ParallaxLayer offset={1} speed={0.2} style={{ opacity: 0.2 }}>
-                <img
-                  src={url("cloud")}
-                  style={{ display: "block", width: "10%", marginLeft: "10%" }}
-                />
-                <img
-                  src={url("cloud")}
-                  style={{ display: "block", width: "20%", marginLeft: "75%" }}
-                />
-              </ParallaxLayer>
-
-              <ParallaxLayer offset={1.6} speed={-0.1} style={{ opacity: 0.4 }}>
-                <img
-                  src={url("cloud")}
-                  style={{ display: "block", width: "20%", marginLeft: "60%" }}
-                />
-                <img
-                  src={url("cloud")}
-                  style={{ display: "block", width: "25%", marginLeft: "30%" }}
-                />
-                <img
-                  src={url("cloud")}
-                  style={{ display: "block", width: "10%", marginLeft: "80%" }}
-                />
-              </ParallaxLayer>
-
-              <ParallaxLayer offset={2.6} speed={0.4} style={{ opacity: 0.6 }}>
-                <img
-                  src={url("cloud")}
-                  style={{ display: "block", width: "20%", marginLeft: "5%" }}
-                />
-                <img
-                  src={url("cloud")}
-                  style={{ display: "block", width: "15%", marginLeft: "75%" }}
-                />
-              </ParallaxLayer>
-
-              <ParallaxLayer
-                offset={2}
-                speed={-0.3}
-                style={{
-                  backgroundSize: "80%",
-                  backgroundPosition: "center",
-                  backgroundImage: url("clients", true),
-                }}
-              />
               <Container
                 maxWidth="md"
-                style={{ position: "relative", height: "100%" }}
+                style={{
+                  position: "relative",
+                  height: "100%",
+                  marginTop: "70px",
+                }}
               >
-                <ParallaxLayer
-                  offset={0}
-                  speed={0.1}
-                  factor={0.5}
-                  // onClick={() => parallax.current.scrollTo(1)}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    scrollSnapAlign: "center",
-                  }}
-                >
-                  <Header />
-                  <img
-                    src={require("assets/refinder-logo.svg")}
-                    style={{ height: "80%", position: "relative", top: "-12%" }}
-                    alt=""
-                  />
-                </ParallaxLayer>
-                <ParallaxLayer
-                  offset={1}
-                  factor={0.5}
-                  speed={0.1}
-                  // onClick={() => parallax.current.scrollTo(2)}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    pointerEvent: "none",
-                    scrollSnapAlign: "center",
-                  }}
-                >
-                  <WhySection />
-                  {/* <img src={url("bash")} style={{ width: "40%" }} /> */}
-                  <div style={{ width: "40%" }} />
-                </ParallaxLayer>
-                <ParallaxLayer
-                  offset={1}
-                  speed={-0}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  // onClick={() => parallax.current.scrollTo(0)}
-                >
-                  <KnowledgeSection />
-                  <img src={url("clients-main")} style={{ width: "40%" }} />
+                <ParallaxLayer>
+                  <ParallaxLayer
+                    offset={0.05}
+                    speed={0.1}
+                    factor={0.8}
+                    // onClick={() => parallax.current.scrollTo(1)}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      justifyContent: "center",
+                      scrollSnapAlign: "center",
+                      position: "absolute",
+
+                      backgroundColor: "white",
+                      padding: "30px",
+                      boxShadow: "rgba(0, 0, 0, 0.12) 0px -3px 16px -3px",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    <Header />
+
+                    <div
+                      style={{
+                        position: "relative",
+                        width: "50%",
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <ParallaxLayer
+                        offset={0}
+                        speed={0.2}
+                        factor={0.9}
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <img
+                          src={require("assets/refinder-logo.svg")}
+                          style={{
+                            height: "30%",
+
+                            position: "relative",
+                            top: 0,
+                            // top: "-23%",
+                          }}
+                          alt=""
+                        />
+                      </ParallaxLayer>
+                    </div>
+                  </ParallaxLayer>
+                  <ParallaxLayer
+                    offset={0.5}
+                    factor={0.2}
+                    speed={0.1}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "flex-end",
+                      padding: "30px",
+                      pointerEvents: "none",
+                      width: "100%",
+                    }}
+                  >
+                    {" "}
+                    <Features />
+                  </ParallaxLayer>
                 </ParallaxLayer>
               </Container>
             </Parallax>
