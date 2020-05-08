@@ -1,13 +1,10 @@
-import React from "react";
-import { Grid, Typography, Divider, IconButton } from "@material-ui/core";
+import { Divider, Grid, IconButton, Typography } from "@material-ui/core";
 import PlusIcon from "@material-ui/icons/Add";
 import MinusIcon from "@material-ui/icons/Remove";
+import React from "react";
+
 const Price = () => {
-  return (
-    <>
-      <Typography variant="h6">$ 150 </Typography>
-    </>
-  );
+  return <></>;
 };
 
 const Quantity = () => {
@@ -54,8 +51,8 @@ const DetailItem = ({ title, detail }) => {
       <Divider />
       {title === "Price" ? (
         <>
-          <Price />
-          <Quantity />
+          <Typography variant="h6">{detail} </Typography>
+          {/* <Quantity /> */}
         </>
       ) : (
         <Typography variant="body1">{detail}</Typography>
@@ -64,16 +61,16 @@ const DetailItem = ({ title, detail }) => {
   );
 };
 
-const ProductDetails = () => {
+const ProductDetails = ({ price, type }) => {
   return (
     <Grid container item direction="column" justify="space-between" spacing={2}>
       <Grid item container justify="space-between" alignItems="flex-start">
-        <DetailItem title="Price" detail="$78" />
-        <DetailItem title="Quality" detail="Good" />
+        <DetailItem title="Price" detail={`$${price || 150}`} />
+        {/* <DetailItem title="Quality" detail="Good" /> */}
       </Grid>
       <Grid item container justify="space-between">
-        <DetailItem title="Unit" detail="200lbs" />
-        <DetailItem title="Type" detail="Wood" />
+        {/* <DetailItem title="Unit" detail="200lbs" /> */}
+        <DetailItem title="Type" detail={type} />
       </Grid>
     </Grid>
   );
